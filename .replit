@@ -1,4 +1,4 @@
-run = "cd frontend && npm install && npm run dev"
+run = "cd frontend && npm install && VITE_USE_MOCKS=false npm run build && cd ../backend && npm install && PORT=5173 node src/server.js"
 modules = ["nodejs-20"]
 
 [[ports]]
@@ -7,5 +7,5 @@ externalPort = 80
 
 [deployment]
 build = ["sh", "-c", "cd frontend && npm install && npm run build"]
-run = ["sh", "-c", "cd frontend && npx vite preview --port 5173 --host 0.0.0.0"]
+run = ["sh", "-c", "cd frontend && VITE_USE_MOCKS=false npm run build && cd ../backend && npm install && PORT=5173 node src/server.js"]
 deploymentTarget = "cloudrun"

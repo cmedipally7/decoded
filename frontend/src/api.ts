@@ -24,8 +24,9 @@ const MOCKS_ON = (import.meta.env.VITE_USE_MOCKS as string | undefined) !== "fal
 const FALLBACK_TO_MOCK_ON_ERROR = true;
 
 function isLive(name: string) {
-  if (!BASE) return false;
-  return !MOCKS_ON || LIVE.has(name);
+  if (!MOCKS_ON) return true;
+  if (!BASE || !LIVE.has(name)) return false;
+  return true;
 }
 
 async function http<T>(path: string, init?: RequestInit): Promise<T> {

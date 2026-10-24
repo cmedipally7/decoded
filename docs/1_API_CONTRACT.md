@@ -167,7 +167,7 @@ This can take 3–10 seconds. Frontend shows the progress animation. Backend tim
 
 **`GET /api/me`**
 ```json
-{ "id": "demo", "name": "Chai", "goal": "work", "level": "beginner", "xp": 240, "streak": 6,
+{ "id": "demo", "name": "John", "goal": "work", "level": "beginner", "xp": 240, "streak": 6,
   "wordsKnown": 18, "feedFluency": 62, "queuedTermsCount": 0, "onboarded": true }
 ```
 

@@ -3,6 +3,7 @@ import { animate, motion } from "framer-motion";
 import { Flame } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Mascot } from "../components/Mascot";
 import { ProgressBar } from "../components/ui";
 import { useApp } from "../context";
 import type { CompleteResult } from "../types";
@@ -36,8 +37,8 @@ export default function LessonDone() {
 
   return (
     <div className="flex h-full flex-col overflow-y-auto no-scrollbar px-5 pt-10 pb-6">
-      <motion.div initial={{ scale: 0, rotate: -20 }} animate={{ scale: 1, rotate: 0 }} transition={{ type: "spring", stiffness: 200 }} className="text-center text-7xl">
-        🎉
+      <motion.div initial={{ scale: 0, rotate: -20 }} animate={{ scale: 1, rotate: 0 }} transition={{ type: "spring", stiffness: 200 }} className="flex justify-center">
+        <Mascot mood="cheer" size={130} />
       </motion.div>
       <h1 className="mt-3 text-center text-3xl font-black text-brand-700">Lesson complete!</h1>
 

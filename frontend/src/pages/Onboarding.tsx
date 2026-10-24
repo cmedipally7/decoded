@@ -136,7 +136,7 @@ export function Welcome() {
                 </div>
                 <h1 className="mt-2 text-center text-5xl font-black tracking-tight">Decoded</h1>
                 <p className="mx-auto mt-2 max-w-[310px] text-center text-lg font-bold text-stone-500">
-                  All this jargon? I'll help you speak it, 5 minutes a day, from what people are actually saying.
+                  Hi, I'm Byte! All this AI jargon? We'll sniff it out together, 5 minutes a day, from what people are actually saying.
                 </p>
                 <div className="flex-1" />
                 <button onClick={() => setStep("level")} className="btn-primary mt-6 w-full">Get started</button>
@@ -146,7 +146,7 @@ export function Welcome() {
 
             {step === "level" && (
               <>
-                <MascotSays mood="point">How much AI do you speak? Be honest, I'll adjust as I get to know you.</MascotSays>
+                <MascotSays mood="point">Woof! How much AI do you speak? Be honest, I'll adjust as I get to know you.</MascotSays>
                 <h1 className="mt-4 text-2xl font-black leading-tight">How fluent are you in AI?</h1>
                 <div className="mt-6 space-y-3">
                   {LEVEL_OPTIONS.map((o, i) => (
@@ -206,7 +206,7 @@ export function Welcome() {
             {step === "building" && level && lens && (
               <div className="flex flex-1 flex-col items-center justify-center pt-16 text-center">
                 <Mascot mood="think" size={120} />
-                <h1 className="mt-6 text-2xl font-black">Building your plan…</h1>
+                <h1 className="mt-6 text-2xl font-black">Byte is building your plan…</h1>
                 <div className="mt-6 w-full max-w-[280px] text-left">
                   <LoadingSteps
                     steps={[
@@ -237,7 +237,7 @@ function PlanStep({ level, lens, saving, onGo }: { level: Level; lens: Lens; sav
   const tabs = [{ id: "today", label: "Today" }, { id: "learn", label: level === "pro" ? "Catch up" : "Learn" }, { id: "pulse", label: "Pulse" }, { id: "people", label: "People" }];
   return (
     <>
-      <MascotSays mood="cheer">Your plan is ready! Here's how we'll do this.</MascotSays>
+      <MascotSays mood="cheer">Tail-waggingly good! Your plan is ready.</MascotSays>
       <div className="mt-4 flex flex-wrap gap-2">
         <span className="chip bg-brand-100 text-brand-700">{lm.emoji} {lm.label}</span>
         <span className="chip bg-stone-200 text-stone-700">{le.emoji} {le.label}</span>

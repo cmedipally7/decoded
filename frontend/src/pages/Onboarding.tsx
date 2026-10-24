@@ -232,12 +232,9 @@ function PlanStep({ level, lens, saving, onGo }: { level: Level; lens: Lens; sav
   const plan = planFor(level, lens);
   const lm = levelMeta(level);
   const le = lensMeta(lens);
-  const tabs: { id: HomeTab | "people" | "me"; label: string }[] =
-    level === "beginner"
-      ? [{ id: "learn", label: "Learn" }, { id: "pulse", label: "Pulse" }, { id: "people", label: "People" }, { id: "me", label: "Me" }]
-      : level === "amateur"
-      ? [{ id: "today", label: "Today" }, { id: "learn", label: "Learn" }, { id: "pulse", label: "Pulse" }, { id: "me", label: "Me" }]
-      : [{ id: "pulse", label: "Pulse" }, { id: "learn", label: "Catch up" }, { id: "people", label: "People" }, { id: "me", label: "Me" }];
+  // Same tabs for everyone; the highlighted one is where this level spends most time
+  const focus = level === "beginner" ? "learn" : level === "pro" ? "pulse" : "today";
+  const tabs = [{ id: "today", label: "Today" }, { id: "learn", label: level === "pro" ? "Catch up" : "Learn" }, { id: "pulse", label: "Pulse" }, { id: "people", label: "People" }];
   return (
     <>
       <MascotSays mood="cheer">Your plan is ready! Here's how we'll do this.</MascotSays>
@@ -261,10 +258,10 @@ function PlanStep({ level, lens, saving, onGo }: { level: Level; lens: Lens; sav
       </div>
 
       <div className="mt-5">
-        <div className="text-xs font-extrabold uppercase tracking-wider text-stone-400">Your home screen</div>
+        <div className="text-xs font-extrabold uppercase tracking-wider text-stone-400">Where you'll spend most time</div>
         <div className="mt-2 grid grid-cols-4 gap-1 rounded-2xl bg-white p-1.5 shadow-card">
           {tabs.map((t, i) => (
-            <div key={t.id} className={`rounded-xl py-2 text-center text-xs font-extrabold ${i === 0 ? "bg-brand-600 text-white" : "text-stone-400"}`}>{t.label}</div>
+            <div key={t.id} className={`rounded-xl py-2 text-center text-xs font-extrabold ${t.id === focus ? "bg-brand-600 text-white" : "text-stone-400"}`}>{t.label}</div>
           ))}
         </div>
       </div>

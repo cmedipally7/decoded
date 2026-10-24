@@ -2,7 +2,7 @@
 // queued feed terms show up in the next lesson, XP/streak/fluency update, decode, chat, etc.
 import { AUTHORS, DEMO_DECODES, FRESH_TERMS, KNOWN_BY_LEVEL, LENS_PATH, PATH, PLACEMENT, POSTS, TERMS, WHY_BY_LENS, type SeedPost, type SeedTerm } from "./mockData";
 import type {
-  Archetype, Card, ChatMessage, CompleteResult, DecodeResult, DailyGoal, Goal, HomeTab, Lens, Lesson, Level, Post, Source, Term, User,
+  Archetype, Card, Quest, ChatMessage, CompleteResult, DecodeResult, DailyGoal, Goal, HomeTab, Lens, Lesson, Level, Post, Source, Term, User,
 } from "./types";
 
 type Status = Term["status"];
@@ -31,6 +31,10 @@ interface State {
   lastLessonDay: number;
   lastGoalMetDay: number;
   lessonsCompleted: number;
+  queuedByDay: Record<number, number>;
+  decodesByDay: Record<number, number>;
+  followsByDay: Record<number, number>;
+  questXp: Record<string, boolean>;
   reads: Record<number, string[]>;
   dives: Record<number, string[]>;
   lessons: Record<number, Lesson & { termIds: string[] }>;
@@ -50,6 +54,10 @@ function makeState(level: Level, lens: Lens | null, opts: { streak: number; xp: 
     lastLessonDay: -1,
     lastGoalMetDay: -1,
     lessonsCompleted: 0,
+    queuedByDay: {},
+    decodesByDay: {},
+    followsByDay: {},
+    questXp: {},
     reads: {},
     dives: {},
     lessons: {},
@@ -83,7 +91,7 @@ function feedFluency(): number {
   return Math.round((known / total) * 100);
 }
 
-const HOME: Record<Level, HomeTab> = { beginner: "learn", amateur: "today", pro: "pulse" };
+const HOME: Record<Level, HomeTab> = { beginner: "today", amateur: "today", pro: "today" };
 
 function dailyGoal(): DailyGoal {
   const lessonDone = S.lastLessonDay === S.day;
@@ -98,8 +106,40 @@ function dailyGoal(): DailyGoal {
   return { label: "5 posts + 1 deep dive", progress, target: 6, met: progress >= 6 };
 }
 
+function quests(): Quest[] {
+  const g = dailyGoal();
+  const lessonDone = S.lastLessonDay === S.day;
+  const reads = (S.reads[S.day] || []).length;
+  const queued = S.queuedByDay[S.day] || 0;
+  const decodes = S.decodesByDay[S.day] || 0;
+  const level = S.user.level;
+  const streakTitle = level === "beginner" ? "Finish today's lesson" : level === "amateur" ? "Lesson or 3 posts" : "5 posts + 1 deep dive";
+  const streak: Quest = {
+    id: "q_streak", kind: "streak", title: streakTitle, progress: g.progress, target: g.target, xp: 15, done: g.met,
+    action: level === "beginner" ? "lesson" : level === "pro" ? "pulse" : lessonDone ? "pulse" : "lesson",
+  };
+  const mk = (id: string, title: string, progress: number, target: number, xp: number, action: Quest["action"]): Quest =>
+    ({ id, kind: "bonus", title, progress: Math.min(progress, target), target, xp, done: progress >= target, action });
+  const bonus: Quest[] =
+    level === "beginner"
+      ? [mk("q_read2", "Read 2 starter posts", reads, 2, 10, "pulse"), mk("q_tap", "Save a new word from a post", queued, 1, 5, "pulse")]
+      : level === "amateur"
+      ? [mk("q_tap", "Save a word for tomorrow", queued, 1, 10, "pulse"), mk("q_decode", "Decode a post from elsewhere", decodes, 1, 15, "decode")]
+      : [mk("q_drill", "Do the catch-up drill", lessonDone ? 1 : 0, 1, 10, "lesson"), mk("q_decode", "Decode a post from elsewhere", decodes, 1, 15, "decode")];
+  return [streak, ...bonus];
+}
+
+// Bonus quest XP is paid once, the first time each quest completes
+function payQuests() {
+  for (const q of quests()) {
+    const key = `${S.day}:${q.id}`;
+    if (q.kind === "bonus" && q.done && !S.questXp[key]) { S.questXp[key] = true; S.user.xp += q.xp; }
+  }
+}
+
 // Streak goes up the first time the daily goal is met each day
 function checkGoal() {
+  payQuests();
   if (dailyGoal().met && S.lastGoalMetDay !== S.day) {
     S.user.streak += 1;
     S.lastGoalMetDay = S.day;
@@ -114,6 +154,7 @@ function userOut(): User {
     dailyGoal: dailyGoal(),
     lessonDoneToday: S.lastLessonDay === S.day,
     lessonsCompleted: S.lessonsCompleted,
+    quests: quests(),
     wordsKnown: Object.values(S.status).filter((s) => s === "learning" || s === "known").length,
     feedFluency: feedFluency(),
     queuedTermsCount: Object.values(S.status).filter((s) => s === "queued").length,
@@ -371,6 +412,8 @@ export const mock = {
       S.status[id] = "queued";
       S.queueOrder.push(id);
       S.user.xp += 5;
+      S.queuedByDay[S.day] = (S.queuedByDay[S.day] || 0) + 1;
+      checkGoal();
       const next = S.lessons[S.day];
       if (next && !next.completed) delete S.lessons[S.day]; // rebuild so it includes the new word
     }
@@ -395,6 +438,8 @@ export const mock = {
     p.id = `p_user_${Date.now()}`;
     p.publishedAt = new Date().toISOString();
     S.userPosts.unshift(p);
+    S.decodesByDay[S.day] = (S.decodesByDay[S.day] || 0) + 1;
+    checkGoal();
     return { ok: true, post: postOut(p), method: b.text ? "text" : "demo" };
   },
 

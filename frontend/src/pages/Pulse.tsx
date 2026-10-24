@@ -57,20 +57,13 @@ export default function Pulse() {
     <div className="pb-28">
       <StreakHeader />
       <div className="px-4 pt-2">
-        <div className="flex items-end justify-between">
+        <div className="flex items-end justify-between gap-3">
           <div>
             <h1 className="text-3xl font-black">Pulse</h1>
             <p className="font-semibold text-stone-500">{subtitle}</p>
           </div>
-          {user && (
-            <div className="text-right">
-              <div className="text-2xl font-black text-ok-600 tabular-nums">{user.feedFluency}%</div>
-              <div className="text-[10px] font-extrabold uppercase tracking-wide text-stone-400 leading-tight">feed you<br />can read</div>
-            </div>
-          )}
-        </div>
-        <div className="mt-3">
-          <LevelToggle value={viewLevel} onChange={setViewLevel} />
+          <LevelToggle value={viewLevel} onChange={setViewLevel} compact />
+
         </div>
         <button onClick={refreshFeed} disabled={refreshing} className="btn-ghost mt-3 w-full">
           {refreshing ? "Fetching new posts…" : "Refresh"}

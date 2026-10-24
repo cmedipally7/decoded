@@ -67,20 +67,20 @@ export function Toast() {
   );
 }
 
-export function LevelToggle({ value, onChange }: { value: Level; onChange: (l: Level) => void }) {
+export function LevelToggle({ value, onChange, compact = false }: { value: Level; onChange: (l: Level) => void; compact?: boolean }) {
   return (
-    <div className="flex rounded-2xl bg-stone-100 p-1">
+    <div className={`flex rounded-2xl bg-stone-100 p-1 ${compact ? "shrink-0" : ""}`} title="Explain posts at this level">
       {LEVELS.map((l) => (
         <button
           key={l.id}
           onClick={() => onChange(l.id)}
-          className={`relative flex-1 rounded-xl px-2 py-2 text-sm font-extrabold transition-colors ${value === l.id ? "text-brand-700" : "text-stone-500"}`}
+          className={`relative ${compact ? "px-2.5" : "flex-1 px-2"} rounded-xl py-2 text-sm font-extrabold transition-colors ${value === l.id ? "text-brand-700" : "text-stone-500"}`}
         >
           {value === l.id && (
             <motion.div layoutId="lvl-pill" className="absolute inset-0 rounded-xl bg-white shadow" transition={{ type: "spring", stiffness: 400, damping: 30 }} />
           )}
           <span className="relative">
-            {l.emoji} {l.label}
+            {l.emoji}{compact ? "" : ` ${l.label}`}
           </span>
         </button>
       ))}

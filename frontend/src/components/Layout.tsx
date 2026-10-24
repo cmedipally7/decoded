@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
-import { BookOpen, Flame, Newspaper, Sparkles, Sun, User as UserIcon, Users, Zap } from "lucide-react";
+import { BookOpen, Flame, Newspaper, Sparkles, Sun, Users } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
-import { Navigate, NavLink, Outlet, useLocation } from "react-router-dom";
+import { Navigate, NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { levelMeta, useApp } from "../context";
 import { DecodeSheet, TermSheet } from "./Sheets";
-import { ProgressBar, Toast } from "./ui";
+import { Avatar, ProgressBar, Toast } from "./ui";
 
 export function PhoneFrame({ children }: { children: ReactNode }) {
   return (
@@ -23,6 +23,7 @@ const XP_PER_LEVEL = 300;
 
 export function StreakHeader() {
   const { user, xpFlash } = useApp();
+  const nav = useNavigate();
   const [bump, setBump] = useState(0);
   useEffect(() => { if (xpFlash) setBump((b) => b + 1); }, [xpFlash]);
   if (!user) return <div className="h-[60px]" />;
@@ -30,9 +31,10 @@ export function StreakHeader() {
   const into = (user.xp % XP_PER_LEVEL) / XP_PER_LEVEL;
   return (
     <div className="flex items-center gap-3 px-4 pt-4 pb-2">
-      <div className="chip bg-brand-100 text-brand-700 shrink-0" title={lm.label}>
-        <span className="text-base">{lm.emoji}</span>
-      </div>
+      <button onClick={() => nav("/me")} className="relative shrink-0 active:scale-95" aria-label="Your profile">
+        <Avatar name={user.name} url={null} size={36} />
+        <span className="absolute -bottom-1 -right-1 grid h-5 w-5 place-items-center rounded-full bg-white text-[11px] shadow" title={lm.label}>{lm.emoji}</span>
+      </button>
       <div className="flex-1">
         <ProgressBar value={into} color="bg-brand-500" className="h-3" />
       </div>
@@ -73,27 +75,19 @@ export function GoalRing() {
   );
 }
 
-const TAB_DEFS = {
-  today: { to: "/today", label: "Today", Icon: Sun },
-  learn: { to: "/learn", label: "Learn", Icon: BookOpen },
-  drills: { to: "/learn", label: "Catch up", Icon: Zap },
-  pulse: { to: "/pulse", label: "Pulse", Icon: Newspaper },
-  people: { to: "/people", label: "People", Icon: Users },
-  me: { to: "/me", label: "Me", Icon: UserIcon },
-};
-// Tab order follows the level: course-first, balanced, or feed-first
-const TABS_BY_LEVEL = {
-  beginner: [TAB_DEFS.learn, TAB_DEFS.pulse, TAB_DEFS.people, TAB_DEFS.me],
-  amateur: [TAB_DEFS.today, TAB_DEFS.learn, TAB_DEFS.pulse, TAB_DEFS.people, TAB_DEFS.me],
-  pro: [TAB_DEFS.pulse, TAB_DEFS.drills, TAB_DEFS.people, TAB_DEFS.me],
-};
+// Same four tabs for everyone; what's inside adapts to the level and lens. Profile lives on the avatar.
+const TABS = [
+  { to: "/today", label: "Today", Icon: Sun },
+  { to: "/learn", label: "Learn", Icon: BookOpen },
+  { to: "/pulse", label: "Pulse", Icon: Newspaper },
+  { to: "/people", label: "People", Icon: Users },
+];
 
 export function TabLayout() {
   const { setDecodeOpen, user } = useApp();
   const loc = useLocation();
   if (user && !user.onboarded) return <Navigate to="/welcome" replace />;
-  const TABS = TABS_BY_LEVEL[user?.level ?? "beginner"];
-  const showFab = ["/pulse", "/learn", "/today"].some((p) => loc.pathname.startsWith(p));
+  const showFab = loc.pathname.startsWith("/pulse");
   return (
     <>
       <main className="flex-1 overflow-y-auto no-scrollbar">
@@ -112,7 +106,7 @@ export function TabLayout() {
       )}
       <nav style={{ gridTemplateColumns: `repeat(${TABS.length}, minmax(0, 1fr))` }} className="z-20 grid border-t-2 border-stone-200 bg-white pb-[env(safe-area-inset-bottom)]">
         {TABS.map(({ to, label, Icon }) => (
-          <NavLink key={label} to={to} className="flex flex-col items-center gap-0.5 py-2.5">
+          <NavLink key={to} to={to} className="flex flex-col items-center gap-0.5 py-2.5">
             {({ isActive }) => (
               <>
                 <div className={`rounded-xl px-3 py-1 transition-colors ${isActive ? "bg-brand-100 text-brand-600" : "text-stone-400"}`}>

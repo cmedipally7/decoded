@@ -13,6 +13,17 @@ export interface DailyGoal {
   met: boolean;
 }
 
+export interface Quest {
+  id: string;
+  kind: "streak" | "bonus";   // the streak quest keeps the streak; bonus quests earn XP
+  title: string;
+  progress: number;
+  target: number;
+  xp: number;
+  done: boolean;
+  action: "lesson" | "pulse" | "decode" | "people"; // where the quest sends the user
+}
+
 export interface User {
   id: string;
   name: string;
@@ -22,7 +33,8 @@ export interface User {
   homeTab: HomeTab;         // beginner→learn, amateur→today, pro→pulse
   dailyGoal: DailyGoal;
   lessonDoneToday: boolean;
-  lessonsCompleted: number; // all-time; beginners unlock 3 more feed posts per lesson
+  lessonsCompleted: number;
+  quests: Quest[];         // today's 3 quests (first one is the streak quest) // all-time; beginners unlock 3 more feed posts per lesson
   xp: number;
   streak: number;
   wordsKnown: number;

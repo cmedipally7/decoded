@@ -110,47 +110,6 @@ export default function Learn() {
           </motion.div>
         )}
 
-        {/* North-star metric */}
-        <div className="card flex items-center gap-4 p-4">
-          <div className="text-center">
-            <div className="text-2xl font-black tabular-nums text-ok-600">{user.feedFluency}%</div>
-            <div className="text-[10px] font-extrabold uppercase leading-tight text-stone-400">feed<br />fluency</div>
-          </div>
-          <div className="min-w-0 flex-1">
-            <div className="text-sm font-extrabold leading-snug">
-              You can read {user.feedFluency}% of today's AI feed
-            </div>
-            <ProgressBar value={user.feedFluency / 100} className="mt-2 h-2.5" />
-            <div className="mt-1 text-xs font-bold text-stone-400">{user.wordsKnown} words known · each lesson moves this up</div>
-          </div>
-        </div>
-
-        {/* Today's words in real posts */}
-        {inTheWild.length > 0 && !lesson?.completed && (
-          <section>
-            <h2 className="text-lg font-black">Spot today's words in the wild</h2>
-            <p className="text-sm font-semibold text-stone-500">After the lesson, these posts will make sense.</p>
-            <div className="no-scrollbar -mx-4 mt-3 flex gap-3 overflow-x-auto px-4 pb-1">
-              {inTheWild.map((p) => {
-                const hit = p.terms.find((t) => concepts.some((c) => c.termId === t.id));
-                return (
-                  <button key={p.id} onClick={() => nav(`/chat/${p.id}`)} className="card w-[260px] shrink-0 p-3 text-left active:scale-[0.98]">
-                    <div className="flex items-center gap-2">
-                      <Avatar name={p.author.name} url={p.author.avatarUrl} size={28} />
-                      <div className="min-w-0">
-                        <div className="truncate text-sm font-extrabold">{p.author.name}</div>
-                        <div className="truncate text-[11px] font-bold text-stone-400">{p.topic}</div>
-                      </div>
-                    </div>
-                    <p className="mt-2 line-clamp-3 text-sm text-stone-700">{p.tldr[viewLevel]}</p>
-                    {hit && <span className="mt-2 inline-block rounded-full bg-brand-100 px-2 py-0.5 text-xs font-extrabold text-brand-700">uses “{hit.term}”</span>}
-                  </button>
-                );
-              })}
-            </div>
-          </section>
-        )}
-
         {/* Compact journey */}
         <section className="card p-4">
           <button onClick={() => setShowPath((s) => !s)} className="flex w-full items-center justify-between">
@@ -202,11 +161,7 @@ export default function Learn() {
           </AnimatePresence>
         </section>
 
-        {user.level === "beginner" && (
-          <button onClick={() => nav("/pulse")} className="btn-ghost w-full">
-            Peek at your starter feed <ArrowRight size={16} />
-          </button>
-        )}
+
       </div>
     </div>
   );

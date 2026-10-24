@@ -145,8 +145,9 @@ export function lessonTermIds(db, userId, status) {
     }
   }
   const pending = courseDays(user.lens).filter((day) => !day.termIds.every((id) => status(id) === "learning" || status(id) === "known"));
-  for (const day of pending) {
-    if (termIds.length >= 3 || (termIds.length >= 2 && !isPro)) break;
+  // One lesson = one path day, so finishing it never ticks off the next day too. Pros catch up faster.
+  for (const day of isPro ? pending : pending.slice(0, 1)) {
+    if (termIds.length >= 3) break;
     for (const id of day.termIds) {
       if (status(id) !== "learning" && status(id) !== "known" && !termIds.includes(id) && termIds.length < 3) termIds.push(id);
     }

@@ -104,8 +104,12 @@ export function createApp(db = openDb()) {
   app.patch("/api/me", (req, res) => {
     const id = userId(req);
     const user = db.ensureUser(id);
-    if (LEVELS.has(req.body?.level)) user.level = req.body.level;
+    // Level is per lens: you can be a pro builder and a beginner investor.
     if (LENSES.has(req.body?.lens)) user.lens = req.body.lens;
+    const level = LEVELS.has(req.body?.level) ? req.body.level : user.levels[user.lens] || user.level;
+    if (user.lens) user.levels[user.lens] = level;
+    if (level !== user.level) db.addLevelWords(id, level);
+    user.level = level;
     if (typeof req.body?.name === "string" && req.body.name.trim()) user.name = req.body.name.trim();
     delete db.raw.lessons[`${id}:${user.today}`];
     db.save();

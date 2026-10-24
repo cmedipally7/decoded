@@ -8,12 +8,13 @@ import { MascotSays } from "../components/Mascot";
 import { PawMeter } from "../components/Paws";
 import { Avatar, ProgressBar } from "../components/ui";
 import { LENSES, LEVEL_XP, LEVELS, lensMeta, levelMeta, levelProgress, useApp } from "../context";
-import type { Level } from "../types";
+import type { Lens, Level } from "../types";
 
 export default function Me() {
   const { user, setUser, toast } = useApp();
   const nav = useNavigate();
   const [dev, setDev] = useState(false);
+  const [pickLens, setPickLens] = useState<Lens | null>(null); // new lens waiting for a level
   const taps = useRef<number[]>([]);
 
   const tapAvatar = () => {
@@ -25,6 +26,18 @@ export default function Me() {
   if (!user) return null;
   const lp = levelProgress(user);
   const curIdx = LEVELS.findIndex((l) => l.id === user.level);
+  const switchLens = async (lens: Lens, level?: Level) => {
+    const u = await api.updateMe(level ? { lens, level } : { lens });
+    setUser(u);
+    setPickLens(null);
+    toast(`${lensMeta(lens).label} · ${levelMeta(u.level).label}. Feed and path tuned for ${lensMeta(lens).noun}`);
+  };
+  const chooseLens = (lens: Lens) => {
+    if (lens === user.lens) return setPickLens(null);
+    // Levels are per lens: reuse the one you have there, otherwise ask.
+    if (user.levels?.[lens]) switchLens(lens);
+    else setPickLens(lens);
+  };
   const p = user.percentiles;
   const best = Math.max(p.streak, p.words, p.xp);
   const brag =
@@ -112,14 +125,34 @@ export default function Me() {
             {LENSES.map((l) => (
               <button
                 key={l.id}
-                onClick={async () => { const u = await api.updateMe({ lens: l.id }); setUser(u); toast(`Feed and path tuned for ${l.noun}`); }}
-                className={`rounded-2xl border-2 border-b-4 py-2 text-center active:translate-y-[2px] ${user.lens === l.id ? "border-brand-500 bg-brand-50" : "border-stone-200 bg-white"}`}
+                onClick={() => chooseLens(l.id)}
+                className={`rounded-2xl border-2 border-b-4 py-2 text-center active:translate-y-[2px] ${user.lens === l.id ? "border-brand-500 bg-brand-50" : pickLens === l.id ? "border-brand-300 bg-white" : "border-stone-200 bg-white"}`}
               >
                 <div className="text-xl">{l.emoji}</div>
                 <div className={`text-[11px] font-extrabold ${user.lens === l.id ? "text-brand-700" : "text-stone-500"}`}>{l.label}</div>
+                {user.levels?.[l.id] && <div className="text-[10px] font-bold text-stone-400">{levelMeta(user.levels[l.id]!).emoji} {levelMeta(user.levels[l.id]!).label}</div>}
               </button>
             ))}
           </div>
+          <AnimatePresence>
+            {pickLens && (
+              <motion.div initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="card mt-2 p-3">
+                <div className="text-sm font-black">How fluent are you in {lensMeta(pickLens).label.toLowerCase()}?</div>
+                <div className="mt-2 grid grid-cols-3 gap-2">
+                  {LEVELS.map((lv) => (
+                    <button
+                      key={lv.id}
+                      onClick={() => switchLens(pickLens, lv.id)}
+                      className="rounded-2xl border-2 border-b-4 border-stone-200 bg-white py-2 text-center active:translate-y-[2px]"
+                    >
+                      <div className="text-xl">{lv.emoji}</div>
+                      <div className="text-[11px] font-extrabold text-stone-600">{lv.label}</div>
+                    </button>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </section>
 
         <AnimatePresence>

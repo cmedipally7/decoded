@@ -43,6 +43,12 @@ export function openDb(file = process.env.DB_PATH || path.join(ROOT, "data", "db
       }
       this.save();
     },
+    // Switching lens/level keeps words already learned; it only adds the ones that level assumes.
+    addLevelWords(userId, level) {
+      for (const id of KNOWN_BY_LEVEL[level] || []) {
+        if (db.userTerms[userId][id]?.status === "new") db.userTerms[userId][id] = { status: "learning", source: "lesson" };
+      }
+    },
     applyLevel(userId, level) {
       const known = new Set(KNOWN_BY_LEVEL[level] || []);
       db.userTerms[userId] = Object.fromEntries(TERMS.map((term) => [term.id, {
@@ -58,6 +64,7 @@ export function openDb(file = process.env.DB_PATH || path.join(ROOT, "data", "db
         name: chosen,
         level,
         lens,
+        levels: { [lens]: level },
         onboarded: true,
         xp: { beginner: 0, amateur: 300, pro: 1000 }[level],
         streak: 0,
@@ -86,6 +93,7 @@ export function openDb(file = process.env.DB_PATH || path.join(ROOT, "data", "db
       Object.assign(user, {
         level,
         lens: persona.lens,
+        levels: { [persona.lens]: level },
         onboarded: true,
         xp: persona.xp,
         streak: persona.streak,
@@ -156,6 +164,7 @@ export function openDb(file = process.env.DB_PATH || path.join(ROOT, "data", "db
         name: user.name,
         goal: user.goal,
         level: user.level,
+        levels: user.levels,
         xp: user.xp,
         streak: user.streak,
         wordsKnown: statuses.filter((item) => item.status === "learning" || item.status === "known").length,
@@ -363,6 +372,7 @@ function freshUser(id) {
     goal: null,
     lens: null,
     level: "beginner",
+    levels: {},
     xp: 0,
     streak: 0,
     today,

@@ -24,7 +24,7 @@ const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 const clone = <T,>(x: T): T => JSON.parse(JSON.stringify(x));
 
 interface State {
-  user: { id: string; name: string; goal: Goal | null; lens: Lens | null; level: Level; xp: number; streak: number; onboarded: boolean };
+  user: { id: string; name: string; goal: Goal | null; lens: Lens | null; level: Level; levels?: Partial<Record<Lens, Level>>; xp: number; streak: number; onboarded: boolean };
   status: Record<string, Status>;
   queueOrder: string[];
   day: number;
@@ -47,7 +47,7 @@ function makeState(level: Level, lens: Lens | null, opts: { streak: number; xp: 
   const known = KNOWN_BY_LEVEL[level];
   TERMS.forEach((t) => (status[t.id] = known.includes(t.id) ? "learning" : "new"));
   return {
-    user: { id: "demo", name: "John", goal: null, lens, level, xp: opts.xp, streak: opts.streak, onboarded: opts.onboarded },
+    user: { id: "demo", name: "John", goal: null, lens, level, levels: lens ? { [lens]: level } : {}, xp: opts.xp, streak: opts.streak, onboarded: opts.onboarded },
     status,
     queueOrder: [],
     day: 0,
@@ -359,7 +359,11 @@ export const mock = {
   async getMe() { await sleep(250); return userOut(); },
   async updateMe(b: Partial<Pick<User, "level" | "name" | "lens">>) {
     await sleep(250);
-    Object.assign(S.user, b);
+    const levels = { ...(S.user.levels || {}) };
+    const lens = b.lens ?? S.user.lens;
+    const level = b.level ?? (lens && levels[lens]) ?? S.user.level;
+    if (lens) levels[lens] = level;
+    Object.assign(S.user, b, { level, levels });
     delete S.lessons[S.day];
     return userOut();
   },

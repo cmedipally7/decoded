@@ -29,7 +29,8 @@ export interface User {
   name: string;
   goal?: Goal | null;
   lens: Lens | null;
-  level: Level;
+  level: Level;             // level in the current lens
+  levels?: Partial<Record<Lens, Level>>; // level per lens the user has tried
   homeTab: HomeTab;         // beginner→learn, amateur→today, pro→pulse
   dailyGoal: DailyGoal;
   lessonDoneToday: boolean;

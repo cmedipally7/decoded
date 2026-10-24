@@ -4,7 +4,8 @@
 
 html, body, #root { height: 100%; }
 body {
-  @apply bg-stone-200 text-ink font-sans antialiased;
+  @apply text-ink font-sans antialiased;
+  background: #E4DCFA;
   -webkit-tap-highlight-color: transparent;
 }
 .no-scrollbar::-webkit-scrollbar { display: none; }
@@ -22,4 +23,13 @@ body {
   .card { @apply bg-white rounded-2xl shadow-card; }
   .chip { @apply inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-sm font-bold whitespace-nowrap; }
   .term-btn { @apply font-bold text-brand-700 underline decoration-dotted decoration-2 underline-offset-4 decoration-brand-500 hover:bg-brand-50 rounded px-0.5 -mx-0.5; }
+}
+
+/* App background: soft lilac with color washes, so screens aren't flat white */
+.app-bg {
+  background-color: #EFE7FF;
+  background-image:
+    radial-gradient(60% 35% at 100% 0%, rgba(124, 58, 237, 0.30), transparent 70%),
+    radial-gradient(50% 30% at 0% 12%, rgba(249, 115, 22, 0.20), transparent 70%),
+    radial-gradient(70% 40% at 50% 100%, rgba(56, 189, 248, 0.22), transparent 70%);
 }

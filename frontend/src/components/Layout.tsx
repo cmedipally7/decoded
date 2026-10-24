@@ -9,7 +9,7 @@ import { Avatar, ProgressBar, Toast } from "./ui";
 export function PhoneFrame({ children }: { children: ReactNode }) {
   return (
     <div className="flex h-full w-full items-center justify-center md:py-6">
-      <div className="relative flex h-full w-full max-w-[420px] flex-col overflow-hidden bg-paper md:h-[min(900px,100%)] md:rounded-[2.5rem] md:shadow-2xl md:ring-8 md:ring-ink">
+      <div className="app-bg relative flex h-full w-full max-w-[420px] flex-col overflow-hidden md:h-[min(900px,100%)] md:rounded-[2.5rem] md:shadow-2xl md:ring-8 md:ring-ink">
         {children}
         <DecodeSheet />
         <TermSheet />
@@ -104,7 +104,7 @@ export function TabLayout() {
           <Sparkles size={18} /> Decode
         </motion.button>
       )}
-      <nav style={{ gridTemplateColumns: `repeat(${TABS.length}, minmax(0, 1fr))` }} className="z-20 grid border-t-2 border-stone-200 bg-white pb-[env(safe-area-inset-bottom)]">
+      <nav style={{ gridTemplateColumns: `repeat(${TABS.length}, minmax(0, 1fr))` }} className="z-20 grid border-t-2 border-brand-100 bg-white/85 backdrop-blur pb-[env(safe-area-inset-bottom)]">
         {TABS.map(({ to, label, Icon }) => (
           <NavLink key={to} to={to} className="flex flex-col items-center gap-0.5 py-2.5">
             {({ isActive }) => (

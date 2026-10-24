@@ -10,7 +10,7 @@ export default {
         bad: { 50: "#FEF2F2", 100: "#FEE2E2", 500: "#EF4444", 600: "#DC2626", 700: "#B91C1C" },
         flame: { 100: "#FFEDD5", 500: "#F97316", 600: "#EA580C" },
         ink: "#1C1917",
-        paper: "#FAFAF9",
+        paper: "#EFE7FF",
       },
       boxShadow: {
         btn: "0 4px 0 0 rgba(0,0,0,0.15)",

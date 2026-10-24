@@ -3,6 +3,7 @@ import { Check, Sparkles, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../api";
+import { Mascot, MascotSays } from "../components/Mascot";
 import { ProgressBar } from "../components/ui";
 import { useApp } from "../context";
 import type { Card, Lesson as LessonT } from "../types";
@@ -94,13 +95,16 @@ export default function Lesson() {
               animate={{ y: 0 }}
               exit={{ y: 120 }}
               transition={{ type: "spring", stiffness: 300, damping: 28 }}
-              className={`px-5 pt-5 pb-6 ${verdict.correct ? "bg-ok-100" : "bg-bad-100"}`}
+              className={`relative px-5 pt-5 pb-6 ${verdict.correct ? "bg-ok-100" : "bg-bad-100"}`}
             >
+              <div className="absolute -top-[74px] right-3">
+                <Mascot mood={verdict.correct ? "cheer" : "sad"} size={84} interactive={false} />
+              </div>
               <div className={`flex items-center gap-2 text-xl font-black ${verdict.correct ? "text-ok-700" : "text-bad-700"}`}>
                 <motion.div initial={{ scale: 0 }} animate={{ scale: [0, 1.3, 1] }} className={`grid h-8 w-8 place-items-center rounded-full ${verdict.correct ? "bg-ok-500" : "bg-bad-500"} text-white`}>
                   {verdict.correct ? <Check size={20} strokeWidth={3.5} /> : <X size={20} strokeWidth={3.5} />}
                 </motion.div>
-                {verdict.correct ? "Nice! +10 XP" : "Not quite"}
+                {verdict.correct ? ["Tail-waggingly good!", "Nice! +10 XP", "Woof, nailed it!"][card.id.length % 3] : "Not quite. You've got this!"}
               </div>
               {!verdict.correct && verdict.answer && <p className="mt-2 font-extrabold text-bad-700">Answer: {verdict.answer}</p>}
               <p className={`mt-1 text-sm font-semibold ${verdict.correct ? "text-ok-700" : "text-bad-700"}`}>{verdict.explanation}</p>
@@ -168,7 +172,7 @@ function CardView({ card, selected, onSelect, locked, onMatchDone }: { card: Car
       return (
         <div className="pt-4">
           <div className="text-xs font-extrabold uppercase tracking-wider text-stone-400">Choose the answer</div>
-          <h2 className="mt-2 text-2xl font-black">{card.question}</h2>
+          <div className="mt-3"><MascotSays mood="think" size={68}><span className="text-lg font-black">{card.question}</span></MascotSays></div>
           <Options options={card.options} selected={selected} onSelect={onSelect} locked={locked} />
         </div>
       );
@@ -180,7 +184,7 @@ function CardView({ card, selected, onSelect, locked, onMatchDone }: { card: Car
             <div className="text-sm font-extrabold text-stone-500">{card.author}</div>
             <p className="mt-1 font-semibold leading-relaxed">"{card.postSnippet}"</p>
           </div>
-          <h2 className="mt-5 text-xl font-black">{card.question}</h2>
+          <div className="mt-4"><MascotSays mood="point" size={60}><span className="font-black">{card.question}</span></MascotSays></div>
           <Options options={card.options} selected={selected} onSelect={onSelect} locked={locked} />
         </div>
       );
@@ -240,7 +244,7 @@ function MatchCard({ pairs, onDone }: { pairs: { left: string; right: string }[]
   return (
     <div className="pt-4">
       <div className="text-xs font-extrabold uppercase tracking-wider text-stone-400">Match the pairs</div>
-      <h2 className="mt-2 text-2xl font-black">Tap a word, then its meaning</h2>
+      <div className="mt-3"><MascotSays mood="wave" size={60}><span className="font-black">Tap a word, then its meaning!</span></MascotSays></div>
       <div className="mt-5 grid grid-cols-2 gap-3">
         <div className="space-y-3">
           {pairs.map((p, i) => (

@@ -79,6 +79,7 @@ export function PostCard({ post, compact = false, showActions = true }: { post: 
             <span className="truncate">{post.author.handle}</span>
             <span>·</span>
             <span>{timeAgo(post.publishedAt)}</span>
+            {post.fresh && <span className="rounded-full bg-ok-100 px-2 py-0.5 text-[11px] font-extrabold uppercase text-ok-700">New</span>}
             {post.source !== "user" && <ArchetypePill a={post.author.archetype} />}
             {post.source === "user" && <span className="rounded-full bg-brand-100 px-2 py-0.5 text-[11px] font-extrabold uppercase text-brand-700">Decoded</span>}
           </div>

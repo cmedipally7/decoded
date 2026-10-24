@@ -45,6 +45,7 @@ export interface Post {
   whyItMatters: string;
   terms: TermRef[];
   topic: string | null;
+  fresh?: boolean;
 }
 
 export interface Term {

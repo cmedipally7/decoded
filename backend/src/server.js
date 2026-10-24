@@ -194,8 +194,11 @@ export function createApp(db = openDb()) {
   app.post("/api/feed/refresh", async (_req, res) => {
     const newsPath = path.join(ROOT, "seed", "news.json");
     const news = fs.existsSync(newsPath) ? JSON.parse(fs.readFileSync(newsPath, "utf8")) : { items: [] };
-    const later = await fetchLaterPeople();
-    res.json(db.syncNews([...(news.items || []), ...later]));
+    const laterPath = path.join(ROOT, "seed", "later.json");
+    const held = fs.existsSync(laterPath) ? JSON.parse(fs.readFileSync(laterPath, "utf8")).items || [] : [];
+    const live = await fetchLaterPeople();
+    const revealed = [...held, ...live].map((item) => ({ ...item, fresh: true }));
+    res.json(db.syncNews([...(news.items || []), ...revealed]));
   });
 
   app.get("/api/terms/:id", (req, res) => {

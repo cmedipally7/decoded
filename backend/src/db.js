@@ -76,7 +76,7 @@ export function openDb(file = process.env.DB_PATH || path.join(ROOT, "data", "db
       if (filter.source === "user") posts = db.userPosts[userId] || [];
       else if (filter.archetype) posts = posts.filter((post) => post.author.archetype === filter.archetype);
       else if (filter.source) posts = posts.filter((post) => post.source === filter.source);
-      return posts.sort((a, b) => String(b.publishedAt).localeCompare(String(a.publishedAt)));
+      return posts.sort((a, b) => (b.fresh === true) - (a.fresh === true) || String(b.publishedAt).localeCompare(String(a.publishedAt)));
     },
     ingestNews(items) {
       const added = ingestItems(db, items);
@@ -181,7 +181,7 @@ function ingestItems(db, items) {
     const author = authorFor(db, item);
     const text = [item.title, item.summary].filter(Boolean).join(". ");
     const person = item.provider?.kind === "person";
-    if (!person && !aboutAi(text)) continue;
+    if (!person && !item.fresh && !aboutAi(text)) continue;
     const terms = linkTerms(text, db.terms, db.vectors.terms);
     const id = `p_${String(item.id || url || text).replace(/\W/g, "").slice(0, 16)}`;
     db.posts.push({
@@ -195,6 +195,7 @@ function ingestItems(db, items) {
       whyItMatters: why(terms, item),
       terms,
       topic: item.subjects?.[0] || terms[0]?.term || null,
+      fresh: Boolean(item.fresh),
       createdBy: null,
     });
     db.vectors.posts[id] = embed(text);

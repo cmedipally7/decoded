@@ -1,0 +1,299 @@
+{
+  "items": [
+    {
+      "id": "61ceba6cfe4981597ca26136873ec245b22fa53727328c213b4709eaab6ef9be",
+      "title": "Block’s new voice model sounds eerily human",
+      "url": "https://techcrunch.com/2026/10/24/blocks-new-voice-model-sounds-eerily-human/",
+      "summary": "Block said that the voice model can run locally on a MacBook M4 Max",
+      "published_at": "2026-10-24T16:00:00+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "techcrunch-ai",
+        "name": "TechCrunch AI",
+        "type": "rss",
+        "homepage": "https://techcrunch.com/category/artificial-intelligence/"
+      },
+      "provider": {
+        "id": "techcrunch",
+        "name": "TechCrunch AI",
+        "kind": "publication"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Ivan Mehta"
+      ]
+    },
+    {
+      "id": "7f08b3ee43a0859e2c66209cb514b6ac2dd7f1cc642ba3ae853680064039e36e",
+      "title": "🧠 Community Wisdom: Negotiating a lowball offer, designers earning a seat in product decisions, resources for building an MCP server, and more",
+      "url": "https://www.lennysnewsletter.com/p/community-wisdom-negotiating-a-lowball",
+      "summary": "Community Wisdom 303",
+      "published_at": "2026-10-24T15:11:42+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "lenny-rachitsky",
+        "name": "Lenny Rachitsky",
+        "type": "rss",
+        "homepage": "https://www.lennysnewsletter.com/"
+      },
+      "provider": {
+        "id": "lenny",
+        "name": "Lenny Rachitsky",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Kiyani"
+      ]
+    },
+    {
+      "id": "e7a80d87e8606cee69a815d06e2848b2e420fab4398892381db73d78ffc01e50",
+      "title": "Forced to pick, Grok’s AI model chooses Republicans. OpenAI’s picks Democrats.",
+      "url": "https://techcrunch.com/2026/10/24/forced-to-pick-groks-ai-model-chooses-republicans-openais-picks-democrats/",
+      "summary": "A new study found Grok's AI overwhelmingly recommends Republican candidates while OpenAI's GPT favors Democrats, with the two AI models disagreeing in more than 90% of nearly 500 election races.",
+      "published_at": "2026-10-24T15:00:00+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "techcrunch-ai",
+        "name": "TechCrunch AI",
+        "type": "rss",
+        "homepage": "https://techcrunch.com/category/artificial-intelligence/"
+      },
+      "provider": {
+        "id": "techcrunch",
+        "name": "TechCrunch AI",
+        "kind": "publication"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Rebecca Bellan"
+      ]
+    },
+    {
+      "id": "ba1e969f5ed16b52b1196083849c9f216bf1930e1ba56ea1c7e8d4f49c425307",
+      "title": "Here are the top AI agents that can live in your text messages",
+      "url": "https://techcrunch.com/2026/10/24/all-the-ai-agents-that-can-live-in-your-text-messages/",
+      "summary": "We created a list of the most notable AI agents that can live in your text messages, from general assistants to agents designed for families, travel, and work.",
+      "published_at": "2026-10-24T14:00:00+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "techcrunch-ai",
+        "name": "TechCrunch AI",
+        "type": "rss",
+        "homepage": "https://techcrunch.com/category/artificial-intelligence/"
+      },
+      "provider": {
+        "id": "techcrunch",
+        "name": "TechCrunch AI",
+        "kind": "publication"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Lauren Forristal"
+      ]
+    },
+    {
+      "id": "da8785cc5779f5c99a9497af0bbc10a24e66f14979af685060f18bf8df927b12",
+      "title": "Build Your Own Reasoning Model: A Full Video Course",
+      "url": "https://magazine.sebastianraschka.com/p/building-reasoning-models",
+      "summary": "Over 11 hours of coding videos on evaluation, inference-time scaling, reinforcement learning, and distillation, with Python and PyTorch.",
+      "published_at": "2026-10-24T11:14:32+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "sebastian-raschka",
+        "name": "Sebastian Raschka",
+        "type": "rss",
+        "homepage": "https://magazine.sebastianraschka.com/"
+      },
+      "provider": {
+        "id": "raschka",
+        "name": "Sebastian Raschka",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Sebastian Raschka",
+        "PhD"
+      ]
+    },
+    {
+      "id": "d1879513a33727bd2922010517b6fd0c8b51195d0efea242f56f298bf7b2afbf",
+      "title": "battledrones v14: Compass Rose, a four player map",
+      "url": "https://simonwillison.net/2026/Oct/24/battledrones/",
+      "summary": "Release: battledrones v14: Compass Rose, a four player map I added four player online mode to Battledrones - previous maps were limited to two. Here's the initial prompt I used: Add a new map for a four player battle - four way rotational symmetry, up to four AI players, works with the WebSocket non-audio based multiplayer mode so up to four human players can join (any spare slots use AI) Claude Opus 4.5 added a new map called \"Compass Rose\" and modified the WebSockets multiplayer network code to support up to four players for that map, joining via share links or QR codes. The new teams use robots themed in purple and green, joining the existing blue and red designs. You can preview those colors in the updated model browser . Here's a replay link to watch a four way AI battle with the \"Goliath Armada\" mutator turned on, where each side starts with four giant Goliath mech units. Tags: game-design , projects , claude",
+      "published_at": "2026-10-24T03:59:57+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "simon-willison",
+        "name": "Simon Willison",
+        "type": "rss",
+        "homepage": "https://simonwillison.net/"
+      },
+      "provider": {
+        "id": "simonw",
+        "name": "Simon Willison",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": []
+    },
+    {
+      "id": "dfe5fb536ca517ba2b1e8957d93c99b2441dba4dbfd672c100d88c5d97753da0",
+      "title": "OpenAI says it will no longer train its AI models on the live internet, citing “significant risks”",
+      "url": "https://techcrunch.com/2026/10/23/openai-says-it-will-no-longer-train-its-ai-models-on-the-live-internet-citing-significant-risks/",
+      "summary": "OpenAI will cut frontier models off from the internet weeks after one of its engineers said that solution wouldn't work.",
+      "published_at": "2026-10-23T23:05:49+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "techcrunch-ai",
+        "name": "TechCrunch AI",
+        "type": "rss",
+        "homepage": "https://techcrunch.com/category/artificial-intelligence/"
+      },
+      "provider": {
+        "id": "techcrunch",
+        "name": "TechCrunch AI",
+        "kind": "publication"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Tim Fernholz"
+      ]
+    },
+    {
+      "id": "739797ca19c060e4a9ba902b3a0f581adbbbd2922c64d64c0be5b4396358d3ea",
+      "title": "Hottest toy for Christmas? Nvidia CEO plays with adorable Microduck robots, 20,000 sell",
+      "url": "https://techcrunch.com/2026/10/23/hottest-toy-for-christmas-nvidia-ceo-plays-with-adorable-microduck-robots-20000-sell/",
+      "summary": "The robots, stomping their little feet and making tiny R2-D2 noises, sat, fell down dead for a \"nap,\" and summersaulted on voice command.",
+      "published_at": "2026-10-23T21:59:19+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "techcrunch-ai",
+        "name": "TechCrunch AI",
+        "type": "rss",
+        "homepage": "https://techcrunch.com/category/artificial-intelligence/"
+      },
+      "provider": {
+        "id": "techcrunch",
+        "name": "TechCrunch AI",
+        "kind": "publication"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Julie Bort"
+      ]
+    },
+    {
+      "id": "1560ea04dee0e58af37b6a0a1c62e198e8778cd634ed85f83714a56352b471ce",
+      "title": "Quick Study",
+      "url": "https://simonwillison.net/2026/Oct/23/quick-study-painter/",
+      "summary": "Tool: Quick Study Prompt to Claude Opus 5.5 High : Build an artifact where you open a photo and it rapidly (in a few seconds) paints a version of that photo using a canvas element and simulated paintbrush See also my previous experiment getting Claude Fable to simulate a watercolor illustration with P5.js. Quick Study uses Sobel edge detection , with no external libraries beyond Google Fonts. Tags: tools",
+      "published_at": "2026-10-23T21:35:13+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "simon-willison",
+        "name": "Simon Willison",
+        "type": "rss",
+        "homepage": "https://simonwillison.net/"
+      },
+      "provider": {
+        "id": "simonw",
+        "name": "Simon Willison",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": []
+    },
+    {
+      "id": "a6d2d5fdb7657f8a34ec9e61c18ba20954ad15d40397e484d28db50009013dd5",
+      "title": "OpenAI now trains its frontier AI models with no internet access",
+      "url": "https://www.theverge.com/ai-artificial-intelligence/1018021/openai-training-top-ai-models-no-internet",
+      "summary": "OpenAI is now training its most advanced AI models without internet access following a string of rogue hacking incidents. In a blog post on Friday, OpenAI says it built an offline testing environment where AI models can interact with indexed and cached web content \"without risk of affecting external systems.\" OpenAI paused training its frontier […]",
+      "published_at": "2026-10-23T21:11:07+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "verge-ai",
+        "name": "The Verge AI",
+        "type": "rss",
+        "homepage": "https://www.theverge.com/ai-artificial-intelligence"
+      },
+      "provider": {
+        "id": "verge",
+        "name": "The Verge AI",
+        "kind": "publication"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Emma Roth"
+      ]
+    },
+    {
+      "id": "e8b323168ec6f536c3e0d10528064bbcc0dd8f7069559ededea7510d55959955",
+      "title": "Far from RSI? Compute Shortages? Google CEO Sundar Pichai’s View Of AI’s Trajectory",
+      "url": "https://www.bigtechnology.com/p/far-from-rsi-compute-shortages-google",
+      "summary": "Google CEO says end state of RSI is far away, compute shortages are intense, and his Apple partnership is going well.",
+      "published_at": "2026-10-23T20:33:46+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "alex-kantrowitz",
+        "name": "Alex Kantrowitz",
+        "type": "rss",
+        "homepage": "https://www.bigtechnology.com/"
+      },
+      "provider": {
+        "id": "kantrowitz",
+        "name": "Alex Kantrowitz",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Alex Kantrowitz"
+      ]
+    },
+    {
+      "id": "9e0308113d32ae3fc53655209ad5823c1401d9ff168f092eade47d2354761f7a",
+      "title": "Introducing Kimi K3.1 Pro",
+      "url": "https://simonwillison.net/2026/Oct/23/kimi-k31-pro/",
+      "summary": "Introducing Kimi K3.1 Pro Kimi K3.1 Pro landed on the Kimi API today - it's not yet open weights, but Moonshot promise \"Full model weights will be released by Nov 4, 2026\". They're also offering a \"Highspeed\" version that's 2-3x faster, at twice the price (except for input token cache hits, which are priced the same). The US dollar pricing is $2.00/million tokens for input and $10/million for output - the same as GPT-6.1 Sol and half the price of Claude Opus 5.5. Moonshot's own benchmarks show Kimi as approximately level with Opus 5.5 and GPT-6 Astra - beating them on a few benchmarks, coming close on others. Artificial Analysis scored Kimi at 55 - ahead of Claude Fable 5.1, GPT-6 Astra, and Gemini 4 Argon (all at 53) and behind only Claude Opus 5.5 (58). This is the first time a (soon-to-be) open weight model has scored this highly against the frontier. I tried it out via the Moonshot API using the llm openai endpoint command I added to LLM 0.32 back in August: llm openai endpoint \\…",
+      "published_at": "2026-10-23T19:40:54+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "simon-willison",
+        "name": "Simon Willison",
+        "type": "rss",
+        "homepage": "https://simonwillison.net/"
+      },
+      "provider": {
+        "id": "simonw",
+        "name": "Simon Willison",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": []
+    }
+  ]
+}

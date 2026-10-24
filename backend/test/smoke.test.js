@@ -4,6 +4,7 @@ import os from "node:os";
 import path from "node:path";
 import test from "node:test";
 import { openDb } from "../src/db.js";
+import later from "../seed/later.json" with { type: "json" };
 import { parseFeed } from "../src/feeds.js";
 import { linkTerms } from "../src/link.js";
 
@@ -52,6 +53,11 @@ test("known terms are per user and lessons skip them", async () => {
 test("a fresh database does not include refresh-only people", () => {
   const db = tempDb();
   assert.equal(db.raw.posts.some((post) => post.author.id === "a_karpathy"), false);
+  const held = new Set(later.items.map((item) => item.url));
+  assert.equal(db.raw.posts.some((post) => held.has(post.url)), false);
+  const added = db.syncNews(later.items.map((item) => ({ ...item, fresh: true })));
+  assert.equal(added.added, later.items.length);
+  assert.equal(db.postsFor("demo")[0].fresh, true);
   const parsed = parseFeed(`
     <rss><channel>
       <item><title>Older</title><link>https://example.com/old</link><pubDate>Mon, 01 Jan 2024 00:00:00 GMT</pubDate></item>

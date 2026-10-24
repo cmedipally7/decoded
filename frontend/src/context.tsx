@@ -57,8 +57,15 @@ export function AppProvider({ children }: { children: ReactNode }) {
   }, [setUser]);
 
   useEffect(() => {
-    refreshUser();
-  }, [refreshUser]);
+    // Each new browser session (tab/window) starts at onboarding; a refresh keeps progress.
+    let fresh = false;
+    try {
+      fresh = !sessionStorage.getItem("decoded:session");
+      sessionStorage.setItem("decoded:session", "1");
+    } catch { /* storage blocked: keep existing progress */ }
+    if (fresh) api.devReset().then(({ user }) => setUser(user));
+    else refreshUser();
+  }, [refreshUser, setUser]);
 
   const toast = useCallback((msg: string) => {
     setToastMsg(msg);

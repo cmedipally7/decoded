@@ -11,7 +11,7 @@ type Verdict = { correct: boolean; explanation: string; answer?: string } | null
 
 export default function Lesson() {
   const nav = useNavigate();
-  const { setUser } = useApp();
+  const { setUser, user } = useApp();
   const [lesson, setLesson] = useState<LessonT | null>(null);
   const [queue, setQueue] = useState<number[]>([]);
   const [doneCount, setDoneCount] = useState(0);
@@ -61,7 +61,7 @@ export default function Lesson() {
   return (
     <div className="flex h-full flex-col">
       <div className="flex items-center gap-3 px-4 pt-5 pb-3">
-        <button onClick={() => nav("/learn")} className="text-stone-400 active:scale-90">
+        <button onClick={() => nav(`/${user?.homeTab ?? "learn"}`)} className="text-stone-400 active:scale-90">
           <X size={28} strokeWidth={2.5} />
         </button>
         <ProgressBar value={doneCount / total} className="h-4" />

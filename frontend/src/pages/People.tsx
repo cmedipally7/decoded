@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { api } from "../api";
 import { StreakHeader } from "../components/Layout";
 import { archMeta, Avatar, Skeleton } from "../components/ui";
-import { levelMeta, useApp } from "../context";
+import { lensMeta, levelMeta, useApp } from "../context";
 import type { Archetype, Author } from "../types";
 
 const ORDER: { a: Archetype; blurb: string }[] = [
@@ -13,7 +13,9 @@ const ORDER: { a: Archetype; blurb: string }[] = [
 ];
 
 export default function People() {
-  const { toast } = useApp();
+  const { toast, user } = useApp();
+  const lens = user?.lens;
+  const order = lens ? [...ORDER.filter((o) => o.a === lens), ...ORDER.filter((o) => o.a !== lens)] : ORDER;
   const [authors, setAuthors] = useState<Author[] | null>(null);
   useEffect(() => { api.getAuthors().then((r) => setAuthors(r.authors)); }, []);
 
@@ -33,12 +35,13 @@ export default function People() {
       <div className="mt-4 space-y-6 px-4">
         {!authors && <Skeleton className="h-64" />}
         {authors &&
-          ORDER.map(({ a, blurb }) => {
+          order.map(({ a, blurb }) => {
             const list = authors.filter((x) => x.archetype === a);
             if (!list.length) return null;
             const m = archMeta(a);
             return (
               <section key={a}>
+                {a === lens && <div className="mb-1 text-xs font-extrabold uppercase tracking-wider text-brand-600">Start here · your lens</div>}
                 <div className="flex items-baseline gap-2">
                   <h2 className="text-lg font-black">{m.emoji} {m.label}s</h2>
                   <span className="text-sm font-bold text-stone-400">{blurb}</span>

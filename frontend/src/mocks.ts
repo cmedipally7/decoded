@@ -1,8 +1,8 @@
 // Stateful in-memory mock backend. Implements the same behavior the real backend will:
 // queued feed terms show up in the next lesson, XP/streak/fluency update, decode, chat, etc.
-import { AUTHORS, DEMO_DECODES, INITIAL_KNOWN, PATH, PLACEMENT, POSTS, TERMS, type SeedPost, type SeedTerm } from "./mockData";
+import { AUTHORS, DEMO_DECODES, FRESH_TERMS, KNOWN_BY_LEVEL, LENS_PATH, PATH, PLACEMENT, POSTS, TERMS, WHY_BY_LENS, type SeedPost, type SeedTerm } from "./mockData";
 import type {
-  Archetype, Card, ChatMessage, CompleteResult, DecodeResult, Goal, Lesson, Level, Post, Source, Term, User,
+  Archetype, Card, ChatMessage, CompleteResult, DecodeResult, DailyGoal, Goal, HomeTab, Lens, Lesson, Level, Post, Source, Term, User,
 } from "./types";
 
 type Status = Term["status"];
@@ -24,30 +24,49 @@ const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 const clone = <T,>(x: T): T => JSON.parse(JSON.stringify(x));
 
 interface State {
-  user: { id: string; name: string; goal: Goal | null; level: Level; xp: number; streak: number; onboarded: boolean };
+  user: { id: string; name: string; goal: Goal | null; lens: Lens | null; level: Level; xp: number; streak: number; onboarded: boolean };
   status: Record<string, Status>;
   queueOrder: string[];
   day: number;
   lastLessonDay: number;
+  lastGoalMetDay: number;
+  reads: Record<number, string[]>;
+  dives: Record<number, string[]>;
   lessons: Record<number, Lesson & { termIds: string[] }>;
   following: Set<string>;
   userPosts: SeedPost[];
 }
 
-function freshState(): State {
+function makeState(level: Level, lens: Lens | null, opts: { streak: number; xp: number; onboarded: boolean }): State {
   const status: Record<string, Status> = {};
-  TERMS.forEach((t) => (status[t.id] = INITIAL_KNOWN.includes(t.id) ? "learning" : "new"));
+  const known = KNOWN_BY_LEVEL[level];
+  TERMS.forEach((t) => (status[t.id] = known.includes(t.id) ? "learning" : "new"));
   return {
-    user: { id: "demo", name: "Chai", goal: "work", level: "beginner", xp: 240, streak: 6, onboarded: true },
+    user: { id: "demo", name: "Chai", goal: null, lens, level, xp: opts.xp, streak: opts.streak, onboarded: opts.onboarded },
     status,
     queueOrder: [],
     day: 0,
     lastLessonDay: -1,
+    lastGoalMetDay: -1,
+    reads: {},
+    dives: {},
     lessons: {},
-    following: new Set(["a_leo", "a_rachel"]),
+    following: new Set(lens ? AUTHORS.filter((a) => a.archetype === lens).map((a) => a.id).slice(0, 1) : []),
     userPosts: [],
   };
 }
+
+// The demo opens on onboarding, as a brand-new user
+function freshState(): State {
+  return makeState("beginner", null, { streak: 0, xp: 0, onboarded: false });
+}
+
+// Ready-made personas for the demo switcher
+export const PERSONAS: Record<Level, { lens: Lens; streak: number; xp: number }> = {
+  beginner: { lens: "operator", streak: 2, xp: 60 },
+  amateur: { lens: "builder", streak: 6, xp: 240 },
+  pro: { lens: "investor", streak: 23, xp: 1850 },
+};
 
 let S = freshState();
 
@@ -62,9 +81,36 @@ function feedFluency(): number {
   return Math.round((known / total) * 100);
 }
 
+const HOME: Record<Level, HomeTab> = { beginner: "learn", amateur: "today", pro: "pulse" };
+
+function dailyGoal(): DailyGoal {
+  const lessonDone = S.lastLessonDay === S.day;
+  const reads = (S.reads[S.day] || []).length;
+  const dives = (S.dives[S.day] || []).length;
+  if (S.user.level === "beginner") return { label: "1 lesson", progress: lessonDone ? 1 : 0, target: 1, met: lessonDone };
+  if (S.user.level === "amateur") {
+    const progress = lessonDone ? 3 : Math.min(reads, 3);
+    return { label: "1 lesson or 3 posts", progress, target: 3, met: progress >= 3 };
+  }
+  const progress = Math.min(reads, 5) + Math.min(dives, 1);
+  return { label: "5 posts + 1 deep dive", progress, target: 6, met: progress >= 6 };
+}
+
+// Streak goes up the first time the daily goal is met each day
+function checkGoal() {
+  if (dailyGoal().met && S.lastGoalMetDay !== S.day) {
+    S.user.streak += 1;
+    S.lastGoalMetDay = S.day;
+    S.user.xp += 15;
+  }
+}
+
 function userOut(): User {
   return {
     ...S.user,
+    homeTab: HOME[S.user.level],
+    dailyGoal: dailyGoal(),
+    lessonDoneToday: S.lastLessonDay === S.day,
     wordsKnown: Object.values(S.status).filter((s) => s === "learning" || s === "known").length,
     feedFluency: feedFluency(),
     queuedTermsCount: Object.values(S.status).filter((s) => s === "queued").length,
@@ -87,16 +133,27 @@ function shuffle<T>(arr: T[], seed: number): T[] {
 
 function postOut(p: SeedPost): Post {
   const { counter, ...rest } = p;
-  return clone(rest);
+  const out = clone(rest) as Post;
+  out.debate = counter;
+  out.whyItMattersByLens = WHY_BY_LENS[p.id];
+  out.terms = out.terms.map((t) => ({ ...t, status: S.status[t.id] || "new" }));
+  return out;
+}
+
+function lensOrder(): string[] {
+  return LENS_PATH[S.user.lens || "operator"];
 }
 
 function buildLesson(day: number): Lesson & { termIds: string[] } {
   const level = S.user.level;
   const queued = S.queueOrder.filter((id) => S.status[id] === "queued").slice(0, 3);
-  const pathOrder = ["Foundations", "Models", "Building", "Business of AI", "Frontier"];
-  const fresh = TERMS.filter((t) => S.status[t.id] === "new")
+  const pathOrder = lensOrder();
+  const isPro = level === "pro";
+  const freshThisWeek = FRESH_TERMS.filter((id) => S.status[id] === "new");
+  const byPath = TERMS.filter((t) => S.status[t.id] === "new")
     .sort((a, b) => pathOrder.indexOf(a.category) - pathOrder.indexOf(b.category))
     .map((t) => t.id);
+  const fresh = isPro ? [...freshThisWeek, ...byPath] : byPath;
   const termIds = [...queued];
   for (const id of fresh) {
     if (termIds.length >= 3) break;
@@ -149,7 +206,7 @@ function buildLesson(day: number): Lesson & { termIds: string[] } {
     options: fbOpts, answerIndex: fbOpts.indexOf(fb.term), explanation: `${fb.term}: ${fb.definitions.beginner}`,
   });
 
-  const unit = queued.length ? "From your feed ✨" : terms[0]?.category || "Building";
+  const unit = isPro ? "New this week" : queued.length ? "From your feed ✨" : terms[0]?.category || "Building";
   return {
     id: `l_day${day}`, date: new Date(Date.now() + day * 86400_000).toISOString().slice(0, 10),
     unitTitle: unit, cards, completed: false, termIds,
@@ -210,7 +267,7 @@ const allPosts = () => [...S.userPosts, ...POSTS];
 
 export const mock = {
   async getMe() { await sleep(250); return userOut(); },
-  async updateMe(b: Partial<Pick<User, "level" | "name">>) {
+  async updateMe(b: Partial<Pick<User, "level" | "name" | "lens">>) {
     await sleep(250);
     Object.assign(S.user, b);
     delete S.lessons[S.day];
@@ -219,7 +276,9 @@ export const mock = {
   async getPath() {
     await sleep(250);
     let currentAssigned = false;
-    const units = PATH.map((u) => {
+    const order = lensOrder();
+    const ordered = [...PATH].sort((a, b) => order.indexOf(a.title) - order.indexOf(b.title));
+    const units = ordered.map((u) => {
       const ts = TERMS.filter((t) => t.category === u.title);
       const progress = ts.length ? ts.filter((t) => isKnown(t.id)).length / ts.length : 0;
       let status: "done" | "current" | "locked" = "locked";
@@ -240,6 +299,24 @@ export const mock = {
     return { level, score, user: userOut() };
   },
 
+  async onboard(level: Level, lens: Lens) {
+    await sleep(500);
+    S = makeState(level, lens, { streak: 0, xp: 0, onboarded: true });
+    return { user: userOut() };
+  },
+  async markRead(postId: string) {
+    await sleep(80);
+    const r = (S.reads[S.day] ||= []);
+    if (!r.includes(postId)) { r.push(postId); S.user.xp += 2; checkGoal(); }
+    return { user: userOut() };
+  },
+  async devSetPersona(level: Level) {
+    await sleep(250);
+    const p = PERSONAS[level];
+    S = makeState(level, p.lens, { streak: p.streak, xp: p.xp, onboarded: true });
+    return { user: userOut() };
+  },
+
   async getTodayLesson() {
     await sleep(350);
     if (!S.lessons[S.day]) S.lessons[S.day] = buildLesson(S.day);
@@ -258,7 +335,8 @@ export const mock = {
     l.termIds.forEach((id) => (S.status[id] = "learning"));
     l.completed = true;
     S.user.xp += 20;
-    if (S.lastLessonDay !== S.day) { S.user.streak += 1; S.lastLessonDay = S.day; }
+    S.lastLessonDay = S.day;
+    checkGoal();
     return {
       xpAwarded: 20, streak: S.user.streak, wordsLearned: l.termIds.map((id) => termById(id)!.term),
       feedFluencyBefore: before, feedFluencyAfter: feedFluency(), user: userOut(),
@@ -270,6 +348,11 @@ export const mock = {
     let posts = allPosts();
     if (f?.source === "user") posts = S.userPosts;
     else if (f?.archetype) posts = posts.filter((p) => p.author.archetype === f.archetype);
+    else if (S.user.lens) {
+      // "For you": the user's lens floats to the top, newest first within each group
+      const lens = S.user.lens;
+      posts = [...posts.filter((p) => p.author.archetype === lens), ...posts.filter((p) => p.author.archetype !== lens)];
+    }
     return { posts: posts.map(postOut) };
   },
   async getTerm(id: string): Promise<Term> {
@@ -317,9 +400,20 @@ export const mock = {
     const level = S.user.level;
     const q = (messages.filter((m) => m.role === "user").pop()?.content || "").toLowerCase();
     const author = AUTHORS.find((x) => x.id === p.author.id);
+    const dv = (S.dives[S.day] ||= []);
+    if (!dv.includes(postId)) { dv.push(postId); checkGoal(); }
+    const why = WHY_BY_LENS[p.id];
     const askedTerm = TERMS.find((t) => [t.term, ...t.aliases].some((n) => q.includes(n.toLowerCase())));
     let reply: string;
-    if (/who is|who's this|this person|author/.test(q)) {
+    if (/market|implication|invest/.test(q)) {
+      reply = `**For investors:** ${why?.investor ?? p.whyItMatters}\n\n**Where value could accrue:** look at who captures the savings or the new demand, and who gets squeezed.\n\nQuick check: which company would you expect to benefit most from this?`;
+    } else if (/build this|how would i build|ship/.test(q)) {
+      reply = `**For builders:** ${why?.builder ?? p.whyItMatters}\n\nA weekend version:\n• Pick one narrow workflow\n• Wire it to a model API with your own data\n• Write 20 test cases (evals) before you polish the UI\n\nQuick check: what's the smallest version you could ship this week?`;
+    } else if (/my team|use this|at work|rollout/.test(q)) {
+      reply = `**For operators:** ${why?.operator ?? p.whyItMatters}\n\nTry it as a 2-week pilot with one team, one workflow, and a clear before/after metric.\n\nQuick check: which process on your team is most repetitive today?`;
+    } else if (/evidence|proof|research|paper|data/.test(q)) {
+      reply = `**For researchers:** ${why?.researcher ?? p.whyItMatters}\n\nWhat I'd want to see: the benchmark or dataset behind the claim, a baseline comparison, and whether results held outside the author's own setup.\n\nQuick check: what experiment would change your mind?`;
+    } else if (/who is|who's this|this person|author/.test(q)) {
       reply = author
         ? `**${author.name}** (${author.handle}) is ${author.archetype === "investor" ? "an" : "a"} ${author.archetype}. ${author.bio}\n\n**Why people follow them:** ${author.whyFollow}\n\nQuick check: based on that, would you read their posts for *technical detail* or *big-picture takes*?`
         : `This was shared from **${p.author.handle}**. When you don't know a source, ask: are they building, researching, investing or operating? It changes how much to trust a claim.\n\nQuick check: what would you want to know about the author before sharing this?`;
@@ -336,7 +430,7 @@ export const mock = {
       reply = `Good question. Here's how I'd think about it at your level:\n\n${p.tldr[level]}\n\n**Why it matters:** ${p.whyItMatters}\n\nQuick check: what part of this would you want to dig into next?`;
     }
     const termSugs = p.terms.filter((t) => !q.includes(t.term.toLowerCase())).slice(0, 2).map((t) => `What does "${t.term}" mean?`);
-    const suggestions = [...termSugs, /counter/.test(q) ? "How would I mention this in a meeting?" : "What's the counter-argument?"].slice(0, 3);
+    const suggestions = [...termSugs.slice(0, level === "pro" ? 1 : 2), /counter/.test(q) ? "How would I mention this in a meeting?" : "What's the counter-argument?"].slice(0, 3);
     return { reply, suggestions };
   },
 

@@ -19,7 +19,7 @@ function CountUp({ from, to, suffix = "", delay = 0 }: { from: number; to: numbe
 export default function LessonDone() {
   const nav = useNavigate();
   const { state } = useLocation() as { state: CompleteResult | null };
-  const { refreshUser } = useApp();
+  const { refreshUser, user } = useApp();
   const [fluency, setFluency] = useState(state?.feedFluencyBefore ?? 0);
 
   useEffect(() => {
@@ -78,8 +78,17 @@ export default function LessonDone() {
       )}
 
       <div className="flex-1" />
-      <button onClick={() => { refreshUser(); nav("/pulse"); }} className="btn-ghost mt-6 w-full">Read today's feed</button>
-      <button onClick={() => { refreshUser(); nav("/learn"); }} className="btn-primary mt-3 w-full">Continue</button>
+      {user?.level === "beginner" ? (
+        <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.8 }} className="mt-6 rounded-2xl border-2 border-brand-200 bg-brand-50 p-4 text-center">
+          <div className="text-2xl">🔓</div>
+          <div className="font-black text-brand-800">You unlocked more of your feed</div>
+          <div className="text-sm font-semibold text-brand-700">Go see the words you just learned in real posts.</div>
+          <button onClick={() => { refreshUser(); nav("/pulse"); }} className="btn-primary mt-3 w-full">Read my feed</button>
+        </motion.div>
+      ) : (
+        <button onClick={() => { refreshUser(); nav("/pulse"); }} className="btn-ghost mt-6 w-full">Read today's feed</button>
+      )}
+      <button onClick={() => { refreshUser(); nav(`/${user?.homeTab ?? "learn"}`); }} className={`${user?.level === "beginner" ? "btn-ghost" : "btn-primary"} mt-3 w-full`}>Continue</button>
     </div>
   );
 }

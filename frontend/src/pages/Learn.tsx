@@ -31,8 +31,19 @@ export default function Learn() {
     <div className="pb-28">
       <StreakHeader />
       <div className="px-4 pt-2">
-        <h1 className="text-3xl font-black">Hi {user?.name ?? "there"} 👋</h1>
-        <p className="font-semibold text-stone-500">5 minutes a day to speak AI fluently.</p>
+        {user?.level === "pro" ? (
+          <>
+            <h1 className="text-3xl font-black">New this week ⚡</h1>
+            <p className="font-semibold text-stone-500">Terms coined or trending in the last 7 days. Two minutes and you're current.</p>
+          </>
+        ) : (
+          <>
+            <h1 className="text-3xl font-black">Hi {user?.name ?? "there"} 👋</h1>
+            <p className="font-semibold text-stone-500">
+              {user?.level === "beginner" ? "Start here. 5 minutes a day, no jargon." : "5 minutes a day to speak AI fluently."}
+            </p>
+          </>
+        )}
 
         {!lesson ? (
           <Skeleton className="mt-4 h-48" />
@@ -77,7 +88,7 @@ export default function Learn() {
           </div>
         )}
 
-        <h2 className="mt-8 text-lg font-black">Your path</h2>
+        <h2 className="mt-8 text-lg font-black">{user?.level === "pro" ? "The full path" : "Your path"}</h2>
         <div className="relative mt-10 flex flex-col items-center gap-12 pb-6">
           {!units && <Skeleton className="h-64 w-full" />}
           {units?.map((u, i) => (

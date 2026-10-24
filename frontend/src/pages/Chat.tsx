@@ -8,12 +8,25 @@ import { Avatar, Markdown } from "../components/ui";
 import { levelMeta, useApp } from "../context";
 import type { ChatMessage, Post } from "../types";
 
-const STARTERS = ["Explain like I'm new", "Who is this person?", "What's the counter-argument?", "How would I mention this in a meeting?"];
+import type { Lens } from "../types";
+const LENS_STARTER: Record<Lens, string> = {
+  investor: "What's the market implication?",
+  builder: "How would I build this?",
+  operator: "How would my team use this?",
+  researcher: "What's the evidence?",
+};
+function startersFor(level: string, lens: Lens | null | undefined) {
+  const lensQ = lens ? [LENS_STARTER[lens]] : [];
+  if (level === "pro") return [...lensQ, "What's the counter-argument?", "Who is this person?"];
+  if (level === "amateur") return [...lensQ, "Explain like I'm new", "How would I mention this in a meeting?"];
+  return ["Explain like I'm new", ...lensQ, "How would I mention this in a meeting?"];
+}
 
 export default function Chat() {
   const { postId = "" } = useParams();
   const nav = useNavigate();
-  const { getPost, rememberPosts, viewLevel, refreshUser } = useApp();
+  const { getPost, rememberPosts, viewLevel, refreshUser, user } = useApp();
+  const STARTERS = startersFor(user?.level ?? "beginner", user?.lens);
   const [post, setPost] = useState<Post | null>(getPost(postId) || null);
   const [msgs, setMsgs] = useState<ChatMessage[]>([]);
   const [suggestions, setSuggestions] = useState<string[]>(STARTERS);
@@ -78,7 +91,7 @@ export default function Chat() {
             {pinOpen && (
               <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
                 <div className="pt-2 text-sm">
-                  <TermHighlighter text={post.tldr[viewLevel]} terms={post.terms} />
+                  <TermHighlighter text={post.tldr[viewLevel]} terms={viewLevel === "pro" ? post.terms.filter((t) => t.status !== "learning" && t.status !== "known") : post.terms} />
                 </div>
               </motion.div>
             )}

@@ -2,13 +2,26 @@
 export type Level = "beginner" | "amateur" | "pro";
 export type Archetype = "researcher" | "builder" | "investor" | "operator";
 export type Source = "x" | "linkedin" | "substack" | "user";
-export type Goal = "work" | "invest" | "switch" | "curious";
+export type Goal = "work" | "invest" | "switch" | "curious"; // legacy, replaced by lens
+export type Lens = Archetype; // the user's area of focus: research / building / investing / operating
+export type HomeTab = "learn" | "today" | "pulse";
+
+export interface DailyGoal {
+  label: string;      // "1 lesson" | "1 lesson or 3 posts" | "5 posts + 1 deep dive"
+  progress: number;   // units done
+  target: number;     // units needed
+  met: boolean;
+}
 
 export interface User {
   id: string;
   name: string;
-  goal: Goal | null;
+  goal?: Goal | null;
+  lens: Lens | null;
   level: Level;
+  homeTab: HomeTab;         // beginner→learn, amateur→today, pro→pulse
+  dailyGoal: DailyGoal;
+  lessonDoneToday: boolean;
   xp: number;
   streak: number;
   wordsKnown: number;
@@ -32,6 +45,7 @@ export interface Author {
 export interface TermRef {
   id: string;
   term: string;
+  status?: "new" | "queued" | "learning" | "known"; // this user's status for the term (optional)
 }
 
 export interface Post {
@@ -43,6 +57,8 @@ export interface Post {
   text: string;
   tldr: Record<Level, string>;
   whyItMatters: string;
+  whyItMattersByLens?: Partial<Record<Lens, string>>; // lens-specific framing; falls back to whyItMatters
+  debate?: string;                                     // the strongest counter-argument
   terms: TermRef[];
   topic: string | null;
   fresh?: boolean;

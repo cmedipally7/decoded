@@ -1,6 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState, type ReactNode } from "react";
 import { api } from "./api";
-import type { Level, Post, User } from "./types";
+import type { Lens, Level, Post, User } from "./types";
 
 interface Ctx {
   user: User | null;
@@ -38,15 +38,16 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const posts = useRef<Map<string, Post>>(new Map());
   const toastTimer = useRef<number>();
   const prevXp = useRef<number | null>(null);
-  const levelSynced = useRef(false);
+  const prevLevel = useRef<Level | null>(null);
 
   const setUser = useCallback((u: User) => {
     if (prevXp.current !== null && u.xp > prevXp.current) setXpFlash((n) => n + 1);
     prevXp.current = u.xp;
     setUserState(u);
-    if (!levelSynced.current) {
+    // Follow the user's level whenever it changes (onboarding, persona switch, settings)
+    if (prevLevel.current !== u.level) {
       setViewLevel(u.level);
-      levelSynced.current = true;
+      prevLevel.current = u.level;
     }
   }, []);
 
@@ -96,3 +97,11 @@ export const LEVELS: { id: Level; emoji: string; label: string }[] = [
   { id: "pro", emoji: "🌳", label: "Pro" },
 ];
 export const levelMeta = (l: Level) => LEVELS.find((x) => x.id === l)!;
+
+export const LENSES: { id: Lens; emoji: string; label: string; noun: string; blurb: string }[] = [
+  { id: "researcher", emoji: "🔬", label: "Research", noun: "researchers", blurb: "Papers, models, what's actually new" },
+  { id: "builder", emoji: "🛠️", label: "Building", noun: "builders", blurb: "Products, tools, shipping with AI" },
+  { id: "investor", emoji: "💰", label: "Investing", noun: "investors", blurb: "Markets, moats, where money flows" },
+  { id: "operator", emoji: "⚙️", label: "Operating", noun: "operators", blurb: "Rolling AI out at work and on teams" },
+];
+export const lensMeta = (l: Lens | null | undefined) => LENSES.find((x) => x.id === l) ?? LENSES[3];

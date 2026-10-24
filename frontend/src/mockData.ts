@@ -1,5 +1,5 @@
 // Seed content for mock mode. Authors are FICTIONAL sample voices; the backend replaces them with real data.
-import type { Author, Level, PathUnit, PlacementQuestion, Post } from "./types";
+import type { Archetype, Author, Level, PathUnit, PlacementQuestion, Post } from "./types";
 
 export interface SeedTerm {
   id: string;
@@ -392,3 +392,94 @@ export const PLACEMENT: (PlacementQuestion & { answer: number })[] = [
   { id: "q4", question: "RAG mainly helps an AI…", options: ["Generate images", "Run on phones", "Look up relevant information before answering", "Train faster"], answer: 2 },
   { id: "q5", question: "'Test-time compute' refers to…", options: ["Compute used during pre-training", "Extra compute spent while answering to improve accuracy", "GPU benchmarks", "Unit-testing AI code"], answer: 1 },
 ];
+
+// ---------- Personalization seed ----------
+
+// Unit order after Foundations, per lens
+export const LENS_PATH: Record<Archetype, string[]> = {
+  researcher: ["Foundations", "Models", "Frontier", "Building", "Business of AI"],
+  builder: ["Foundations", "Building", "Models", "Business of AI", "Frontier"],
+  investor: ["Foundations", "Business of AI", "Models", "Building", "Frontier"],
+  operator: ["Foundations", "Building", "Business of AI", "Models", "Frontier"],
+};
+
+// Terms coined or newly hot this week, used for the Pro "New this week" drill
+export const FRESH_TERMS = ["t_test_time_compute", "t_mcp", "t_vibe_coding", "t_reasoning_model", "t_capex"];
+
+// Starting vocabulary per self-reported level
+export const KNOWN_BY_LEVEL: Record<"beginner" | "amateur" | "pro", string[]> = {
+  beginner: ["t_llm", "t_prompt"],
+  amateur: INITIAL_KNOWN,
+  pro: TERMS.map((t) => t.id).filter((id) => !FRESH_TERMS.includes(id) && id !== "t_wrapper"),
+};
+
+export const LENS_LABEL: Record<Archetype, { label: string; noun: string; emoji: string }> = {
+  researcher: { label: "Research", noun: "researchers", emoji: "🔬" },
+  builder: { label: "Building", noun: "builders", emoji: "🛠️" },
+  investor: { label: "Investing", noun: "investors", emoji: "💰" },
+  operator: { label: "Operating", noun: "operators", emoji: "⚙️" },
+};
+
+// "Why it matters" written for each lens
+export const WHY_BY_LENS: Record<string, Record<Archetype, string>> = {
+  p_001: {
+    researcher: "Cost curves this steep shift the open question from 'can we afford it' to 'how do we measure it'. Evals research just became the bottleneck.",
+    builder: "At these prices you can put an agent on every request. Your real job now is building the eval suite that tells you it's right.",
+    investor: "Falling unit costs expand the market for agent products and squeeze pure-API resellers. Back teams with proprietary evals.",
+    operator: "AI support on 100% of tickets is now cheaper than your old bot. Budget for quality checks, not just the license.",
+  },
+  p_002: {
+    researcher: "Test-time compute is a second scaling axis. Expect papers on when longer thinking stops paying off.",
+    builder: "Route requests: a fast model for simple tasks, a reasoning model for hard ones. Latency and cost now depend on that choice.",
+    investor: "More compute per answer means more inference demand. It's bullish for chips and a margin question for model providers.",
+    operator: "Some AI answers will take 30 seconds and cost more. Decide which workflows deserve the 'smart' mode.",
+  },
+  p_003: {
+    researcher: "A real-world signal that integration and grounding matter more for adoption than benchmark gains.",
+    builder: "Shipping MCP connectors to the tools people already use is where the value is. The model is swappable.",
+    investor: "Value in enterprise AI is accruing to the integration layer. Watch companies that own the connectors.",
+    operator: "This is the playbook: connect AI to your existing tools, train people on prompting, require citations.",
+  },
+  p_004: {
+    researcher: "Open models trailing closed ones by about 6 months changes what's reproducible in academia.",
+    builder: "You can now fine-tune a strong open model on your own data in a weekend and host it yourself.",
+    investor: "Open-weights parity pressures closed-model pricing. Moats must come from somewhere other than the model.",
+    operator: "You have more options than one vendor. Self-hosted open models can solve data-privacy blockers.",
+  },
+  p_005: {
+    researcher: "Compute budgets set the ceiling on what frontier labs can train next year.",
+    builder: "More data centers mean cheaper, more available GPUs for builders over the next 18 months.",
+    investor: "This is the bubble debate. Model depreciation schedules against inference revenue growth.",
+    operator: "Your AI vendors' prices depend on this spending. Expect falling costs if the capacity gets built.",
+  },
+  p_006: {
+    researcher: "Vibe coding is a live experiment in how far natural language can replace programming.",
+    builder: "Prototype in a weekend, but plan for code review and security before you scale.",
+    investor: "Build costs are collapsing, so distribution becomes the scarce asset. Underwrite go-to-market, not tech.",
+    operator: "Your non-engineers can now build internal tools. Set guardrails before shadow apps multiply.",
+  },
+  p_007: {
+    researcher: "Proprietary evals are becoming a commercial asset, not just a research tool.",
+    builder: "If your pitch is 'we use the best model', you don't have a moat. Own the workflow or the data.",
+    investor: "Use this as your diligence checklist: data loops, workflow lock-in, proprietary evals.",
+    operator: "When buying AI tools, prefer vendors embedded in your workflow over thin wrappers.",
+  },
+  p_008: {
+    researcher: "Long context hasn't solved recall reliability. Retrieval is still the more dependable design.",
+    builder: "Start with RAG plus embeddings for your internal assistant. It's cheaper and easier to keep fresh.",
+    investor: "Vector DB and retrieval infrastructure stays relevant even as context windows grow.",
+    operator: "For a company knowledge assistant, ask vendors how they do retrieval, not just which model they use.",
+  },
+  p_009: {
+    researcher: "Autonomous task horizon is a cleaner, measurable proxy than 'AGI'. Watch for evals built on it.",
+    builder: "Agents that run for hours need checkpoints, logs and human review built in.",
+    investor: "Agent autonomy length is the metric that unlocks labor-replacement revenue. Track it.",
+    operator: "Ask how long an AI agent can work unsupervised before trusting it with a process.",
+  },
+  p_010: {
+    researcher: "AI literacy is spreading to non-technical roles, which changes who evaluates research claims.",
+    builder: "Your PMs will start asking about tokens and context limits. Good: scoping gets better.",
+    investor: "Teams with AI-fluent PMs ship AI features faster. It's a signal in diligence.",
+    operator: "Make basic AI vocabulary part of onboarding for product and ops roles.",
+  },
+};

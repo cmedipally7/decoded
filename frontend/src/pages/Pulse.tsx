@@ -1,16 +1,16 @@
 import { motion } from "framer-motion";
-import { Sparkles } from "lucide-react";
+import { Lock, Sparkles } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { api } from "../api";
 import { PostCard } from "../components/PostCard";
 import { StreakHeader } from "../components/Layout";
 import { LevelToggle, Skeleton } from "../components/ui";
-import { useApp } from "../context";
+import { lensMeta, useApp } from "../context";
 import type { Archetype, Post } from "../types";
 
 type Filter = "all" | Archetype | "mine";
 const FILTERS: { id: Filter; label: string }[] = [
-  { id: "all", label: "All" },
   { id: "researcher", label: "🔬 Researchers" },
   { id: "builder", label: "🛠️ Builders" },
   { id: "investor", label: "💰 Investors" },
@@ -20,6 +20,14 @@ const FILTERS: { id: Filter; label: string }[] = [
 
 export default function Pulse() {
   const { viewLevel, setViewLevel, rememberPosts, feedVersion, bumpFeed, setDecodeOpen, user, toast } = useApp();
+  const nav = useNavigate();
+  const lm = lensMeta(user?.lens);
+  const level = user?.level ?? "beginner";
+  const STARTER = 3;
+  const locked = level === "beginner" && !user?.lessonDoneToday;
+  const chips: { id: Filter; label: string }[] = [{ id: "all", label: user?.lens ? `✨ For you · ${lm.emoji}` : "All" }, ...FILTERS];
+  const subtitle =
+    level === "beginner" ? "Your starter feed, explained simply" : level === "amateur" ? `Picked for ${lm.noun}, at your level` : `What ${lm.noun} are arguing about today`;
   const [filter, setFilter] = useState<Filter>("all");
   const [posts, setPosts] = useState<Post[] | null>(null);
   const [refreshing, setRefreshing] = useState(false);
@@ -42,7 +50,7 @@ export default function Pulse() {
       rememberPosts(r.posts);
       setPosts(r.posts);
     });
-  }, [filter, feedVersion]);
+  }, [filter, feedVersion, user?.lens, user?.level]);
 
   return (
     <div className="pb-28">
@@ -51,7 +59,7 @@ export default function Pulse() {
         <div className="flex items-end justify-between">
           <div>
             <h1 className="text-3xl font-black">Pulse</h1>
-            <p className="font-semibold text-stone-500">What AI people are saying today</p>
+            <p className="font-semibold text-stone-500">{subtitle}</p>
           </div>
           {user && (
             <div className="text-right">
@@ -69,7 +77,7 @@ export default function Pulse() {
       </div>
 
       <div className="no-scrollbar mt-3 flex gap-2 overflow-x-auto px-4 pb-1">
-        {FILTERS.map((f) => (
+        {chips.map((f) => (
           <button
             key={f.id}
             onClick={() => setFilter(f.id)}
@@ -99,11 +107,26 @@ export default function Pulse() {
             </button>
           </div>
         )}
-        {posts?.map((p, i) => (
+        {posts?.slice(0, locked && filter !== "mine" ? STARTER : undefined).map((p, i) => (
           <motion.div key={p.id} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: Math.min(i, 5) * 0.05 }}>
-            <PostCard post={p} />
+            <PostCard post={p} trackRead />
           </motion.div>
         ))}
+        {posts && locked && filter !== "mine" && posts.length > STARTER && (
+          <div className="relative overflow-hidden rounded-2xl">
+            <div className="pointer-events-none select-none blur-[3px] opacity-60">
+              <PostCard post={posts[STARTER]} showActions={false} />
+            </div>
+            <div className="absolute inset-0 grid place-items-center bg-gradient-to-b from-transparent via-paper/70 to-paper p-6 text-center">
+              <div>
+                <div className="mx-auto grid h-12 w-12 place-items-center rounded-full bg-brand-600 text-white"><Lock size={22} /></div>
+                <p className="mt-3 text-lg font-black">{posts.length - STARTER} more posts are waiting</p>
+                <p className="text-sm font-semibold text-stone-500">Finish today's lesson to unlock them. You'll understand more of each one.</p>
+                <button onClick={() => nav("/learn")} className="btn-primary mt-4">Go to today's lesson</button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

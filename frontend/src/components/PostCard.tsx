@@ -1,8 +1,9 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { ChevronDown, ExternalLink, MessageCircle } from "lucide-react";
-import { useState } from "react";
+import { Check, ChevronDown, ExternalLink, MessageCircle, Swords } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useApp } from "../context";
+import { api } from "../api";
+import { lensMeta, useApp } from "../context";
 import type { Post, TermRef } from "../types";
 import { ArchetypePill, Avatar, SourceIcon, timeAgo } from "./ui";
 
@@ -62,12 +63,47 @@ export function TermHighlighter({ text, terms, showMissing = true }: { text: str
   );
 }
 
-export function PostCard({ post, compact = false, showActions = true }: { post: Post; compact?: boolean; showActions?: boolean }) {
-  const { viewLevel } = useApp();
+/** Marks a post as read after it has been mostly on screen for 1.5s (counts toward the daily goal). */
+function useReadTracking(postId: string, enabled: boolean) {
+  const ref = useRef<HTMLDivElement>(null);
+  const { setUser } = useApp();
+  const [read, setRead] = useState(false);
+  useEffect(() => {
+    if (!enabled || !ref.current) return;
+    let timer: number | undefined;
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) {
+          timer = window.setTimeout(async () => {
+            io.disconnect();
+            setRead(true);
+            const r = await api.markRead(postId);
+            setUser(r.user);
+          }, 1500);
+        } else window.clearTimeout(timer);
+      },
+      { threshold: 0.6 },
+    );
+    io.observe(ref.current);
+    return () => { io.disconnect(); window.clearTimeout(timer); };
+  }, [postId, enabled]);
+  return { ref, read };
+}
+
+export function PostCard({ post, compact = false, showActions = true, trackRead = false }: { post: Post; compact?: boolean; showActions?: boolean; trackRead?: boolean }) {
+  const { viewLevel, user } = useApp();
   const nav = useNavigate();
   const [showOrig, setShowOrig] = useState(false);
+  const { ref, read } = useReadTracking(post.id, trackRead);
+  const isPro = viewLevel === "pro";
+  const lens = user?.lens ?? null;
+  const lm = lensMeta(lens);
+  const lensWhy = lens ? post.whyItMattersByLens?.[lens] : undefined;
+  // Pros only see underlines on words they don't know yet
+  const terms = isPro ? post.terms.filter((t) => t.status !== "learning" && t.status !== "known") : post.terms;
+
   return (
-    <motion.article layout className="card p-4">
+    <motion.article ref={ref} layout className="card p-4">
       <header className="flex items-center gap-3">
         <Avatar name={post.author.name} url={post.author.avatarUrl} />
         <div className="min-w-0 flex-1">
@@ -84,6 +120,11 @@ export function PostCard({ post, compact = false, showActions = true }: { post: 
             {post.source === "user" && <span className="rounded-full bg-brand-100 px-2 py-0.5 text-[11px] font-extrabold uppercase text-brand-700">Decoded</span>}
           </div>
         </div>
+        {read && (
+          <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-ok-100 text-ok-600" title="Counted toward today's goal">
+            <Check size={14} strokeWidth={3.5} />
+          </motion.span>
+        )}
       </header>
 
       {post.topic && <div className="mt-3 text-[11px] font-extrabold uppercase tracking-wider text-brand-600">{post.topic}</div>}
@@ -97,18 +138,35 @@ export function PostCard({ post, compact = false, showActions = true }: { post: 
           transition={{ duration: 0.18 }}
           className="mt-1 text-[15px]"
         >
-          <TermHighlighter text={post.tldr[viewLevel]} terms={post.terms} />
+          {isPro && !compact ? (
+            <>
+              <TermHighlighter text={post.text} terms={terms} />
+              <div className="mt-3 rounded-xl bg-stone-50 px-3 py-2 text-sm text-stone-700">
+                <span className="font-extrabold text-stone-500">TL;DR </span>
+                {post.tldr.pro}
+              </div>
+            </>
+          ) : (
+            <TermHighlighter text={post.tldr[viewLevel]} terms={terms} />
+          )}
         </motion.div>
       </AnimatePresence>
 
-      {!compact && (
-        <div className="mt-3 rounded-xl bg-amber-50 border border-amber-100 px-3 py-2 text-sm">
-          <span className="font-extrabold">💡 Why it matters: </span>
-          {post.whyItMatters}
+      {!compact && isPro && post.debate && (
+        <div className="mt-3 rounded-xl border border-sky-100 bg-sky-50 px-3 py-2 text-sm">
+          <div className="flex items-center gap-1.5 font-extrabold text-sky-800"><Swords size={14} /> The debate</div>
+          <p className="mt-0.5 text-sky-900">{post.debate}</p>
         </div>
       )}
 
-      {!compact && (
+      {!compact && (lensWhy || !isPro) && (
+        <div className="mt-3 rounded-xl bg-amber-50 border border-amber-100 px-3 py-2 text-sm">
+          <span className="font-extrabold">{lensWhy ? `${lm.emoji} For ${lm.noun}: ` : "💡 Why it matters: "}</span>
+          {lensWhy ?? post.whyItMatters}
+        </div>
+      )}
+
+      {!compact && !isPro && (
         <>
           <button onClick={() => setShowOrig((s) => !s)} className="mt-3 flex items-center gap-1 text-xs font-bold text-stone-500">
             <ChevronDown size={14} className={`transition-transform ${showOrig ? "rotate-180" : ""}`} />
@@ -118,7 +176,7 @@ export function PostCard({ post, compact = false, showActions = true }: { post: 
             {showOrig && (
               <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
                 <div className="mt-2 rounded-xl bg-stone-50 p-3 text-sm text-stone-700 border-l-4 border-stone-300">
-                  <TermHighlighter text={post.text} terms={post.terms} showMissing={false} />
+                  <TermHighlighter text={post.text} terms={terms} showMissing={false} />
                 </div>
               </motion.div>
             )}

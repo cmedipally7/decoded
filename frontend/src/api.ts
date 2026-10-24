@@ -9,14 +9,14 @@
 
 import { mock } from "./mocks";
 import type {
-  Archetype, ChatMessage, CompleteResult, DecodeResult, Goal, Lesson, Level,
+  Archetype, ChatMessage, Lens, CompleteResult, DecodeResult, Goal, Lesson, Level,
   PathUnit, PlacementQuestion, Post, Source, Term, User, Author,
 } from "./types";
 
 const LIVE = new Set<string>([
   // "getMe", "getFeed", "getTerm", "getAuthors", "getPath",
   // "getTodayLesson", "answerCard", "completeLesson", "queueTerm", "devNextDay", "devReset",
-  // "decode", "chat", "getPlacementQs", "submitPlacement", "updateMe", "follow",
+  // "decode", "chat", "onboard", "markRead", "updateMe", "follow", "devSetPersona",
 ]);
 
 const BASE = (import.meta.env.VITE_API_BASE_URL as string | undefined)?.replace(/\/$/, "") || "";
@@ -56,9 +56,16 @@ const json = (body: unknown) => JSON.stringify(body);
 
 export const api = {
   getMe: () => call<User>("getMe", () => http("/me"), mock.getMe),
-  updateMe: (b: Partial<Pick<User, "level" | "name">>) =>
+  updateMe: (b: Partial<Pick<User, "level" | "name" | "lens">>) =>
     call<User>("updateMe", () => http("/me", { method: "PATCH", body: json(b) }), () => mock.updateMe(b)),
   getPath: () => call<{ units: PathUnit[] }>("getPath", () => http("/path"), mock.getPath),
+
+  // Onboarding: self-reported level + lens (area of focus)
+  onboard: (level: Level, lens: Lens) =>
+    call<{ user: User }>("onboard", () => http("/onboarding", { method: "POST", body: json({ level, lens }) }), () => mock.onboard(level, lens)),
+  // Counts toward the daily goal (amateur: 3 posts, pro: 5 posts)
+  markRead: (postId: string) =>
+    call<{ user: User }>("markRead", () => http(`/feed/${postId}/read`, { method: "POST" }), () => mock.markRead(postId)),
 
   getPlacementQs: () =>
     call<{ questions: PlacementQuestion[] }>("getPlacementQs", () => http("/placement/questions"), mock.getPlacementQs),
@@ -123,6 +130,8 @@ export const api = {
     ),
 
   devNextDay: () => call<{ user: User }>("devNextDay", () => http("/dev/next-day", { method: "POST" }), mock.devNextDay),
+  devSetPersona: (level: Level) =>
+    call<{ user: User }>("devSetPersona", () => http("/dev/persona", { method: "POST", body: json({ level }) }), () => mock.devSetPersona(level)),
   devReset: () => call<{ user: User }>("devReset", () => http("/dev/reset", { method: "POST" }), mock.devReset),
 };
 

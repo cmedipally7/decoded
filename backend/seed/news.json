@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0.0",
-  "generated_at": "2026-10-24T16:09:39+00:00",
+  "generated_at": "2026-10-24T16:30:05+00:00",
   "filters": {
     "providers": [],
     "subjects": [
@@ -20,7 +20,7 @@
       "url": "https://techcrunch.com/2026/10/24/blocks-new-voice-model-sounds-eerily-human/",
       "summary": "Block said that the voice model can run locally on a MacBook M4 Max",
       "published_at": "2026-10-24T16:00:00+00:00",
-      "fetched_at": "2026-10-24T16:09:39+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
       "source": {
         "id": "techcrunch-ai",
         "name": "TechCrunch AI",
@@ -45,7 +45,7 @@
       "url": "https://www.lennysnewsletter.com/p/community-wisdom-negotiating-a-lowball",
       "summary": "Community Wisdom 303",
       "published_at": "2026-10-24T15:11:42+00:00",
-      "fetched_at": "2026-10-24T16:09:39+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
       "source": {
         "id": "lenny-rachitsky",
         "name": "Lenny Rachitsky",
@@ -70,7 +70,7 @@
       "url": "https://techcrunch.com/2026/10/24/forced-to-pick-groks-ai-model-chooses-republicans-openais-picks-democrats/",
       "summary": "A new study found Grok's AI overwhelmingly recommends Republican candidates while OpenAI's GPT favors Democrats, with the two AI models disagreeing in more than 90% of nearly 500 election races.",
       "published_at": "2026-10-24T15:00:00+00:00",
-      "fetched_at": "2026-10-24T16:09:39+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
       "source": {
         "id": "techcrunch-ai",
         "name": "TechCrunch AI",
@@ -90,12 +90,37 @@
       ]
     },
     {
+      "id": "ba1e969f5ed16b52b1196083849c9f216bf1930e1ba56ea1c7e8d4f49c425307",
+      "title": "Here are the top AI agents that can live in your text messages",
+      "url": "https://techcrunch.com/2026/10/24/all-the-ai-agents-that-can-live-in-your-text-messages/",
+      "summary": "We created a list of the most notable AI agents that can live in your text messages, from general assistants to agents designed for families, travel, and work.",
+      "published_at": "2026-10-24T14:00:00+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "techcrunch-ai",
+        "name": "TechCrunch AI",
+        "type": "rss",
+        "homepage": "https://techcrunch.com/category/artificial-intelligence/"
+      },
+      "provider": {
+        "id": "techcrunch",
+        "name": "TechCrunch AI",
+        "kind": "publication"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Lauren Forristal"
+      ]
+    },
+    {
       "id": "da8785cc5779f5c99a9497af0bbc10a24e66f14979af685060f18bf8df927b12",
       "title": "Build Your Own Reasoning Model: A Full Video Course",
       "url": "https://magazine.sebastianraschka.com/p/building-reasoning-models",
       "summary": "Over 11 hours of coding videos on evaluation, inference-time scaling, reinforcement learning, and distillation, with Python and PyTorch.",
       "published_at": "2026-10-24T11:14:32+00:00",
-      "fetched_at": "2026-10-24T16:09:39+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
       "source": {
         "id": "sebastian-raschka",
         "name": "Sebastian Raschka",
@@ -121,7 +146,7 @@
       "url": "https://simonwillison.net/2026/Oct/24/battledrones/",
       "summary": "Release: battledrones v14: Compass Rose, a four player map I added four player online mode to Battledrones - previous maps were limited to two. Here's the initial prompt I used: Add a new map for a four player battle - four way rotational symmetry, up to four AI players, works with the WebSocket non-audio based multiplayer mode so up to four human players can join (any spare slots use AI) Claude Opus 4.5 added a new map called \"Compass Rose\" and modified the WebSockets multiplayer network code to support up to four players for that map, joining via share links or QR codes. The new teams use robots themed in purple and green, joining the existing blue and red designs. You can preview those colors in the updated model browser . Here's a replay link to watch a four way AI battle with the \"Goliath Armada\" mutator turned on, where each side starts with four giant Goliath mech units. Tags: game-design , projects , claude",
       "published_at": "2026-10-24T03:59:57+00:00",
-      "fetched_at": "2026-10-24T16:09:39+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
       "source": {
         "id": "simon-willison",
         "name": "Simon Willison",
@@ -139,12 +164,62 @@
       "authors": []
     },
     {
+      "id": "dfe5fb536ca517ba2b1e8957d93c99b2441dba4dbfd672c100d88c5d97753da0",
+      "title": "OpenAI says it will no longer train its AI models on the live internet, citing “significant risks”",
+      "url": "https://techcrunch.com/2026/10/23/openai-says-it-will-no-longer-train-its-ai-models-on-the-live-internet-citing-significant-risks/",
+      "summary": "OpenAI will cut frontier models off from the internet weeks after one of its engineers said that solution wouldn't work.",
+      "published_at": "2026-10-23T23:05:49+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "techcrunch-ai",
+        "name": "TechCrunch AI",
+        "type": "rss",
+        "homepage": "https://techcrunch.com/category/artificial-intelligence/"
+      },
+      "provider": {
+        "id": "techcrunch",
+        "name": "TechCrunch AI",
+        "kind": "publication"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Tim Fernholz"
+      ]
+    },
+    {
+      "id": "739797ca19c060e4a9ba902b3a0f581adbbbd2922c64d64c0be5b4396358d3ea",
+      "title": "Hottest toy for Christmas? Nvidia CEO plays with adorable Microduck robots, 20,000 sell",
+      "url": "https://techcrunch.com/2026/10/23/hottest-toy-for-christmas-nvidia-ceo-plays-with-adorable-microduck-robots-20000-sell/",
+      "summary": "The robots, stomping their little feet and making tiny R2-D2 noises, sat, fell down dead for a \"nap,\" and summersaulted on voice command.",
+      "published_at": "2026-10-23T21:59:19+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "techcrunch-ai",
+        "name": "TechCrunch AI",
+        "type": "rss",
+        "homepage": "https://techcrunch.com/category/artificial-intelligence/"
+      },
+      "provider": {
+        "id": "techcrunch",
+        "name": "TechCrunch AI",
+        "kind": "publication"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Julie Bort"
+      ]
+    },
+    {
       "id": "1560ea04dee0e58af37b6a0a1c62e198e8778cd634ed85f83714a56352b471ce",
       "title": "Quick Study",
       "url": "https://simonwillison.net/2026/Oct/23/quick-study-painter/",
       "summary": "Tool: Quick Study Prompt to Claude Opus 5.5 High : Build an artifact where you open a photo and it rapidly (in a few seconds) paints a version of that photo using a canvas element and simulated paintbrush See also my previous experiment getting Claude Fable to simulate a watercolor illustration with P5.js. Quick Study uses Sobel edge detection , with no external libraries beyond Google Fonts. Tags: tools",
       "published_at": "2026-10-23T21:35:13+00:00",
-      "fetched_at": "2026-10-24T16:09:39+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
       "source": {
         "id": "simon-willison",
         "name": "Simon Willison",
@@ -167,7 +242,7 @@
       "url": "https://www.theverge.com/ai-artificial-intelligence/1018021/openai-training-top-ai-models-no-internet",
       "summary": "OpenAI is now training its most advanced AI models without internet access following a string of rogue hacking incidents. In a blog post on Friday, OpenAI says it built an offline testing environment where AI models can interact with indexed and cached web content \"without risk of affecting external systems.\" OpenAI paused training its frontier […]",
       "published_at": "2026-10-23T21:11:07+00:00",
-      "fetched_at": "2026-10-24T16:09:39+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
       "source": {
         "id": "verge-ai",
         "name": "The Verge AI",
@@ -192,7 +267,7 @@
       "url": "https://www.bigtechnology.com/p/far-from-rsi-compute-shortages-google",
       "summary": "Google CEO says end state of RSI is far away, compute shortages are intense, and his Apple partnership is going well.",
       "published_at": "2026-10-23T20:33:46+00:00",
-      "fetched_at": "2026-10-24T16:09:39+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
       "source": {
         "id": "alex-kantrowitz",
         "name": "Alex Kantrowitz",
@@ -212,12 +287,35 @@
       ]
     },
     {
+      "id": "9e0308113d32ae3fc53655209ad5823c1401d9ff168f092eade47d2354761f7a",
+      "title": "Introducing Kimi K3.1 Pro",
+      "url": "https://simonwillison.net/2026/Oct/23/kimi-k31-pro/",
+      "summary": "Introducing Kimi K3.1 Pro Kimi K3.1 Pro landed on the Kimi API today - it's not yet open weights, but Moonshot promise \"Full model weights will be released by Nov 4, 2026\". They're also offering a \"Highspeed\" version that's 2-3x faster, at twice the price (except for input token cache hits, which are priced the same). The US dollar pricing is $2.00/million tokens for input and $10/million for output - the same as GPT-6.1 Sol and half the price of Claude Opus 5.5. Moonshot's own benchmarks show Kimi as approximately level with Opus 5.5 and GPT-6 Astra - beating them on a few benchmarks, coming close on others. Artificial Analysis scored Kimi at 55 - ahead of Claude Fable 5.1, GPT-6 Astra, and Gemini 4 Argon (all at 53) and behind only Claude Opus 5.5 (58). This is the first time a (soon-to-be) open weight model has scored this highly against the frontier. I tried it out via the Moonshot API using the llm openai endpoint command I added to LLM 0.32 back in August: llm openai endpoint \\…",
+      "published_at": "2026-10-23T19:40:54+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "simon-willison",
+        "name": "Simon Willison",
+        "type": "rss",
+        "homepage": "https://simonwillison.net/"
+      },
+      "provider": {
+        "id": "simonw",
+        "name": "Simon Willison",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": []
+    },
+    {
       "id": "60b56cc3037dbda3a95126cc73210c100159f84d6a27e0e5e8c902267bb5813b",
       "title": "Jack Dorsey’s Block made an AI model that talks to you like an awkward new friend",
       "url": "https://www.theverge.com/ai-artificial-intelligence/1017906/jack-dorsey-block-dessa-ai-voice-speech",
       "summary": "Jack Dorsey's Block announced an AI model called Dessa that's trained \"from scratch on nothing but human conversation,\" and to show off the model, Block shared chats it has had with humans that can occasionally be a little awkward and uncanny. Take this one, for example, shared by Dessa lead Ragavan Thurairatnam. The conversation between […]",
       "published_at": "2026-10-23T19:32:39+00:00",
-      "fetched_at": "2026-10-24T16:09:39+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
       "source": {
         "id": "verge-ai",
         "name": "The Verge AI",
@@ -237,12 +335,87 @@
       ]
     },
     {
+      "id": "1bb40ddffcb6c2abe17fed4e2f7bbebd0a21fe1aa21955a8adb105d86b8a1128",
+      "title": "The iPhone Duo should have been an iPad",
+      "url": "https://www.theverge.com/podcast/1017447/iphone-duo-ipad-review-score-vergecast",
+      "summary": "We gave the iPhone Duo a 7 /10. But that wasn't always the score we planned, and it might not be the right score forever. Such are the challenges of reviewing - and assessing - a big, new idea about the most popular smartphone in history. On this episode of The Vergecast, David and Nilay […]",
+      "published_at": "2026-10-23T17:00:18+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "verge-ai",
+        "name": "The Verge AI",
+        "type": "rss",
+        "homepage": "https://www.theverge.com/ai-artificial-intelligence"
+      },
+      "provider": {
+        "id": "verge",
+        "name": "The Verge AI",
+        "kind": "publication"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "David Pierce"
+      ]
+    },
+    {
+      "id": "a9526976eeebfbfe11f723ec9d420402046ad8a284b661480087bc896dcebdb4",
+      "title": "Now Google says it might use your Gmail and Google Photos data to target ads",
+      "url": "https://www.theverge.com/tech/1017600/google-personal-intelligence-privacy-policy-ads-update",
+      "summary": "Google has updated its privacy policy in a way that could mean you'll start seeing targeted ads based on your personal data if you're using personalized AI features. The update, spotted by Android Authority, adds an exception to its promise about not using your Drive, Gmail, or Google Photos for personalized ads. While the previous […]",
+      "published_at": "2026-10-23T16:52:55+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "verge-ai",
+        "name": "The Verge AI",
+        "type": "rss",
+        "homepage": "https://www.theverge.com/ai-artificial-intelligence"
+      },
+      "provider": {
+        "id": "verge",
+        "name": "The Verge AI",
+        "kind": "publication"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Jess Weatherbed"
+      ]
+    },
+    {
+      "id": "7aa6acbd35f79e1aa638a6466c227c10d8921c3684b08de9cbfa308709c7ccea",
+      "title": "Meta delays new business terms after publisher pushback on AI scraping",
+      "url": "https://www.theverge.com/tech/1017450/meta-business-terms-delayed-ai-scraping",
+      "summary": "Meta is delaying the enforcement of its new business terms after publishers raised concerns that they could allow the company to scrape news sites for AI training, as reported earlier by Fast Company. In a statement to The Verge, Meta spokesperson Daniel Roberts says the terms will go into effect on November 20th \"to allow […]",
+      "published_at": "2026-10-23T14:47:41+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "verge-ai",
+        "name": "The Verge AI",
+        "type": "rss",
+        "homepage": "https://www.theverge.com/ai-artificial-intelligence"
+      },
+      "provider": {
+        "id": "verge",
+        "name": "The Verge AI",
+        "kind": "publication"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Emma Roth"
+      ]
+    },
+    {
       "id": "7fff0e9eb45ef2fd76ae2a838c64ed168be393ba3e0b2d973fb40f507f983bd7",
       "title": "How Large is the AI Circle?",
       "url": "https://tomtunguz.com/how-large-is-the-ai-circle/",
       "summary": "Every major build-out has two phases per Carlota Perez: infrastructure, then the applications that pay for it. The telecom internet build-out ran capex twelve times ahead of application revenue at the 2000 peak, & took seven years to get application revenue above 10% of capex, & ten to reach 48%. AI has reached that 10% mark in four years, roughly half the time.",
       "published_at": "2026-10-23T00:00:00+00:00",
-      "fetched_at": "2026-10-24T16:09:39+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
       "source": {
         "id": "tomasz-tunguz",
         "name": "Tomasz Tunguz",
@@ -265,7 +438,7 @@
       "url": "https://www.technologyreview.com/2026/10/22/1146109/designing-an-ai-serving-harness-built-to-last/",
       "summary": "The next competitive advantage in enterprise AI has less to do with which model you choose than with what you build around it. That’s an important shift. For the past several years, much of the AI conversation has centered on model capability: bigger models, better reasoning, larger context windows, higher benchmark scores. Those advances have…",
       "published_at": "2026-10-22T21:17:29+00:00",
-      "fetched_at": "2026-10-24T16:09:39+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
       "source": {
         "id": "mit-ai",
         "name": "MIT Technology Review AI",
@@ -285,12 +458,35 @@
       ]
     },
     {
+      "id": "87e22db35085845a31934bac37c6e28fff482d88214c3a3d665c131976216560",
+      "title": "DE STAAT - FREEDOM (Official Music Video)",
+      "url": "https://simonwillison.net/2026/Oct/22/de-staat-freedom/",
+      "summary": "DE STAAT - FREEDOM (Official Music Video) OK well this is a first for me... at 00:44 in this new music video by Dutch alternative rock band De Staat : The visual effects are credited to Matties Grooten of Fake it or Leave it . Via flir on Hacker News Tags: music , ai , generative-ai , pelican-riding-a-bicycle",
+      "published_at": "2026-10-22T19:42:26+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "simon-willison",
+        "name": "Simon Willison",
+        "type": "rss",
+        "homepage": "https://simonwillison.net/"
+      },
+      "provider": {
+        "id": "simonw",
+        "name": "Simon Willison",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": []
+    },
+    {
       "id": "285861fa05fad723e31f9f3e8cc5c08ddd56d2a55fa2101dc2f998e2ca86ac63",
       "title": "The Foundations of Scalable AI",
       "url": "https://www.technologyreview.com/2026/10/22/1146103/the-foundations-of-scalable-ai/",
       "summary": "A scalable AI system requires a strong foundation. Data, engineering, platforms, operating models, and governance must converge to work as one. This session from MIT Technology Review’s EmTech Future conference explores what it takes to build that foundation in a highly regulated environment and how a responsible, trustworthy implementation can turn emerging capabilities, including agentic…",
       "published_at": "2026-10-22T18:48:04+00:00",
-      "fetched_at": "2026-10-24T16:09:39+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
       "source": {
         "id": "mit-ai",
         "name": "MIT Technology Review AI",
@@ -310,12 +506,35 @@
       ]
     },
     {
+      "id": "2f38489938aada9ceff855353f6137c69fbf6d9333adfdbef03b75464927ce3c",
+      "title": "Donating Agent Skills to the Agentic AI Foundation",
+      "url": "https://simonwillison.net/2026/Oct/22/donating-agent-skills/",
+      "summary": "Donating Agent Skills to the Agentic AI Foundation News today from Anthropic: We’re committed to keeping Agent Skills open, community-driven, and vendor-neutral. Today, we are donating the standard to the Agentic AI Foundation (AAIF) under the Linux Foundation, which we co-founded with Block and OpenAI last year, and to which we donated the Model Context Protocol (MCP). I'm pleased to note I called this one last December , when Anthropic first declared skills to be an \"open standard\": I wouldn't be surprised to see this end up in the AAIF , recently the new home of the MCP specification. Fun side note: since my blog content is available to Claude via the datasette-mcp plugin I found that post by prompting Claude to \" Use simonwillison.net MCP to find if I ever talked about how I want skills to be donated to a standards body \". Tags: standards , ai , generative-ai , llms , anthropic , model-context-protocol , skills",
+      "published_at": "2026-10-22T18:09:56+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "simon-willison",
+        "name": "Simon Willison",
+        "type": "rss",
+        "homepage": "https://simonwillison.net/"
+      },
+      "provider": {
+        "id": "simonw",
+        "name": "Simon Willison",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": []
+    },
+    {
       "id": "47fe7477518d2d585bdfbd7f081c14d008a8d7b2725d7de6e9de98ef456eb524",
       "title": "The Pulse: Time to rethink software security because of AI?",
       "url": "https://newsletter.pragmaticengineer.com/p/the-pulse-do-we-need-to-rethink-software",
       "summary": "A month’s worth of security breaches in a single day – will things get worse before they improve? Also: Anthropic accused of version control “rip off”, and more",
       "published_at": "2026-10-22T14:08:21+00:00",
-      "fetched_at": "2026-10-24T16:09:39+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
       "source": {
         "id": "gergely-orosz",
         "name": "Gergely Orosz",
@@ -335,12 +554,62 @@
       ]
     },
     {
+      "id": "fec7036c87350b493dbac16010764394c96d07f99f50be5fc287f31f9ee9e197",
+      "title": "Making the case for context-aware AI",
+      "url": "https://www.technologyreview.com/2026/10/22/1146812/making-the-case-for-context-aware-ai/",
+      "summary": "Enterprise AI can generate recommendations, automate tasks, and help organizations make decisions faster. But without an understanding of how a business actually operates, even powerful models can miss the constraints and relationships that determine whether a decision is the right one. As companies look to move AI from experimentation into everyday operations, the challenge ahead…",
+      "published_at": "2026-10-22T10:00:00+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "mit-ai",
+        "name": "MIT Technology Review AI",
+        "type": "rss",
+        "homepage": "https://www.technologyreview.com/topic/artificial-intelligence/"
+      },
+      "provider": {
+        "id": "mit",
+        "name": "MIT Technology Review",
+        "kind": "publication"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "MIT Technology Review Insights"
+      ]
+    },
+    {
+      "id": "5ba1ec3db181cdc2407ee6794643fefb9becc697e62fc6a4cfbb696239bed856",
+      "title": "AI’s hidden storage bill: What inference leaves behind",
+      "url": "https://www.technologyreview.com/2026/10/22/1146948/ais-hidden-storage-bill-what-inference-leaves-behind/",
+      "summary": "Ask most executives to picture the cost of AI and they’ll likely see GPUs—racks of accelerators with gigawatts of power—and a waitlist for silicon. But that picture leaves something out: Data storage costs. What happens to data after a model responds? Much of the back-end data that’s generated—from billions of daily prompts, images, and videos—needs…",
+      "published_at": "2026-10-22T08:41:18+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "mit-ai",
+        "name": "MIT Technology Review AI",
+        "type": "rss",
+        "homepage": "https://www.technologyreview.com/topic/artificial-intelligence/"
+      },
+      "provider": {
+        "id": "mit",
+        "name": "MIT Technology Review",
+        "kind": "publication"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Tim Rausch"
+      ]
+    },
+    {
       "id": "7c14f591a99186c89e6312f5937c69d0673576f3b3dd81968624964460c65a37",
       "title": "Closing Eight Figure Deals in Two Weeks",
       "url": "https://tomtunguz.com/closing-eight-figure-deals-in-two-weeks/",
       "summary": "Bardia Shahali, VP of Sales at Granola, joins Office Hours to explain how AI-era sales teams run smaller because revenue per rep multiplies, why comp plans moved from annual to quarterly, & why the sales pod splits by layer between infrastructure & application companies.",
       "published_at": "2026-10-22T00:00:00+00:00",
-      "fetched_at": "2026-10-24T16:09:39+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
       "source": {
         "id": "tomasz-tunguz",
         "name": "Tomasz Tunguz",
@@ -363,7 +632,7 @@
       "url": "https://www.lennysnewsletter.com/p/claude-duet-is-beautiful-i-still",
       "summary": "Watch now (16 mins) | 🎙️ I tested Claude Duet, Anthropic's beautifully designed new personal agent, on real work to see if it can beat my personal agent fatigue and make the cut",
       "published_at": "2026-10-21T20:25:18+00:00",
-      "fetched_at": "2026-10-24T16:09:39+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
       "source": {
         "id": "lenny-rachitsky",
         "name": "Lenny Rachitsky",
@@ -388,7 +657,7 @@
       "url": "https://newsletter.pragmaticengineer.com/p/the-revised-rules-of-engineering",
       "summary": "Will Larson, CTO of Imprint, explores how AI and shifting industry expectations are changing engineering management, career ladders, and the path from engineer to CTO.",
       "published_at": "2026-10-21T16:58:21+00:00",
-      "fetched_at": "2026-10-24T16:09:39+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
       "source": {
         "id": "gergely-orosz",
         "name": "Gergely Orosz",
@@ -413,7 +682,7 @@
       "url": "https://www.bigtechnology.com/p/sundar-pichai-googles-frontier-imperative",
       "summary": "Google’s CEO on sacrificing cloud revenue for AI research, the future of personal agents, and why he remains confident in the compute buildout.",
       "published_at": "2026-10-20T17:47:40+00:00",
-      "fetched_at": "2026-10-24T16:09:39+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
       "source": {
         "id": "alex-kantrowitz",
         "name": "Alex Kantrowitz",
@@ -433,12 +702,37 @@
       ]
     },
     {
+      "id": "b9a03b46a4b1fe5c223344c84dabf85c3d30ae636a2c32fa2b1df38b67e35cfc",
+      "title": "What’s the ROI of software engineers’ spending on AI?",
+      "url": "https://newsletter.pragmaticengineer.com/p/whats-the-roi-of-software-engineers",
+      "summary": "AI spending has greatly increased at most companies this year, but has it actually changed shipping velocity and PR output? We analyse data from 27 companies – with some interesting findings",
+      "published_at": "2026-10-20T17:34:18+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "gergely-orosz",
+        "name": "Gergely Orosz",
+        "type": "rss",
+        "homepage": "https://newsletter.pragmaticengineer.com/"
+      },
+      "provider": {
+        "id": "gergely",
+        "name": "Gergely Orosz",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Gergely Orosz"
+      ]
+    },
+    {
       "id": "a379ec2597bb3939186fc5541ac42f34429a7a6b22b0b8781a4cc4c4176c0c95",
       "title": "Latest open artifacts (#25): DeepSeek V4.1 Flash 1017, American-made models, and new regulatory controls in the US & China",
       "url": "https://www.interconnects.ai/p/latest-open-artifacts-25-deepseek",
       "summary": "Western open models strike back",
       "published_at": "2026-10-20T17:04:21+00:00",
-      "fetched_at": "2026-10-24T16:09:39+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
       "source": {
         "id": "nathan-lambert",
         "name": "Nathan Lambert",
@@ -463,7 +757,7 @@
       "url": "https://www.oneusefulthing.org/p/30-months-on-the-exponential-in-charts",
       "summary": "My new book is out today... what happened since the last one",
       "published_at": "2026-10-20T15:57:59+00:00",
-      "fetched_at": "2026-10-24T16:09:39+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
       "source": {
         "id": "ethan-mollick",
         "name": "Ethan Mollick",
@@ -483,12 +777,37 @@
       ]
     },
     {
+      "id": "9c36667f60bf29498686543cc531691aad2d6574f2a25ade24d6fab6d4c10801",
+      "title": "The new economics of enterprise AI",
+      "url": "https://www.technologyreview.com/2026/10/20/1146937/the-new-economics-of-enterprise-ai/",
+      "summary": "Imagine your company just discovered electricity. At first only a few machines run on it, and nobody worries about efficiency — consumption is low and the value is obvious. But once electricity becomes infrastructure, every process depends on it, and the question changes from “can we use it?” to “how efficiently are we using it?”…",
+      "published_at": "2026-10-20T15:20:25+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "mit-ai",
+        "name": "MIT Technology Review AI",
+        "type": "rss",
+        "homepage": "https://www.technologyreview.com/topic/artificial-intelligence/"
+      },
+      "provider": {
+        "id": "mit",
+        "name": "MIT Technology Review",
+        "kind": "publication"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "David Sydow"
+      ]
+    },
+    {
       "id": "358430a3a36de1a63c2011186176628f6ab1700310c637417a0b04704b3fa8d9",
       "title": "How To Use Decision Models for Evals",
       "url": "https://hamel.dev/blog/posts/decision-model-evals/",
       "summary": "Decision models have exploded onto the scene recently, starting with TypeSafe’s Jev, followed by Perplexity’s Decider, Liquid’s d1, Cloudflare’s Clef, and OpenAI’s Decisions API 1 . These models promise fast, inexpensive classification. Decision models are an appealing low-cost alternative to LLM judges 2 for automated evals. But whether they’re the right choice depends on the cost, performance, and latency requirements of your use case. We’ve also noticed people using the default decision threshold of 0.50 without checking whether it works well for their task. This can leave a lot of performance on the table. In this post, we’ll start by showing how to tune thresholds to get the best results from decision models. With those thresholds tuned, we’ll compare cost and performance to help you assess which model fits your use case. Finally, we’ll explore how to interpret model scores when deciding whether to act, and how calibration can make them more useful as confidence estimates. What w…",
       "published_at": "2026-10-20T07:00:00+00:00",
-      "fetched_at": "2026-10-24T16:09:39+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
       "source": {
         "id": "hamel-husain",
         "name": "Hamel Husain",
@@ -509,12 +828,87 @@
       ]
     },
     {
+      "id": "d34982012b9aedbf1c8f54b53847ee86e9197b32a1b00b3889d3d5b7ce4fabb1",
+      "title": "🎙️ How I AI: Meta Muse Wonder + How Brooke Lacey is scaling video with AI",
+      "url": "https://www.lennysnewsletter.com/p/how-i-ai-meta-muse-wonder-how-brooke",
+      "summary": "Your weekly listens from How I AI, part of the Lenny's Podcast Network",
+      "published_at": "2026-10-19T15:03:35+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "lenny-rachitsky",
+        "name": "Lenny Rachitsky",
+        "type": "rss",
+        "homepage": "https://www.lennysnewsletter.com/"
+      },
+      "provider": {
+        "id": "lenny",
+        "name": "Lenny Rachitsky",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Lenny Rachitsky"
+      ]
+    },
+    {
+      "id": "3013f9811fb1e14c0bf4b57e4e5042990024328f9c2525795bce37e16ef21a2e",
+      "title": "“Claude cuts my TikTok”: How this creator is scaling video with AI | Brooke Lacey",
+      "url": "https://www.lennysnewsletter.com/p/claude-cuts-my-tiktok-how-this-creator",
+      "summary": "Watch now (37 mins) | 🎙️ Brooke Lacey shows live how Claude Code turns a raw phone video into a captioned, jump-cut TikTok in about 15 seconds",
+      "published_at": "2026-10-19T12:04:52+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "lenny-rachitsky",
+        "name": "Lenny Rachitsky",
+        "type": "rss",
+        "homepage": "https://www.lennysnewsletter.com/"
+      },
+      "provider": {
+        "id": "lenny",
+        "name": "Lenny Rachitsky",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Claire Vo"
+      ]
+    },
+    {
+      "id": "1bd4b6f11f5d05735e3f1d64e9675095fda0510ee678f22da385069962a484ae",
+      "title": "Inside the black box of AI: How AI models actually think | Emmanuel Ameisen (Anthropic)",
+      "url": "https://www.lennysnewsletter.com/p/a-mind-expanding-conversation-on",
+      "summary": "Listen now (72 mins) | Emmanuel Ameisen of Anthropic explains what looking inside language models reveals about planning, consciousness, and AI safety",
+      "published_at": "2026-10-18T12:31:36+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "lenny-rachitsky",
+        "name": "Lenny Rachitsky",
+        "type": "rss",
+        "homepage": "https://www.lennysnewsletter.com/"
+      },
+      "provider": {
+        "id": "lenny",
+        "name": "Lenny Rachitsky",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Lenny Rachitsky"
+      ]
+    },
+    {
       "id": "0dd91801c3b6e8530867d6d09e34b774861d4d54c8291513085c6dde8f9c4fa4",
       "title": "Meta shakes up the frontiers, open and closed",
       "url": "https://www.interconnects.ai/p/meta-shakes-up-the-frontiers-open",
       "summary": "US open weights are back!",
       "published_at": "2026-10-17T14:06:54+00:00",
-      "fetched_at": "2026-10-24T16:09:39+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
       "source": {
         "id": "nathan-lambert",
         "name": "Nathan Lambert",
@@ -534,12 +928,302 @@
       ]
     },
     {
+      "id": "e7f81b948e3455e7025a433b04970228b84072b4efacddb09c765084650bac90",
+      "title": "Rivian CEO: Robotics Is Progressing Much Faster Than You Think",
+      "url": "https://www.bigtechnology.com/p/rivian-ceo-robotics-is-progressing",
+      "summary": "On a ride through Manhattan, the Rivian CEO says the world is unprepared for just how fast robotics will advance.",
+      "published_at": "2026-10-16T16:26:14+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "alex-kantrowitz",
+        "name": "Alex Kantrowitz",
+        "type": "rss",
+        "homepage": "https://www.bigtechnology.com/"
+      },
+      "provider": {
+        "id": "kantrowitz",
+        "name": "Alex Kantrowitz",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Alex Kantrowitz"
+      ]
+    },
+    {
+      "id": "16eade9d2216c89c4c6baddef181403098ae961b8cb71f517f2c6c38372f0e1d",
+      "title": "The Pulse: OpenAI software engineer accused of spying",
+      "url": "https://newsletter.pragmaticengineer.com/p/the-pulse-openai-software-engineer",
+      "summary": "Also: insider details on how and why Anthropic moved off Git, a new trend of AI-assisted coding rounds inside of Big Tech, and more",
+      "published_at": "2026-10-15T16:55:18+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "gergely-orosz",
+        "name": "Gergely Orosz",
+        "type": "rss",
+        "homepage": "https://newsletter.pragmaticengineer.com/"
+      },
+      "provider": {
+        "id": "gergely",
+        "name": "Gergely Orosz",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Gergely Orosz"
+      ]
+    },
+    {
+      "id": "4e22e3d6436deca5fa28906441242791e6640883f9a2b13e6f58f8a7ea553e8a",
+      "title": "Uber’s AI infra, from the inside",
+      "url": "https://newsletter.pragmaticengineer.com/p/ubers-ai-infra-from-the-inside",
+      "summary": "Uber Distinguished Engineer Uday Kiran Medisetty shares how Uber builds internal developer tools, integrates AI agents into engineering workflows, and measures their impact on productivity.",
+      "published_at": "2026-10-14T17:06:56+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "gergely-orosz",
+        "name": "Gergely Orosz",
+        "type": "rss",
+        "homepage": "https://newsletter.pragmaticengineer.com/"
+      },
+      "provider": {
+        "id": "gergely",
+        "name": "Gergely Orosz",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Gergely Orosz"
+      ]
+    },
+    {
+      "id": "473e6d333d7fa8920f56d4679dd8cc404002bcc1ed5accfd45625a1d2a61d13c",
+      "title": "Can AI Keep Growing Exponentially? SemiAnalysis Makes the Case",
+      "url": "https://www.bigtechnology.com/p/can-ai-keep-growing-exponentially",
+      "summary": "Dylan Patel and Jordan Nanos on the trillions going into AI infrastructure, the economics behind the spending, and the security problems inside GPU clouds.",
+      "published_at": "2026-10-12T14:44:20+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "alex-kantrowitz",
+        "name": "Alex Kantrowitz",
+        "type": "rss",
+        "homepage": "https://www.bigtechnology.com/"
+      },
+      "provider": {
+        "id": "kantrowitz",
+        "name": "Alex Kantrowitz",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Alex Kantrowitz"
+      ]
+    },
+    {
+      "id": "377afb641e4cb3d675c7ccbde78dba96a04225f84fa0cae8ef8da2a391994b25",
+      "title": "I expect rapid progress but not towards general superintelligence",
+      "url": "https://www.interconnects.ai/p/i-expect-rapid-progress-but-not-towards",
+      "summary": "I’ve often been surprised when I hear from top researchers in industry that they think AI will be better than them at their job in a few years, and I didn’t really know why I doubted it.",
+      "published_at": "2026-10-09T21:33:47+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "nathan-lambert",
+        "name": "Nathan Lambert",
+        "type": "rss",
+        "homepage": "https://www.interconnects.ai/"
+      },
+      "provider": {
+        "id": "lambert",
+        "name": "Nathan Lambert",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Nathan Lambert"
+      ]
+    },
+    {
+      "id": "673fb60ae75259d90d17c991ee47acd859f16b614ba0a6021c1262704184b69b",
+      "title": "The Cyber Risk Discourse is Broken",
+      "url": "https://www.interconnects.ai/p/the-cyber-risk-discourse-is-broken",
+      "summary": "Open-weights, ideology, and acknowledging trade-offs.",
+      "published_at": "2026-10-06T14:22:41+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "nathan-lambert",
+        "name": "Nathan Lambert",
+        "type": "rss",
+        "homepage": "https://www.interconnects.ai/"
+      },
+      "provider": {
+        "id": "lambert",
+        "name": "Nathan Lambert",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Nathan Lambert"
+      ]
+    },
+    {
+      "id": "4c49cf41a0311121c67b456808b8dbb0acda2e9576c6b9e6f67220f0816b15b0",
+      "title": "The Key Anthropic Numbers You Need To Know Ahead Of Its IPO",
+      "url": "https://www.bigtechnology.com/p/the-key-anthropic-numbers-you-need",
+      "summary": "We now know the size of Anthropic’s business. But how about the trajectory of its products? We dig in.",
+      "published_at": "2026-10-05T21:55:07+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "alex-kantrowitz",
+        "name": "Alex Kantrowitz",
+        "type": "rss",
+        "homepage": "https://www.bigtechnology.com/"
+      },
+      "provider": {
+        "id": "kantrowitz",
+        "name": "Alex Kantrowitz",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Marty Swant"
+      ]
+    },
+    {
+      "id": "0bc6905b85c74ec5804814a73b2d842c924a4179bb8d5c9a5a06928e8122e3ab",
+      "title": "v1.3: /implement-spec, /pr, /retro, and GLOSSARY.md",
+      "url": "https://www.aihero.dev/skills-changelog-v13-implement-spec-pr-retro-and-glossary-md",
+      "summary": "Skills v1.3: /implement-spec builds a whole spec, /pr writes reviewable PR bodies, /retro improves your agent's environment, and CONTEXT.md becomes GLOSSARY.md.",
+      "published_at": "2026-10-05T11:01:07+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "matt-pocock",
+        "name": "Matt Pocock",
+        "type": "rss",
+        "homepage": "https://www.aihero.dev/"
+      },
+      "provider": {
+        "id": "matt",
+        "name": "Matt Pocock",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": []
+    },
+    {
+      "id": "706acd70bb26627fa4ab18e632a1f0cd165c77a8512d4229f1b92ed4d197d9c3",
+      "title": "v1.3: /implement-spec, /pr, /retro, and GLOSSARY.md",
+      "url": "https://www.aihero.dev/skills/skills-changelog-v13-implement-spec-pr-retro-and-glossary-md",
+      "summary": "Skills v1.3: /implement-spec builds a whole spec, /pr writes reviewable PR bodies, /retro improves your agent's environment, and CONTEXT.md becomes GLOSSARY.md.",
+      "published_at": "2026-10-05T10:57:45+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "matt-pocock",
+        "name": "Matt Pocock",
+        "type": "rss",
+        "homepage": "https://www.aihero.dev/"
+      },
+      "provider": {
+        "id": "matt",
+        "name": "Matt Pocock",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": []
+    },
+    {
+      "id": "0dcacb673d6df0a775ad4923f1d28c4e1c5400119a33aa7798e1163b33e3302e",
+      "title": "The /retro Skill",
+      "url": "https://www.aihero.dev/skills-retro",
+      "summary": "Look back on a session and suggest repo improvements.",
+      "published_at": "2026-10-05T08:30:02+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "matt-pocock",
+        "name": "Matt Pocock",
+        "type": "rss",
+        "homepage": "https://www.aihero.dev/"
+      },
+      "provider": {
+        "id": "matt",
+        "name": "Matt Pocock",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": []
+    },
+    {
+      "id": "df5cbf8420c4c5a99a9ca9624a075470f92da42032cebee62e29240f4855c9e8",
+      "title": "The /pr Skill",
+      "url": "https://www.aihero.dev/skills-pr",
+      "summary": "The shape a pull request body should take.",
+      "published_at": "2026-10-05T08:29:59+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "matt-pocock",
+        "name": "Matt Pocock",
+        "type": "rss",
+        "homepage": "https://www.aihero.dev/"
+      },
+      "provider": {
+        "id": "matt",
+        "name": "Matt Pocock",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": []
+    },
+    {
+      "id": "24fedf5af93a8c2eef0cf954446c5765089f6964bf78c6857400a92b3cf7b313",
+      "title": "The /implement-spec Skill",
+      "url": "https://www.aihero.dev/skills-implement-spec",
+      "summary": "Build a whole spec at once, with parallel subagents.",
+      "published_at": "2026-10-05T08:29:38+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "matt-pocock",
+        "name": "Matt Pocock",
+        "type": "rss",
+        "homepage": "https://www.aihero.dev/"
+      },
+      "provider": {
+        "id": "matt",
+        "name": "Matt Pocock",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": []
+    },
+    {
       "id": "249d6601b3fbb8a4b895fbdb80d0a14284c4f27a6445e7ecce71755c1b467ed7",
       "title": "The Dot and the Swarm",
       "url": "https://www.oneusefulthing.org/p/the-dot-and-the-swarm",
       "summary": "Benefitting from the Bitter Lesson",
       "published_at": "2026-10-01T10:54:12+00:00",
-      "fetched_at": "2026-10-24T16:09:39+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
       "source": {
         "id": "ethan-mollick",
         "name": "Ethan Mollick",
@@ -564,7 +1248,7 @@
       "url": "https://hamel.dev/blog/posts/claude-auto-evals/",
       "summary": "Anthropic released new eval tooling for Claude Code . Their claude-api plugin now includes a new build_eval and hill-climb command that helps you build evals, check the graders, and improve your application against them. I usually don’t review eval tools because software changes so often that reviews have a short shelf life. But a first-party tool from Anthropic is likely to influence how people approach evals, so I wanted to try it and share what I found. Isaac Flath and I livestreamed ourselves using it on conversation traces from an apartment leasing assistant. Here’s what we found: The bad 1. It pushes you to create an eval before looking at data Claude started by suggesting several potential failures, then asked us to pick one straight away to turn into an eval. It gave us the below menu of options, with call-transfer rules as the recommended choice. We hadn’t yet reviewed the conversations ourselves, so it was hard to know if this was a real failure or worth prioritizing. Despit…",
       "published_at": "2026-09-30T07:00:00+00:00",
-      "fetched_at": "2026-10-24T16:09:39+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
       "source": {
         "id": "hamel-husain",
         "name": "Hamel Husain",
@@ -589,7 +1273,109 @@
       "url": "https://magazine.sebastianraschka.com/p/classifier-history-and-jev",
       "summary": "A Visual Guide to RNNs, CNNs, Transformers, and Calibration, with Hands-On Experiments on Accuracy and Efficiency",
       "published_at": "2026-09-29T10:50:25+00:00",
-      "fetched_at": "2026-10-24T16:09:39+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "sebastian-raschka",
+        "name": "Sebastian Raschka",
+        "type": "rss",
+        "homepage": "https://magazine.sebastianraschka.com/"
+      },
+      "provider": {
+        "id": "raschka",
+        "name": "Sebastian Raschka",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Sebastian Raschka",
+        "PhD"
+      ]
+    },
+    {
+      "id": "3b3756fb85f48c9e7a64969d884ca909cea0623d7d12ec1bf878684806304a20",
+      "title": "Debating RSI, the US-China Gap, and Jaggedness with JS Denain of Epoch AI",
+      "url": "https://www.interconnects.ai/p/debating-rsi-the-us-china-gap-and",
+      "summary": "Podcast #19",
+      "published_at": "2026-09-22T13:37:45+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "nathan-lambert",
+        "name": "Nathan Lambert",
+        "type": "rss",
+        "homepage": "https://www.interconnects.ai/"
+      },
+      "provider": {
+        "id": "lambert",
+        "name": "Nathan Lambert",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Nathan Lambert"
+      ]
+    },
+    {
+      "id": "e76b74dfee5283947a0c916cf97b7bb7c1b650bce4255401a424280b84fa444f",
+      "title": "The Overhang",
+      "url": "https://www.oneusefulthing.org/p/the-overhang",
+      "summary": "Using your deep knowledge, wide knowledge, taste, and agency",
+      "published_at": "2026-09-18T17:54:32+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "ethan-mollick",
+        "name": "Ethan Mollick",
+        "type": "rss",
+        "homepage": "https://www.oneusefulthing.org/"
+      },
+      "provider": {
+        "id": "mollick",
+        "name": "Ethan Mollick",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Ethan Mollick"
+      ]
+    },
+    {
+      "id": "8ff7628d79ee4fc5bee86c890132d00e4a77881af90c2611d4a3ee42c6c9353e",
+      "title": "AI Evals: Everything You Need to Know",
+      "url": "https://hamel.dev/blog/posts/evals-faq/",
+      "summary": "This document curates the most common questions Shreya and I received while teaching 5,000+ engineers and PMs AI Evals. Warning: These are sharp opinions about what works in most cases. They are not universal truths. Use your judgment. How to use this FAQ Browse the questions that interest you, or choose a guide below for a curated reading path through the FAQs and related articles. Where are you? This sounds like me I’m new to evals I’ve heard the term, but I’m not sure what evals involve or whether I need them. I don’t know what to test I’m building an AI product, but I haven’t figured out which failures to measure or what good performance looks like. I don’t trust my eval scores We have evals, but the scores don’t match our judgment of the outputs, or tests pass while users still encounter problems. My product feels too hard to evaluate Our outputs are subjective, long, or involve many steps. Even a knowledgeable person has trouble deciding whether they’re right. Evals take too muc…",
+      "published_at": "2026-09-18T07:00:00+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "hamel-husain",
+        "name": "Hamel Husain",
+        "type": "rss",
+        "homepage": "https://hamel.dev/"
+      },
+      "provider": {
+        "id": "hamel",
+        "name": "Hamel Husain",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Hamel Husain",
+        "Shreya Shankar"
+      ]
+    },
+    {
+      "id": "4ef1fa7cd05791656365a83ff9c2abe5e5a4fe9c3cab5d9b55773bac430e7f43",
+      "title": "GPT-6 Astra, Looped Transformers, and Hidden Reasoning",
+      "url": "https://magazine.sebastianraschka.com/p/gpt-6-astra-looped-transformers-and",
+      "summary": "A Look at Recurrent Depth, Hidden Chains of Thought, and Recent Research on Looping Transformer Blocks",
+      "published_at": "2026-09-09T11:14:25+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
       "source": {
         "id": "sebastian-raschka",
         "name": "Sebastian Raschka",
@@ -615,7 +1401,7 @@
       "url": "https://www.ben-evans.com/benedictevans/2026/9/3/ai-tools-and-transformation",
       "summary": "It’s very tempting to imagine that AI turns everyone into a tool-builder - now everyone can just ask the model to make the software they need, and apps as we know them are dead. I think that misunderstands how most people think and where software actually comes from, and more importantly, it isn’t a path to change how companies actually work.",
       "published_at": "2026-09-03T21:26:04+00:00",
-      "fetched_at": "2026-10-24T16:09:39+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
       "source": {
         "id": "benedict-evans",
         "name": "Benedict Evans",
@@ -640,7 +1426,7 @@
       "url": "https://decision.substack.com/p/97-of-s-and-p-500-filings-mention",
       "summary": "AI News for Decision-Makers and Oddballs",
       "published_at": "2026-09-01T05:39:40+00:00",
-      "fetched_at": "2026-10-24T16:09:39+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
       "source": {
         "id": "cassie-kozyrkov",
         "name": "Cassie Kozyrkov",
@@ -658,12 +1444,112 @@
       "authors": []
     },
     {
+      "id": "2dcdd65e20c25a81e4e4305151ac456ac9bc00d0860dfdcea1f929f6a9a002b5",
+      "title": "Agency and Agents",
+      "url": "https://www.oneusefulthing.org/p/agency-and-agents",
+      "summary": "From the Hugging Face Incident to Twilight Factories",
+      "published_at": "2026-08-31T00:24:35+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "ethan-mollick",
+        "name": "Ethan Mollick",
+        "type": "rss",
+        "homepage": "https://www.oneusefulthing.org/"
+      },
+      "provider": {
+        "id": "mollick",
+        "name": "Ethan Mollick",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Ethan Mollick"
+      ]
+    },
+    {
+      "id": "ec1dae1d3407b62bf780e54bb648e5672afb2b5d0cad6ca830c7d3de1da2319c",
+      "title": "How Claude Watermarks AI-Generated Text",
+      "url": "https://magazine.sebastianraschka.com/p/claude-watermarking",
+      "summary": "A 48-minute video walkthrough of token sampling, watermark detection, and removal",
+      "published_at": "2026-08-22T11:11:39+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "sebastian-raschka",
+        "name": "Sebastian Raschka",
+        "type": "rss",
+        "homepage": "https://magazine.sebastianraschka.com/"
+      },
+      "provider": {
+        "id": "raschka",
+        "name": "Sebastian Raschka",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Sebastian Raschka",
+        "PhD"
+      ]
+    },
+    {
+      "id": "fec51d95d54dbb564f125578b356238b0c84ed2b2842e71aa1496f5a72909de7",
+      "title": "Building an AI Text Detector From Scratch",
+      "url": "https://magazine.sebastianraschka.com/p/ai-detector-from-scratch",
+      "summary": "An End-to-End Project With Dataset Construction, Model Training, Local Deployment, and RLVR",
+      "published_at": "2026-08-15T11:54:24+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "sebastian-raschka",
+        "name": "Sebastian Raschka",
+        "type": "rss",
+        "homepage": "https://magazine.sebastianraschka.com/"
+      },
+      "provider": {
+        "id": "raschka",
+        "name": "Sebastian Raschka",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Sebastian Raschka",
+        "PhD"
+      ]
+    },
+    {
+      "id": "8cc1f9afc8a6f30c9db58931353abfc83b6a38573a56012b227c5cf570220265",
+      "title": "AI Product Engineering Notes",
+      "url": "https://hamel.dev/",
+      "summary": "Notes from 13 sessions on evals, context, and systems. 9.5 hours of talks distilled into about 20 minutes of reading.",
+      "published_at": "2026-08-12T07:00:00+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "hamel-husain",
+        "name": "Hamel Husain",
+        "type": "rss",
+        "homepage": "https://hamel.dev/"
+      },
+      "provider": {
+        "id": "hamel",
+        "name": "Hamel Husain",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": []
+    },
+    {
       "id": "df3d187559f69c84144b0b50ed58840b9fbc8fbbfd1def5d86a28d3f72772acf",
       "title": "When AI Makes You Aggressively Ignorant",
       "url": "https://decision.substack.com/p/when-ai-makes-you-aggressively-ignorant",
       "summary": "AI News for Decision-Makers and Oddballs",
       "published_at": "2026-08-01T01:06:22+00:00",
-      "fetched_at": "2026-10-24T16:09:39+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
       "source": {
         "id": "cassie-kozyrkov",
         "name": "Cassie Kozyrkov",
@@ -688,7 +1574,7 @@
       "url": "https://bounded-regret.ghost.io/foundation-models-for-oversight/",
       "summary": "Cross-posted from the Transluce blog . To oversee an AI model, we'd ideally like to ask questions such as: What are important situations where the model sandbags? Does the model have an objective it wouldn't admit to if asked directly? Does the model treat a user",
       "published_at": "2026-07-28T16:26:24+00:00",
-      "fetched_at": "2026-10-24T16:09:39+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
       "source": {
         "id": "jacob-steinhardt",
         "name": "Jacob Steinhardt",
@@ -708,12 +1594,37 @@
       ]
     },
     {
+      "id": "d53d2d2cbde8d7768f5aad6c5d716a64f29f02570afa389b9a7abcf2260f7055",
+      "title": "An opinionated guide to which AI to use to do stuff",
+      "url": "https://www.oneusefulthing.org/p/an-opinionated-guide-to-which-ai-b22",
+      "summary": "The Summer 2026 Edition",
+      "published_at": "2026-07-23T18:05:24+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "ethan-mollick",
+        "name": "Ethan Mollick",
+        "type": "rss",
+        "homepage": "https://www.oneusefulthing.org/"
+      },
+      "provider": {
+        "id": "mollick",
+        "name": "Ethan Mollick",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Ethan Mollick"
+      ]
+    },
+    {
       "id": "6003175beca302c50d14beb6e3f072897d109e574d0e5170a5e3a05a58ebca8d",
       "title": "Ways to think about token pricing",
       "url": "https://www.ben-evans.com/benedictevans/2026/7/9/ways-to-think-about-token-pricing",
       "summary": "AI is in a supply crunch today, but what happens when we come out of it? How and where will supply, demand, price, capacity and capex get back into equilibrium? Today, model labs can name their price, but why won’t they end up as low-margin commodity infrastructure?",
       "published_at": "2026-07-09T14:15:51+00:00",
-      "fetched_at": "2026-10-24T16:09:39+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
       "source": {
         "id": "benedict-evans",
         "name": "Benedict Evans",
@@ -738,7 +1649,7 @@
       "url": "https://lilianweng.github.io/posts/2026-07-04-harness/",
       "summary": "The concept of recursive self-improvement (RSI) dates back to I. J. Good (1965) , where he defined an “ultraintelligent machine” as a system that can surpass humans in all intellectual activities and design better machines to improve itself. Yudkowsky (2008) used the phrase “recursive self-improvement” for a specific feedback loop: an AI uses its current intelligence to improve the cognitive machinery that produces its intelligence. This feedback loop in modern AI may indicate the model rewriting its own weights directly, or more broadly the model improves the training pipeline and the deployment system , which in turn enables a better successor model with improved performance across economically valuable tasks. The speed of research development in AI has been shown to drastically accelerated in frontier labs ( Anthropic ; OpenAI ).",
       "published_at": "2026-07-04T00:00:00+00:00",
-      "fetched_at": "2026-10-24T16:09:39+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
       "source": {
         "id": "lilian-weng",
         "name": "Lilian Weng",
@@ -756,12 +1667,37 @@
       "authors": []
     },
     {
+      "id": "64f6a7685eb677b0b7387f55b263de6b8fce851edd9fab7a1cfca3394105556b",
+      "title": "Anthropic Wishes For Pause Button, Government Overdelivers",
+      "url": "https://decision.substack.com/p/anthropic-wishes-for-pause-button",
+      "summary": "A month of AI news stories, ranked from boardroom to bizarre",
+      "published_at": "2026-06-30T13:20:18+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "cassie-kozyrkov",
+        "name": "Cassie Kozyrkov",
+        "type": "rss",
+        "homepage": "https://decision.substack.com/"
+      },
+      "provider": {
+        "id": "cassie",
+        "name": "Cassie Kozyrkov",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Cassie Kozyrkov"
+      ]
+    },
+    {
       "id": "d01eba4a302808d5277dda6af3f7e33eaa2ecfba2380480f262c9bdf5f582056",
       "title": "Scaling Laws, Carefully",
       "url": "https://lilianweng.github.io/posts/2026-06-24-scaling-laws/",
       "summary": "Scaling laws are one of the most critical empirical findings in deep learning. The observation is simple in form: the training loss $L$ decreases predictably as we scale up model size $N$, dataset size $D$, and compute $C$, following a power-law curve, which appears as a straight line on a log-log plot. We can view scaling laws as a framework for describing the relationship between compute, loss, model size and data; at its core, it is about how to allocate precious compute optimally between $N$ and $D$.",
       "published_at": "2026-06-24T00:00:00+00:00",
-      "fetched_at": "2026-10-24T16:09:39+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
       "source": {
         "id": "lilian-weng",
         "name": "Lilian Weng",
@@ -784,7 +1720,7 @@
       "url": "https://eugeneyan.com//writing/cybersecurity-evals/",
       "summary": "A sandboxed target, inputs that influence task difficulty, tools, and a grader.",
       "published_at": "2026-06-21T00:00:00+00:00",
-      "fetched_at": "2026-10-24T16:09:39+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
       "source": {
         "id": "eugene-yan",
         "name": "Eugene Yan",
@@ -800,6 +1736,56 @@
         "ai"
       ],
       "authors": []
+    },
+    {
+      "id": "4bd2774cd05e91bb0b095b8c2ebc513fa3d6f5e5befaeb7f68c8701909de3f04",
+      "title": "What's Really Behind The So-Called \"AI Layoffs\"?",
+      "url": "https://decision.substack.com/p/whats-really-behind-the-so-called",
+      "summary": "If you're a leader considering AI layoffs, please read this first",
+      "published_at": "2026-06-17T11:14:25+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "cassie-kozyrkov",
+        "name": "Cassie Kozyrkov",
+        "type": "rss",
+        "homepage": "https://decision.substack.com/"
+      },
+      "provider": {
+        "id": "cassie",
+        "name": "Cassie Kozyrkov",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Cassie Kozyrkov"
+      ]
+    },
+    {
+      "id": "4ce5589271a98924f78096a03e915ae29fd3ab4189396946f5ff9c151fcea3eb",
+      "title": "CEOs are betting on AI-driven layoffs. The data is betting against them.",
+      "url": "https://decision.substack.com/p/ceos-are-betting-on-ai-driven-layoffs",
+      "summary": "Inside the unraveling of the AI-redundancy-washing trend",
+      "published_at": "2026-06-03T11:18:54+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "cassie-kozyrkov",
+        "name": "Cassie Kozyrkov",
+        "type": "rss",
+        "homepage": "https://decision.substack.com/"
+      },
+      "provider": {
+        "id": "cassie",
+        "name": "Cassie Kozyrkov",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Cassie Kozyrkov"
+      ]
     },
     {
       "id": "55ab577c1188c420e6993663d65562a03cb1891c8a4052901e868c82de809e98",
@@ -807,7 +1793,7 @@
       "url": "https://eugeneyan.com//writing/secure-source-code/",
       "summary": "Build a threat model, discover vulnerabilities, verify, triage, and patch.",
       "published_at": "2026-05-27T00:00:00+00:00",
-      "fetched_at": "2026-10-24T16:09:39+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
       "source": {
         "id": "eugene-yan",
         "name": "Eugene Yan",
@@ -825,44 +1811,46 @@
       "authors": []
     },
     {
-      "id": "6722a6c07e5fa69ecc28435e565aa977b7984d0cfe86cd2c9cb90e5501801770",
-      "title": "AI Hero Newsletter by Matt Pocock",
-      "url": "https://www.aihero.dev/newsletter",
-      "summary": "Subscribe to be the first to learn about AI Hero releases, updates, and special discounts for AI Heroes.",
-      "published_at": "2026-05-16T00:00:00+00:00",
-      "fetched_at": "2026-10-24T16:09:39+00:00",
+      "id": "b4141b1ec2eea4e4e9aa199793709c7f67998a6d9271b7f149d61110fbbe2563",
+      "title": "Predicting AI job exposure",
+      "url": "https://www.ben-evans.com/benedictevans/2026/5/24/ai-job-exposure",
+      "summary": "Many people would like to analyse which jobs, companies and industries are most exposed to AI, and assign scores, build charts, and map that against the progress of LLMs. I think this is mostly impossible: you don’t know how the jobs will change, you don’t know what else will change around this, and you can’t measure work like that anyway.",
+      "published_at": "2026-05-24T20:35:51+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
       "source": {
-        "id": "matt-pocock",
-        "name": "Matt Pocock",
+        "id": "benedict-evans",
+        "name": "Benedict Evans",
         "type": "rss",
-        "homepage": "https://www.aihero.dev/"
+        "homepage": "https://www.ben-evans.com/"
       },
       "provider": {
-        "id": "matt",
-        "name": "Matt Pocock",
+        "id": "evans",
+        "name": "Benedict Evans",
         "kind": "person"
       },
       "subjects": [
         "ai"
       ],
-      "authors": []
+      "authors": [
+        "Benedict Evans"
+      ]
     },
     {
-      "id": "cf4518aee93f031d1dd55c05f2d01df2311d12ebcec5559594ad3dee01a4f2bb",
-      "title": "AI Skills for Real Engineers",
-      "url": "https://www.aihero.dev/skills",
-      "summary": "A practical skill system for engineers who want to use AI without giving up their standards.",
-      "published_at": "2026-05-16T00:00:00+00:00",
-      "fetched_at": "2026-10-24T16:09:39+00:00",
+      "id": "34b3a6caaf456dd0459e9f3545e55ad14d4c791a605abade87812a65bc410453",
+      "title": "How to Work and Compound with AI",
+      "url": "https://eugeneyan.com//writing/working-with-ai/",
+      "summary": "Context as infra, taste as config, verification for autonomy, scale via delegation, closing the loop.",
+      "published_at": "2026-05-03T00:00:00+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
       "source": {
-        "id": "matt-pocock",
-        "name": "Matt Pocock",
+        "id": "eugene-yan",
+        "name": "Eugene Yan",
         "type": "rss",
-        "homepage": "https://www.aihero.dev/"
+        "homepage": "https://eugeneyan.com/"
       },
       "provider": {
-        "id": "matt",
-        "name": "Matt Pocock",
+        "id": "eugene",
+        "name": "Eugene Yan",
         "kind": "person"
       },
       "subjects": [
@@ -876,7 +1864,7 @@
       "url": "https://blog.eladgil.com/p/random-thoughts-while-gazing-at-the",
       "summary": "A bunch of random things I have been thinking about, some of which are probably wrong",
       "published_at": "2026-04-20T16:21:23+00:00",
-      "fetched_at": "2026-10-24T16:09:39+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
       "source": {
         "id": "elad-gil",
         "name": "Elad Gil",
@@ -901,7 +1889,7 @@
       "url": "https://blog.eladgil.com/p/unicorn-market-cap-2026-sf-is-the",
       "summary": "The San Francisco Bay area has morphed into a massive AI supercluster with 91% of market cap",
       "published_at": "2026-04-16T22:05:55+00:00",
-      "fetched_at": "2026-10-24T16:09:39+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
       "source": {
         "id": "elad-gil",
         "name": "Elad Gil",
@@ -921,12 +1909,37 @@
       ]
     },
     {
+      "id": "e8c3c466ef0704ad7ab3b9d4528bed5c7e0c3b8d0d25a3a1880a75af69f9e7c7",
+      "title": "How will OpenAI compete?",
+      "url": "https://www.ben-evans.com/benedictevans/2026/2/19/how-will-openai-compete-nkg2x",
+      "summary": "OpenAI has some big questions. It doesn’t have unique tech. It has a big user base, but with limited engagement and stickiness and no network effect. The incumbents have matched the tech and are leveraging their product and distribution. And a lot of the value and leverage will come from new experiences that haven’t been invented yet, and it can’t invent all of those itself. What’s the plan?",
+      "published_at": "2026-02-19T20:51:04+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "benedict-evans",
+        "name": "Benedict Evans",
+        "type": "rss",
+        "homepage": "https://www.ben-evans.com/"
+      },
+      "provider": {
+        "id": "evans",
+        "name": "Benedict Evans",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Benedict Evans"
+      ]
+    },
+    {
       "id": "365ea7c836b627cc98a0272258730246db1e403b64a517df10089230921abedc",
       "title": "Building Technology to Drive AI Governance",
       "url": "https://bounded-regret.ghost.io/building-technology-to-drive-ai-governance/",
       "summary": "Technically skilled people who care about AI going well often ask me: how should I spend my time if I think AI governance is important? By governance, I mean the constraints, incentives, and oversight that govern how AI is developed. One option is to focus on technical work that solves",
       "published_at": "2026-02-18T18:25:43+00:00",
-      "fetched_at": "2026-10-24T16:09:39+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
       "source": {
         "id": "jacob-steinhardt",
         "name": "Jacob Steinhardt",
@@ -946,12 +1959,108 @@
       ]
     },
     {
+      "id": "1307f0078538ff22e8b023cbdecedb82e757232f6ae2de6fa097386a88f4f3ad",
+      "title": "Oversight Assistants: Turning Compute into Understanding",
+      "url": "https://bounded-regret.ghost.io/oversight-assiturning-compute-into-understanding/",
+      "summary": "Currently, we primarily oversee AI with human supervision and human-run experiments, possibly augmented by off-the-shelf AI assistants like ChatGPT or Claude. At training time, we run RLHF , where humans (and/or chat assistants ) label behaviors with whether they are good or not. Afterwards, human researchers do additional",
+      "published_at": "2026-01-06T00:44:48+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "jacob-steinhardt",
+        "name": "Jacob Steinhardt",
+        "type": "rss",
+        "homepage": "https://bounded-regret.ghost.io/"
+      },
+      "provider": {
+        "id": "steinhardt",
+        "name": "Jacob Steinhardt",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Jacob Steinhardt"
+      ]
+    },
+    {
+      "id": "7d5033e6a28889b670cd0264e3f79cd1b3b737459a941c3e17e3f07b0cefdf81",
+      "title": "2025 Year in Review",
+      "url": "https://eugeneyan.com//writing/2025-review/",
+      "summary": "An eventful year of progress in health and career, while making time for travel and reflection.",
+      "published_at": "2025-12-14T00:00:00+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "eugene-yan",
+        "name": "Eugene Yan",
+        "type": "rss",
+        "homepage": "https://eugeneyan.com/"
+      },
+      "provider": {
+        "id": "eugene",
+        "name": "Eugene Yan",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": []
+    },
+    {
+      "id": "bbbc20859e0d12c42641a1410ad104ba6639b1a2af4cec42c7c0762ecea9a61f",
+      "title": "AI, networks and Mechanical Turks",
+      "url": "https://www.ben-evans.com/benedictevans/2025/11/23/ai-networks-and-mechanical-turks",
+      "summary": "How far do LLMs give us a step change in how good a search and recommendation system can be? Do they let you build one without needing a vast user base of your own?",
+      "published_at": "2025-11-23T13:14:03+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "benedict-evans",
+        "name": "Benedict Evans",
+        "type": "rss",
+        "homepage": "https://www.ben-evans.com/"
+      },
+      "provider": {
+        "id": "evans",
+        "name": "Benedict Evans",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Benedict Evans"
+      ]
+    },
+    {
+      "id": "8d02ffe6c23a7d4a727d748fbcb1280ac57d204f7c71ed19863b8924d298da7b",
+      "title": "Product Evals in Three Simple Steps",
+      "url": "https://eugeneyan.com//writing/product-evals/",
+      "summary": "Label some data, align LLM-evaluators, and run the eval harness with each change.",
+      "published_at": "2025-11-23T00:00:00+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "eugene-yan",
+        "name": "Eugene Yan",
+        "type": "rss",
+        "homepage": "https://eugeneyan.com/"
+      },
+      "provider": {
+        "id": "eugene",
+        "name": "Eugene Yan",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": []
+    },
+    {
       "id": "0a87976fac9173fdbf1f1c2df951033b077e5d3b044d26a343dfcca8ce064018",
       "title": "xAI’s Colossus 2 – First Gigawatt Datacenter In The World, Unique RL Methodology, Capital Raise",
       "url": "https://semianalysis.com/2025/09/16/xais-colossus-2-first-gigawatt-datacenter/",
       "summary": "Much has been written about xAI’s Colossus 1. The Memphis build belongs in the history books: the largest AI training cluster, erected from scratch in 122 days. With roughly 200,000 H100/H200s and ~30,000 GB200 NVL72, it remains, today, the largest fully operational, single-coherent cluster (setting apart Google, master of multi-datacenter-training). However, Colossus 1’s ~300 MW […]",
       "published_at": "2025-09-16T17:38:01+00:00",
-      "fetched_at": "2026-10-24T16:09:39+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
       "source": {
         "id": "dylan-patel",
         "name": "Dylan Patel",
@@ -976,7 +2085,7 @@
       "url": "https://semianalysis.com/2025/09/10/another-giant-leap-the-rubin-cpx-specialized-accelerator-rack/",
       "summary": "Nvidia announced the Rubin CPX, a solution that is specifically designed to be optimized for the prefill phase, with the single-die Rubin CPX heavily emphasizing compute FLOPS over memory bandwidth. This is a game changer for inference, and its significance is surpassed only by the March 2024 announcement of the GB200 NVL72 Oberon rack-scale form […]",
       "published_at": "2025-09-10T19:57:18+00:00",
-      "fetched_at": "2026-10-24T16:09:39+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
       "source": {
         "id": "dylan-patel",
         "name": "Dylan Patel",
@@ -996,12 +2105,210 @@
       ]
     },
     {
+      "id": "c0da98a13ede87818a31e79c6bc84d71c897e43201ef947c425062fad08a0337",
+      "title": "Huawei Ascend Production Ramp: Die Banks, TSMC Continued Production, HBM is The Bottleneck",
+      "url": "https://semianalysis.com/2025/09/08/huawei-ascend-production-ramp/",
+      "summary": "Compute is the lifeblood of AI. He who controls the spice controls the universe the compute will control the production of tokens and reap the benefits of AI. Without compute you do not have a seat at the table. The United States technology community is all in on compute and AI as the next platform […]",
+      "published_at": "2025-09-08T09:54:57+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "dylan-patel",
+        "name": "Dylan Patel",
+        "type": "rss",
+        "homepage": "https://semianalysis.com/"
+      },
+      "provider": {
+        "id": "dylan",
+        "name": "Dylan Patel",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Dylan Patel"
+      ]
+    },
+    {
+      "id": "9d3e1b416c90ac337ad7a99d443d91b38dead5d3c2740041914f626999cba42a",
+      "title": "Amazon’s AI Resurgence: AWS & Anthropic’s Multi-Gigawatt Trainium Expansion",
+      "url": "https://semianalysis.com/2025/09/03/amazons-ai-resurgence-aws-anthropics-multi-gigawatt-trainium-expansion/",
+      "summary": "Two-and-a-half years ago, we flagged a looming “cloud crisis” at AWS. Today, the evidence has mounted. AWS is the crown jewel of the Amazon empire, generating ~60% of group profits, and dominating the lucrative Cloud Computing market. But it struggles to translate this strength into the new GPU/XPU Cloud era. Microsoft Azure now leads the […]",
+      "published_at": "2025-09-03T20:55:46+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "dylan-patel",
+        "name": "Dylan Patel",
+        "type": "rss",
+        "homepage": "https://semianalysis.com/"
+      },
+      "provider": {
+        "id": "dylan",
+        "name": "Dylan Patel",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Jeremie Eliahou Ontiveros"
+      ]
+    },
+    {
+      "id": "e2cb20a9ec9ec1079e4ef60a8432cc7711fbf2935e007ba20ae2c958909df9ee",
+      "title": "H100 vs GB200 NVL72 Training Benchmarks – Power, TCO, and Reliability Analysis, Software Improvement Over Time",
+      "url": "https://semianalysis.com/2025/08/20/h100-vs-gb200-nvl72-training-benchmarks/",
+      "summary": "Frontier model training has pushed GPUs and AI systems to their absolute limits, making cost, efficiency, power, performance per TCO, and reliability central to the discussion on effective training. The Hopper vs Blackwell comparisons are not as simple as Nvidia would have you believe. In this report, we will start by present the results of […]",
+      "published_at": "2025-08-20T04:56:35+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "dylan-patel",
+        "name": "Dylan Patel",
+        "type": "rss",
+        "homepage": "https://semianalysis.com/"
+      },
+      "provider": {
+        "id": "dylan",
+        "name": "Dylan Patel",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Dylan Patel"
+      ]
+    },
+    {
+      "id": "dce54a7fe24ad5187275aa9391e7e88efb3530d68101251f34aa8961f8f624b6",
+      "title": "AI Market Clarity",
+      "url": "https://blog.eladgil.com/p/ai-market-clarity",
+      "summary": "A subset of AI markets have crystalized in the last 12 months, with the likely market leaders for the next year or two suddenly clear",
+      "published_at": "2025-07-22T16:47:51+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "elad-gil",
+        "name": "Elad Gil",
+        "type": "rss",
+        "homepage": "https://blog.eladgil.com/"
+      },
+      "provider": {
+        "id": "elad",
+        "name": "Elad Gil",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Elad Gil"
+      ]
+    },
+    {
+      "id": "69258b6c629a78f1fff319445df96f8677a7b82ca62cfc4f11b4fb630bf8db52",
+      "title": "Biotech companies I wish existed",
+      "url": "https://blog.eladgil.com/p/biotech-companies-i-wish-existed",
+      "summary": "While one off companies may exist, I am surprised there is not more biotech activity in these areas",
+      "published_at": "2025-05-20T23:01:19+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "elad-gil",
+        "name": "Elad Gil",
+        "type": "rss",
+        "homepage": "https://blog.eladgil.com/"
+      },
+      "provider": {
+        "id": "elad",
+        "name": "Elad Gil",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Elad Gil"
+      ]
+    },
+    {
+      "id": "ebb155c1ad2cd8bb64068a32b5cd47f3c3049438ae9ca7043ff8027ef648927b",
+      "title": "Why We Think",
+      "url": "https://lilianweng.github.io/posts/2025-05-01-thinking/",
+      "summary": "Special thanks to John Schulman for a lot of super valuable feedback and direct edits on this post. Test time compute ( Graves et al. 2016 , Ling, et al. 2017 , Cobbe et al. 2021 ) and Chain-of-thought (CoT) ( Wei et al. 2022 , Nye et al. 2021 ), have led to significant improvements in model performance, while raising many research questions. This post aims to review recent developments in how to effectively use test-time compute (i.e. “thinking time”) and why it helps.",
+      "published_at": "2025-05-01T00:00:00+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "lilian-weng",
+        "name": "Lilian Weng",
+        "type": "rss",
+        "homepage": "https://lilianweng.github.io/"
+      },
+      "provider": {
+        "id": "lilian",
+        "name": "Lilian Weng",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": []
+    },
+    {
+      "id": "7c1019395a528862fb3e7d2b6aa937aebce02d27b7cf589232ed3268a5b47ba5",
+      "title": "Market Ending Moves",
+      "url": "https://blog.eladgil.com/p/market-ending-moves",
+      "summary": "Startup CEOs should ask themselves what crazy ideas can turn into a move that just ends a market's competitive dynamic",
+      "published_at": "2025-04-08T18:26:50+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "elad-gil",
+        "name": "Elad Gil",
+        "type": "rss",
+        "homepage": "https://blog.eladgil.com/"
+      },
+      "provider": {
+        "id": "elad",
+        "name": "Elad Gil",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Elad Gil"
+      ]
+    },
+    {
+      "id": "60704bd3b8d78a182720eb3aa792cd05415dd4917fcedb6b6d5df917a8d392da",
+      "title": "Analyzing long agent transcripts (Docent)",
+      "url": "https://bounded-regret.ghost.io/analyzing-long-agent-transcripts-docent/",
+      "summary": "This is a brief overview of a recent release by Transluce. You can see the full write-up on the Transluce website. AI systems are increasingly being used as agents : scaffolded systems in which large language models are invoked across multiple turns and given access to tools, persistent state, and",
+      "published_at": "2025-03-24T18:46:19+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "jacob-steinhardt",
+        "name": "Jacob Steinhardt",
+        "type": "rss",
+        "homepage": "https://bounded-regret.ghost.io/"
+      },
+      "provider": {
+        "id": "steinhardt",
+        "name": "Jacob Steinhardt",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Jacob Steinhardt"
+      ]
+    },
+    {
       "id": "76538638f16246099321520cefbc07825e0383ce0ff21bee352f294f55899519",
       "title": "Common pitfalls when building generative AI applications",
       "url": "https://huyenchip.com//2025/01/16/ai-engineering-pitfalls.html",
       "summary": "As we’re still in the early days of building applications with foundation models, it’s normal to make mistakes. This is a quick note with examples of some of the most common pitfalls that I’ve seen, both from public case studies and from my personal experience. Because these pitfalls are common, if you’ve worked on any AI product, you’ve probably seen them before. 1. Use generative AI when you don't need generative AI Every time there’s a new technology, I can hear the collective sigh of senior engineers everywhere: “Not everything is a nail.” Generative AI isn’t an exception — its seemingly limitless capabilities only exacerbate the tendency to use generative AI for everything. A team pitched me the idea of using generative AI to optimize energy consumption. They fed a household’s list of energy-intensive activities and hourly electricity prices into an LLM, then asked it to create a schedule to minimize energy costs. Their experiments showed that this could help reduce a household’s…",
       "published_at": "2025-01-16T00:00:00+00:00",
-      "fetched_at": "2026-10-24T16:09:39+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
       "source": {
         "id": "chip-huyen",
         "name": "Chip Huyen",
@@ -1024,7 +2331,147 @@
       "url": "https://huyenchip.com//2025/01/07/agents.html",
       "summary": "Intelligent agents are considered by many to be the ultimate goal of AI. The classic book by Stuart Russell and Peter Norvig, Artificial Intelligence: A Modern Approach (Prentice Hall, 1995), defines the field of AI research as “ the study and design of rational agents. ” The unprecedented capabilities of foundation models have opened the door to agentic applications that were previously unimaginable. These new capabilities make it finally possible to develop autonomous, intelligent agents to act as our assistants, coworkers, and coaches. They can help us create a website, gather data, plan a trip, do market research, manage a customer account, automate data entry, prepare us for interviews, interview our candidates, negotiate a deal, etc. The possibilities seem endless, and the potential economic value of these agents is enormous. This section will start with an overview of agents and then continue with two aspects that determine the capabilities of an agent: tools and planning. Agen…",
       "published_at": "2025-01-07T00:00:00+00:00",
-      "fetched_at": "2026-10-24T16:09:39+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "chip-huyen",
+        "name": "Chip Huyen",
+        "type": "rss",
+        "homepage": "https://huyenchip.com/"
+      },
+      "provider": {
+        "id": "chip",
+        "name": "Chip Huyen",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": []
+    },
+    {
+      "id": "570615e019d1cc74091352766960c46274f2e47101e00433b216115f701cdaa3",
+      "title": "Reward Hacking in Reinforcement Learning",
+      "url": "https://lilianweng.github.io/posts/2024-11-28-reward-hacking/",
+      "summary": "Reward hacking occurs when a reinforcement learning (RL) agent exploits flaws or ambiguities in the reward function to achieve high rewards, without genuinely learning or completing the intended task. Reward hacking exists because RL environments are often imperfect, and it is fundamentally challenging to accurately specify a reward function. With the rise of language models generalizing to a broad spectrum of tasks and RLHF becomes a de facto method for alignment training, reward hacking in RL training of language models has become a critical practical challenge. Instances where the model learns to modify unit tests to pass coding tasks, or where responses contain biases that mimic a user’s preference, are pretty concerning and are likely one of the major blockers for real-world deployment of more autonomous use cases of AI models.",
+      "published_at": "2024-11-28T00:00:00+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "lilian-weng",
+        "name": "Lilian Weng",
+        "type": "rss",
+        "homepage": "https://lilianweng.github.io/"
+      },
+      "provider": {
+        "id": "lilian",
+        "name": "Lilian Weng",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": []
+    },
+    {
+      "id": "cf703404239156dbcd7dc1cde90f7c8ea23616818d5319fd39dcb4abf4ef617b",
+      "title": "Introducing Transluce — A Letter from the Founders",
+      "url": "https://bounded-regret.ghost.io/introducing-transluce/",
+      "summary": "We are launching an independent research lab that builds open, scalable technology for understanding AI systems and steering them in the public interest. Transluce means to shine light through something to reveal its structure. Today’s complex AI systems are difficult to understand—not even experts can reliably",
+      "published_at": "2024-10-23T18:08:02+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "jacob-steinhardt",
+        "name": "Jacob Steinhardt",
+        "type": "rss",
+        "homepage": "https://bounded-regret.ghost.io/"
+      },
+      "provider": {
+        "id": "steinhardt",
+        "name": "Jacob Steinhardt",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Jacob Steinhardt"
+      ]
+    },
+    {
+      "id": "072d8a96eb7fc91224a268eef39a322cd6c13a900f9f9f60bd7d8439cad6d07d",
+      "title": "Building A Generative AI Platform",
+      "url": "https://huyenchip.com//2024/07/25/genai-platform.html",
+      "summary": "After studying how companies deploy generative AI applications, I noticed many similarities in their platforms. This post outlines the common components of a generative AI platform, what they do, and how they are implemented. I try my best to keep the architecture general, but certain applications might deviate. This is what the overall architecture looks like. This is a pretty complex system. This post will start from the simplest architecture and progressively add more components. In its simplest form, your application receives a query and sends it to the model. The model generates a response, which is returned to the user. There are no guardrails, no augmented context, and no optimization. The Model API box refers to both third-party APIs (e.g., OpenAI, Google, Anthropic) and self-hosted APIs. From this, you can add more components as needs arise. The order discussed in this post is common, though you don’t need to follow the exact same order. A component can be skipped if your sys…",
+      "published_at": "2024-07-25T00:00:00+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "chip-huyen",
+        "name": "Chip Huyen",
+        "type": "rss",
+        "homepage": "https://huyenchip.com/"
+      },
+      "provider": {
+        "id": "chip",
+        "name": "Chip Huyen",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": []
+    },
+    {
+      "id": "d342305e68818550acc267bc49dacb9c18316e67f5abb49678fb9a8bd7e4d4bf",
+      "title": "Extrinsic Hallucinations in LLMs",
+      "url": "https://lilianweng.github.io/posts/2024-07-07-hallucination/",
+      "summary": "Hallucination in large language models usually refers to the model generating unfaithful, fabricated, inconsistent, or nonsensical content. As a term, hallucination has been somewhat generalized to cases when the model makes mistakes. Here, I would like to narrow down the problem of hallucination to cases where the model output is fabricated and not grounded by either the provided context or world knowledge. There are two types of hallucination: In-context hallucination: The model output should be consistent with the source content in context. Extrinsic hallucination: The model output should be grounded by the pre-training dataset. However, given the size of the pre-training dataset, it is too expensive to retrieve and identify conflicts per generation. If we consider the pre-training data corpus as a proxy for world knowledge, we essentially try to ensure the model output is factual and verifiable by external world knowledge. Equally importantly, when the model does not know about a…",
+      "published_at": "2024-07-07T00:00:00+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "lilian-weng",
+        "name": "Lilian Weng",
+        "type": "rss",
+        "homepage": "https://lilianweng.github.io/"
+      },
+      "provider": {
+        "id": "lilian",
+        "name": "Lilian Weng",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": []
+    },
+    {
+      "id": "513220f5b91c5314014da43a6e82ad8e1bec4e8651493614a7a2dadbd1f714aa",
+      "title": "Measuring personal growth",
+      "url": "https://huyenchip.com//2024/04/17/personal-growth.html",
+      "summary": "My founder friends constantly think about growth. They think about how to measure their business growth and how to get to the next order of magnitude scale. If they’re making $1M ARR today, they think about how to get to $10M ARR. If they have 1,000 users today, they think about how to get to 10,000 users. This made me wonder if/how people are measuring personal growth. I don’t want to use metrics like net worth or the number of followers, because that’s not what I live for. After talking with a lot of friends, I found three interesting metrics: rate of change, time to solve problems, and number of future options. Some friends told me they find this blog post mildly sociopathic. Why do I have to measure everything? Life is to be lived, not to be measured. As someone lowkey fascinated by numbers, I don’t see why measuring and living have to be mutually exclusive – measuring often helps me live better – but I see where they come from. This post is more of a thought exercise than a rigor…",
+      "published_at": "2024-04-17T00:00:00+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "chip-huyen",
+        "name": "Chip Huyen",
+        "type": "rss",
+        "homepage": "https://huyenchip.com/"
+      },
+      "provider": {
+        "id": "chip",
+        "name": "Chip Huyen",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": []
+    },
+    {
+      "id": "223c0177e5f8b959212153cc5c84e0995e9cd9ffde6b3cc4709dd7a2caea78b7",
+      "title": "What I learned from looking at 900 most popular open source AI tools",
+      "url": "https://huyenchip.com//2024/03/14/ai-oss.html",
+      "summary": "[ Hacker News discussion , LinkedIn discussion , Twitter thread ] Update (Feb 2026) : The full list of open source AI repos is hosted at Good AI List , updated daily. It’s balooned to 15K repos, and you can submit missing repos. You can also find some of them on my cool-llm-repos list on GitHub. Four years ago, I did an analysis of the open source ML ecosystem . Since then, the landscape has changed, so I revisited the topic. This time, I focused exclusively on the stack around foundation models. Data I searched GitHub using the keywords gpt , llm , and generative ai . If AI feels so overwhelming right now, it’s because it is. There are 118K results for gpt alone. To make my life easier, I limited my search to the repos with at least 500 stars. There were 590 results for llm , 531 for gpt , and 38 for generative ai . I also occasionally checked GitHub trending and social media for new repos. After MANY hours, I found 896 repos. Of these, 51 are tutorials (e.g. dair-ai/Prompt-Engineeri…",
+      "published_at": "2024-03-14T00:00:00+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
       "source": {
         "id": "chip-huyen",
         "name": "Chip Huyen",
@@ -1047,7 +2494,7 @@
       "url": "https://andrewchen.com/how-to-break-into-silicon-valley/",
       "summary": "(Above: No, it doesn’t really look like this — and yes it’s mostly office parks and tech billboards. But I like to pretend) You’ll never regret spending time in SF If you work in tech, you’ll never regret spending 3-5 years in the Bay Area. This is advice I’ve been giving to people for years, and […]",
       "published_at": "2024-02-26T16:00:38+00:00",
-      "fetched_at": "2026-10-24T16:09:39+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
       "source": {
         "id": "andrew-chen",
         "name": "Andrew Chen",
@@ -1072,7 +2519,82 @@
       "url": "https://andrewchen.com/the-dinner-party-jerk-test/",
       "summary": "The “Dinner Party Jerk” test is a solution to a common problem: Startups often struggle at pitching their team, even though for the earliest stage companies, it’s incredibly important to do it well to raise capital — as I’ve described it below: Pre-seed- Bet on the team ‍ Seed- Bet on the product Series A- […]",
       "published_at": "2024-02-12T17:00:57+00:00",
-      "fetched_at": "2026-10-24T16:09:39+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "andrew-chen",
+        "name": "Andrew Chen",
+        "type": "rss",
+        "homepage": "https://andrewchen.com/"
+      },
+      "provider": {
+        "id": "andrewchen",
+        "name": "Andrew Chen",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Andrew Chen"
+      ]
+    },
+    {
+      "id": "fcf8a33e85991f26bbc09c5c601283ea07433b3b5dec32b5b28e2000027b246e",
+      "title": "Startups need dual theories on distribution and product/market fit. One is not enough",
+      "url": "https://andrewchen.com/startups-need-dual-theories-on-distribution-and-product-market-fit-one-is-not-enough/",
+      "summary": "It’s hard to be a product without a strong theory of distribution Here’s a common startup situation. A team busts their ass for months building the first version of their product. It’s almost done. Now a big question emerges — how do you get the first people to use your product? Hmm… If you find […]",
+      "published_at": "2024-02-06T17:29:04+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "andrew-chen",
+        "name": "Andrew Chen",
+        "type": "rss",
+        "homepage": "https://andrewchen.com/"
+      },
+      "provider": {
+        "id": "andrewchen",
+        "name": "Andrew Chen",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Andrew Chen"
+      ]
+    },
+    {
+      "id": "11d9fd515bb52d785905d081614f11411df7d19b6c6685976fab2b69f83f45aa",
+      "title": "Every time you ask the user to click you lose half",
+      "url": "https://andrewchen.com/every-time-you-ask-the-user-click-you-lose-half/",
+      "summary": "Every time you ask the user click you lose half of them. (And this why tutorials, splash screens, and lengthy signup flows are a bad idea) If you’ve been building apps for a long time and have seen the results of a lot of A/B tests, you quickly realize that people are a flighty bunch. […]",
+      "published_at": "2024-02-05T17:00:38+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "andrew-chen",
+        "name": "Andrew Chen",
+        "type": "rss",
+        "homepage": "https://andrewchen.com/"
+      },
+      "provider": {
+        "id": "andrewchen",
+        "name": "Andrew Chen",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Andrew Chen"
+      ]
+    },
+    {
+      "id": "d7488831246828c3d10eaf8cbfec4ec4fb2e265cd7a3a878e95914ea3c66b214",
+      "title": "Why the worst users come from referral programs, free trials, coupons, and gamification",
+      "url": "https://andrewchen.com/worst-users-referral-trials-coupons-gamification/",
+      "summary": "Above: Many small business figured out the hard way why coupon sites generate worse users Incentive programs often don’t perform The people you attract with referral programs, free trials, coupons, and gamification — folks who are “incentivized” as a broad umbrella category — are usually MUCH WORSE than organic ones. Worse LTVs, worse conversion, less […]",
+      "published_at": "2024-01-31T18:39:38+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
       "source": {
         "id": "andrew-chen",
         "name": "Andrew Chen",
@@ -1097,7 +2619,30 @@
       "url": "http://colah.github.io/posts/2019-05-Collaboration/index.html",
       "summary": "A lot of the best research in machine learning comes from collaborations. In fact, many of the most significant papers in the last few years (TensorFlow, AlphaGo, etc) come from collaborations of 20+ people. These collaborations are made possible by goodwill and trust between researchers.",
       "published_at": "2019-05-30T00:00:00+00:00",
-      "fetched_at": "2026-10-24T16:09:39+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "chris-olah",
+        "name": "Chris Olah",
+        "type": "rss",
+        "homepage": "https://colah.github.io/"
+      },
+      "provider": {
+        "id": "colah",
+        "name": "Chris Olah",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": []
+    },
+    {
+      "id": "85a43d719b12c4ebc2d1e09527a45ef70bf24997b747e70fa4e39d8b7ac7ede8",
+      "title": "Neural Networks, Types, and Functional Programming",
+      "url": "http://colah.github.io/posts/2015-09-NN-Types-FP/",
+      "summary": "Deep learning, despite its remarkable successes, is a young field – perhaps ten years old. While models called artificial neural networks have been studied for decades, much of that work seems only tenuously connected to modern results. It’s often the case that young fields start in a very ad-hoc manner. Later, the mature field is understood very differently than it was understood by its early practitioners. It seems quite likely that deep learning is in this ad-hoc state... Read more.",
+      "published_at": "2015-09-03T00:00:00+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
       "source": {
         "id": "chris-olah",
         "name": "Chris Olah",
@@ -1120,7 +2665,53 @@
       "url": "http://colah.github.io/posts/2015-09-Visual-Information/",
       "summary": "I love the feeling of having a new way to think about the world. I especially love when there’s some vague idea that gets formalized into a concrete concept. Information theory is a prime example of this. Information theory gives us precise language for describing a lot of things. How uncertain am I? How much does knowing the answer to question A tell me about the answer to question B? How similar is one set of beliefs to another? I’ve had informal versions of these ideas since I was a young child, but information theory crystallizes them into precise, powerful ideas. These ideas have an enormous variety of applications, from the compression of data, to quantum physics, to machine learning, and vast fields in between. Unfortunately, information theory can seem kind of intimidating. I don’t think there’s any reason it should be. In fact, many core ideas can be explained completely visually! Read more.",
       "published_at": "2015-09-03T00:00:00+00:00",
-      "fetched_at": "2026-10-24T16:09:39+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "chris-olah",
+        "name": "Chris Olah",
+        "type": "rss",
+        "homepage": "https://colah.github.io/"
+      },
+      "provider": {
+        "id": "colah",
+        "name": "Chris Olah",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": []
+    },
+    {
+      "id": "8733c586cf88b3adc822f12da795964c02625aec53ce22412a297aae9759ce04",
+      "title": "Calculus on Computational Graphs: Backpropagation",
+      "url": "http://colah.github.io/posts/2015-08-Backprop/index.html",
+      "summary": "Backpropagation is the key algorithm that makes training deep models computationally tractable. For modern neural networks, it can make training with gradient descent as much as ten million times faster, relative to a naive implementation. That’s the difference between a model taking a week to train and taking 200,000 years. Beyond its use in deep learning, backpropagation is a powerful computational tool in many other areas, ranging from weather forecasting to analyzing numerical stability – it just goes by different names. In fact, the algorithm has been reinvented at least dozens of times in different fields (see Griewank (2010) ). The general, application independent, name is “reverse-mode differentiation.” Fundamentally, it’s a technique for calculating derivatives quickly. And it’s an essential trick to have in your bag, not only in deep learning, but in a wide variety of numerical computing situations. Read more.",
+      "published_at": "2015-08-31T00:00:00+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
+      "source": {
+        "id": "chris-olah",
+        "name": "Chris Olah",
+        "type": "rss",
+        "homepage": "https://colah.github.io/"
+      },
+      "provider": {
+        "id": "colah",
+        "name": "Chris Olah",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": []
+    },
+    {
+      "id": "3d2d4973a932b1c50f8b0f71b8a47f84000407e91e6c1dedde6d4d79e251831b",
+      "title": "Understanding LSTM Networks",
+      "url": "http://colah.github.io/posts/2015-08-Understanding-LSTMs/index.html",
+      "summary": "Humans don’t start their thinking from scratch every second. As you read this essay, you understand each word based on your understanding of previous words. You don’t throw everything away and start thinking from scratch again. Your thoughts have persistence. Traditional neural networks can’t do this, and it seems like a major shortcoming. For example, imagine you want to classify what kind of event is happening at every point in a movie. It’s unclear how a traditional neural network could use its reasoning about previous events in the film to inform later ones. Recurrent neural networks address this issue. They are networks with loops in them, allowing information to persist... Read more.",
+      "published_at": "2015-08-27T00:00:00+00:00",
+      "fetched_at": "2026-10-24T16:30:05+00:00",
       "source": {
         "id": "chris-olah",
         "name": "Chris Olah",

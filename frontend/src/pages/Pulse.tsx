@@ -19,9 +19,21 @@ const FILTERS: { id: Filter; label: string }[] = [
 ];
 
 export default function Pulse() {
-  const { viewLevel, setViewLevel, rememberPosts, feedVersion, setDecodeOpen, user } = useApp();
+  const { viewLevel, setViewLevel, rememberPosts, feedVersion, bumpFeed, setDecodeOpen, user, toast } = useApp();
   const [filter, setFilter] = useState<Filter>("all");
   const [posts, setPosts] = useState<Post[] | null>(null);
+  const [refreshing, setRefreshing] = useState(false);
+
+  async function refreshFeed() {
+    setRefreshing(true);
+    try {
+      const result = await api.refreshFeed();
+      bumpFeed();
+      toast(result.added > 0 ? `Added ${result.added} new posts` : "Feed is up to date");
+    } finally {
+      setRefreshing(false);
+    }
+  }
 
   useEffect(() => {
     setPosts(null);
@@ -51,6 +63,9 @@ export default function Pulse() {
         <div className="mt-3">
           <LevelToggle value={viewLevel} onChange={setViewLevel} />
         </div>
+        <button onClick={refreshFeed} disabled={refreshing} className="btn-ghost mt-3 w-full">
+          {refreshing ? "Fetching new posts…" : "Refresh"}
+        </button>
       </div>
 
       <div className="no-scrollbar mt-3 flex gap-2 overflow-x-auto px-4 pb-1">

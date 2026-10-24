@@ -4,6 +4,7 @@ import os from "node:os";
 import path from "node:path";
 import test from "node:test";
 import { openDb } from "../src/db.js";
+import { parseFeed } from "../src/feeds.js";
 import { linkTerms } from "../src/link.js";
 
 function tempDb() {
@@ -46,6 +47,19 @@ test("known terms are per user and lessons skip them", async () => {
     server.close();
     fs.rmSync(db.file, { force: true });
   }
+});
+
+test("a fresh database does not include refresh-only people", () => {
+  const db = tempDb();
+  assert.equal(db.raw.posts.some((post) => post.author.id === "a_karpathy"), false);
+  const parsed = parseFeed(`
+    <rss><channel>
+      <item><title>Older</title><link>https://example.com/old</link><pubDate>Mon, 01 Jan 2024 00:00:00 GMT</pubDate></item>
+      <item><title>Newer</title><link>https://example.com/new</link><pubDate>Fri, 01 Jan 2026 00:00:00 GMT</pubDate></item>
+    </channel></rss>
+  `);
+  assert.equal(parsed[0].title, "Newer");
+  fs.rmSync(db.file, { force: true });
 });
 
 test("scraped news is stored once", () => {

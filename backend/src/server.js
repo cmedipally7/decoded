@@ -6,6 +6,7 @@ import { fileURLToPath } from "node:url";
 import { openDb } from "./db.js";
 import { buildLesson } from "./lesson.js";
 import { linkTerms } from "./link.js";
+import { fetchLaterPeople } from "./feeds.js";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -190,11 +191,11 @@ export function createApp(db = openDb()) {
     res.json({ posts });
   });
 
-  app.post("/api/feed/refresh", (_req, res) => {
+  app.post("/api/feed/refresh", async (_req, res) => {
     const newsPath = path.join(ROOT, "seed", "news.json");
-    if (!fs.existsSync(newsPath)) return res.json({ added: 0 });
-    const news = JSON.parse(fs.readFileSync(newsPath, "utf8"));
-    res.json(db.syncNews(news.items || []));
+    const news = fs.existsSync(newsPath) ? JSON.parse(fs.readFileSync(newsPath, "utf8")) : { items: [] };
+    const later = await fetchLaterPeople();
+    res.json(db.syncNews([...(news.items || []), ...later]));
   });
 
   app.get("/api/terms/:id", (req, res) => {

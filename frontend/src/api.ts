@@ -83,6 +83,13 @@ export const api = {
       () => mock.completeLesson(lessonId),
     ),
 
+  refreshFeed: () =>
+    call<{ added: number; removed: number }>(
+      "refreshFeed",
+      () => http("/feed/refresh", { method: "POST" }),
+      async () => ({ added: 0, removed: 0 }),
+    ),
+
   getFeed: (f?: { archetype?: Archetype; source?: Source }) => {
     const q = new URLSearchParams();
     if (f?.archetype) q.set("archetype", f.archetype);

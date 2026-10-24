@@ -11,7 +11,7 @@ import tailArt from "../assets/byte_tail.png";
  * Tap Byte for a happy hop.
  */
 export const MASCOT_NAME = "Byte";
-export type Mood = "wave" | "think" | "cheer" | "point" | "sad";
+export type Mood = "wave" | "think" | "cheer" | "point" | "sad" | "run";
 
 const FUR = "rgb(249,165,70)";
 const LAYER = "absolute inset-0 h-full w-full select-none pointer-events-none";
@@ -54,6 +54,13 @@ const POSES: Record<Mood, Pose> = {
     body: { scaleY: [1, 0.97, 1] }, bodyT: loop(1.4),
     head: { rotate: [6, 10, 6] }, headT: loop(1.4),
     tail: { rotate: [-18, 20, -18] }, tailT: loop(0.45),
+  },
+  // Running: quick little hops, bouncing head, tail going like a propeller
+  run: {
+    root: { y: [0, -7, 0] }, rootT: loop(0.26),
+    body: { scaleY: [0.94, 1.04, 0.94], scaleX: [1.05, 0.97, 1.05] }, bodyT: loop(0.26),
+    head: { rotate: [-7, 7, -7] }, headT: loop(0.26),
+    tail: { rotate: [-35, 35, -35] }, tailT: loop(0.14),
   },
   // Missed one: droopy head, still tail, small sigh
   sad: {
@@ -153,6 +160,58 @@ export function MascotSays({ children, mood = "wave", size = 72 }: { children: R
         <span className="absolute -left-[9px] bottom-4 h-4 w-4 rotate-45 border-b-2 border-l-2 border-stone-200 bg-white" />
         <span className="relative">{children}</span>
       </motion.div>
+    </div>
+  );
+}
+
+/**
+ * Loading indicator: Byte running in circles trying to catch its own tail.
+ * Byte travels an elliptical loop (front of the loop is bigger, back is smaller),
+ * flips to face the way it's running, with a dust ring and a little paw trail.
+ */
+export function ByteChase({ size = 96, label }: { size?: number; label?: ReactNode }) {
+  const R = size * 0.42;
+  const steps = 12;
+  const pts = Array.from({ length: steps + 1 }, (_, i) => (i / steps) * Math.PI * 2);
+  const x = pts.map((a) => Math.cos(a) * R);
+  const y = pts.map((a) => Math.sin(a) * R * 0.32);
+  const scale = pts.map((a) => 1 + Math.sin(a) * 0.12);
+  const flip = pts.map((a) => (Math.sin(a) >= 0 ? -1 : 1)); // moving left across the front, right across the back
+  const tilt = pts.map((a) => Math.cos(a) * -10);
+  const dur = 1.3;
+  return (
+    <div className="flex flex-col items-center" role="status" aria-label="Loading">
+      <div className="relative" style={{ width: size * 2, height: size * 1.35 }}>
+        {/* dust ring the dog is running around */}
+        <svg className="absolute left-0" style={{ top: size * 0.82 }} width={size * 2} height={size * 0.5} viewBox={`0 0 ${size * 2} ${size * 0.5}`}>
+          <motion.ellipse
+            cx={size} cy={size * 0.25} rx={R + size * 0.28} ry={R * 0.32 + size * 0.1}
+            fill="rgba(124,58,237,0.08)" stroke="rgba(167,139,250,0.8)" strokeWidth="3" strokeDasharray="8 7"
+            animate={{ strokeDashoffset: [0, -60] }} transition={{ repeat: Infinity, duration: dur, ease: "linear" }}
+          />
+        </svg>
+        <motion.div
+          className="absolute"
+          style={{ left: size * 0.5, top: size * 0.1 }}
+          animate={{ x, y, scale, rotate: tilt }}
+          transition={{ repeat: Infinity, duration: dur, ease: "linear" }}
+        >
+          <motion.div animate={{ scaleX: flip }} transition={{ repeat: Infinity, duration: dur, ease: "linear", times: pts.map((_, i) => i / steps) }}>
+            <Mascot mood="run" size={size} interactive={false} />
+          </motion.div>
+        </motion.div>
+        {/* puffs kicked up behind */}
+        {[0, 1, 2].map((i) => (
+          <motion.span
+            key={i}
+            className="absolute rounded-full bg-stone-300/70"
+            style={{ width: size * 0.12, height: size * 0.12, left: "50%", top: size * 1.05 }}
+            animate={{ x: [0, (i - 1) * size * 0.5], y: [0, -size * 0.15], opacity: [0.8, 0], scale: [0.6, 1.4] }}
+            transition={{ repeat: Infinity, duration: 0.8, delay: i * 0.27 }}
+          />
+        ))}
+      </div>
+      {label && <div className="mt-1 text-center font-black text-brand-700">{label}</div>}
     </div>
   );
 }

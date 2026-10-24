@@ -3,7 +3,7 @@ import { Check, Sparkles, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../api";
-import { Mascot, MascotSays } from "../components/Mascot";
+import { ByteChase, Mascot, MascotSays } from "../components/Mascot";
 import { ProgressBar } from "../components/ui";
 import { useApp } from "../context";
 import type { Card, Lesson as LessonT } from "../types";
@@ -28,7 +28,7 @@ export default function Lesson() {
   }, []);
 
   if (!lesson || queue.length === 0) {
-    return <div className="grid flex-1 place-items-center text-stone-400 font-bold">Loading lesson…</div>;
+    return <div className="grid h-full place-items-center"><ByteChase size={84} label="Fetching your lesson…" /></div>;
   }
 
   const card = lesson.cards[queue[0]];

@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { PhoneFrame, TabLayout } from "./components/Layout";
+import { ByteChase } from "./components/Mascot";
 import { useApp } from "./context";
 import Chat from "./pages/Chat";
 import Learn from "./pages/Learn";
@@ -15,7 +16,7 @@ import Words from "./pages/Words";
 // Sends each user to the home tab for their level (or onboarding if new)
 function Home() {
   const { user } = useApp();
-  if (!user) return null;
+  if (!user) return <div className="grid h-full place-items-center"><ByteChase size={84} /></div>;
   if (!user.onboarded) return <Navigate to="/welcome" replace />;
   return <Navigate to={`/${user.homeTab}`} replace />;
 }

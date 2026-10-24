@@ -3,7 +3,7 @@ import { ArrowLeft, BookOpen, Check, Flame, Newspaper, Sparkles, Sun } from "luc
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../api";
-import { Mascot, MascotSays } from "../components/Mascot";
+import { ByteChase, Mascot, MascotSays } from "../components/Mascot";
 import { LoadingSteps, ProgressBar } from "../components/ui";
 import { LENSES, lensMeta, levelMeta, useApp } from "../context";
 import type { HomeTab, Lens, Level } from "../types";
@@ -142,7 +142,6 @@ export function Welcome() {
                 </p>
                 <div className="flex-1" />
                 <button onClick={() => setStep("name")} className="btn-primary mt-6 w-full">Get started</button>
-                <p className="mt-3 text-center text-xs font-bold text-stone-400">Takes 30 seconds · No account needed</p>
               </>
             )}
 
@@ -232,7 +231,7 @@ export function Welcome() {
 
             {step === "building" && level && lens && (
               <div className="flex flex-1 flex-col items-center justify-center pt-16 text-center">
-                <Mascot mood="think" size={120} />
+                <ByteChase size={90} />
                 <h1 className="mt-6 text-2xl font-black">Byte is building your plan…</h1>
                 <div className="mt-6 w-full max-w-[280px] text-left">
                   <LoadingSteps

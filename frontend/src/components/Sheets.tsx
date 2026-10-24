@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { api } from "../api";
 import { useApp } from "../context";
 import type { Post, Term } from "../types";
-import { Mascot } from "./Mascot";
+import { ByteChase, Mascot } from "./Mascot";
 import { PostCard } from "./PostCard";
 import { BottomSheet, LoadingSteps, Skeleton } from "./ui";
 
@@ -175,13 +175,7 @@ export function DecodeSheet() {
 
       {phase === "loading" && (
         <div className="space-y-4 py-4">
-          <div className="flex items-center gap-3">
-            <Mascot mood="think" size={64} interactive={false} />
-            <div>
-              <h2 className="text-2xl font-black">Decoding…</h2>
-              <p className="text-sm font-bold text-stone-500">Byte is sniffing out the jargon</p>
-            </div>
-          </div>
+          <ByteChase size={72} label={<><span className="text-2xl">Decoding…</span><div className="text-sm font-bold text-stone-500">Byte is chasing down the jargon</div></>} />
           <LoadingSteps steps={["Fetching post", "Spotting jargon", "Writing your TL;DR"]} done={done} />
         </div>
       )}

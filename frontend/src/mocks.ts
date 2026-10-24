@@ -30,6 +30,7 @@ interface State {
   day: number;
   lastLessonDay: number;
   lastGoalMetDay: number;
+  lessonsCompleted: number;
   reads: Record<number, string[]>;
   dives: Record<number, string[]>;
   lessons: Record<number, Lesson & { termIds: string[] }>;
@@ -48,6 +49,7 @@ function makeState(level: Level, lens: Lens | null, opts: { streak: number; xp: 
     day: 0,
     lastLessonDay: -1,
     lastGoalMetDay: -1,
+    lessonsCompleted: 0,
     reads: {},
     dives: {},
     lessons: {},
@@ -111,6 +113,7 @@ function userOut(): User {
     homeTab: HOME[S.user.level],
     dailyGoal: dailyGoal(),
     lessonDoneToday: S.lastLessonDay === S.day,
+    lessonsCompleted: S.lessonsCompleted,
     wordsKnown: Object.values(S.status).filter((s) => s === "learning" || s === "known").length,
     feedFluency: feedFluency(),
     queuedTermsCount: Object.values(S.status).filter((s) => s === "queued").length,
@@ -335,6 +338,7 @@ export const mock = {
     l.termIds.forEach((id) => (S.status[id] = "learning"));
     l.completed = true;
     S.user.xp += 20;
+    S.lessonsCompleted += 1;
     S.lastLessonDay = S.day;
     checkGoal();
     return {

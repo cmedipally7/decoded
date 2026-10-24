@@ -23,8 +23,9 @@ export default function Pulse() {
   const nav = useNavigate();
   const lm = lensMeta(user?.lens);
   const level = user?.level ?? "beginner";
-  const STARTER = 3;
-  const locked = level === "beginner" && !user?.lessonDoneToday;
+  // Beginners start with 3 posts and unlock 3 more per finished lesson
+  const STARTER = 3 + 3 * (user?.lessonsCompleted ?? 0);
+  const locked = level === "beginner";
   const chips: { id: Filter; label: string }[] = [{ id: "all", label: user?.lens ? `✨ For you · ${lm.emoji}` : "All" }, ...FILTERS];
   const subtitle =
     level === "beginner" ? "Your starter feed, explained simply" : level === "amateur" ? `Picked for ${lm.noun}, at your level` : `What ${lm.noun} are arguing about today`;
@@ -121,8 +122,12 @@ export default function Pulse() {
               <div>
                 <div className="mx-auto grid h-12 w-12 place-items-center rounded-full bg-brand-600 text-white"><Lock size={22} /></div>
                 <p className="mt-3 text-lg font-black">{posts.length - STARTER} more posts are waiting</p>
-                <p className="text-sm font-semibold text-stone-500">Finish today's lesson to unlock them. You'll understand more of each one.</p>
-                <button onClick={() => nav("/learn")} className="btn-primary mt-4">Go to today's lesson</button>
+                <p className="text-sm font-semibold text-stone-500">Each lesson you finish unlocks 3 more, and you'll understand more of each one.</p>
+                {user?.lessonDoneToday ? (
+                  <p className="mt-4 text-sm font-extrabold text-brand-700">Come back tomorrow for 3 more 🔓</p>
+                ) : (
+                  <button onClick={() => nav("/learn")} className="btn-primary mt-4">Go to today's lesson</button>
+                )}
               </div>
             </div>
           </div>

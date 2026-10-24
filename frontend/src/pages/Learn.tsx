@@ -1,18 +1,22 @@
-import { motion } from "framer-motion";
-import { Check, Lock, Sparkles, Star } from "lucide-react";
-import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { ArrowRight, Check, ChevronDown, Lock, Sparkles, X } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../api";
 import { StreakHeader } from "../components/Layout";
-import { Skeleton } from "../components/ui";
-import { useApp } from "../context";
-import type { Lesson, PathUnit } from "../types";
+import { MascotSays } from "../components/Mascot";
+import { Avatar, ProgressBar, Skeleton } from "../components/ui";
+import { lensMeta, useApp } from "../context";
+import type { Lesson, PathUnit, Post } from "../types";
 
 export default function Learn() {
-  const { user } = useApp();
+  const { user, rememberPosts, viewLevel } = useApp();
   const nav = useNavigate();
   const [lesson, setLesson] = useState<Lesson | null>(null);
   const [units, setUnits] = useState<PathUnit[] | null>(null);
+  const [posts, setPosts] = useState<Post[] | null>(null);
+  const [showPath, setShowPath] = useState(false);
+  const [coachOff, setCoachOff] = useState(false);
 
   useEffect(() => {
     if (user && !user.onboarded) nav("/welcome", { replace: true });
@@ -21,110 +25,188 @@ export default function Learn() {
   useEffect(() => {
     api.getTodayLesson().then(setLesson);
     api.getPath().then((r) => setUnits(r.units));
-  }, [user?.queuedTermsCount, user?.streak, user?.level]);
+  }, [user?.queuedTermsCount, user?.streak, user?.level, user?.lens, user?.lessonDoneToday]);
 
-  const fromFeed = lesson?.cards.filter((c) => c.type === "concept" && c.fromFeed).length ?? 0;
-  const newWords = lesson?.cards.filter((c) => c.type === "concept").length ?? 0;
-  const offsets = [0, 56, 0, -56, 0];
+  useEffect(() => {
+    api.getFeed().then((r) => { rememberPosts(r.posts); setPosts(r.posts); });
+  }, [user?.lens]);
+
+  const concepts = (lesson?.cards.filter((c) => c.type === "concept") ?? []) as Extract<Lesson["cards"][number], { type: "concept" }>[];
+  const fromFeed = concepts.filter((c) => c.fromFeed).length;
+  // Real posts that use today's words
+  const inTheWild = useMemo(() => {
+    if (!posts || !concepts.length) return [];
+    const ids = new Set(concepts.map((c) => c.termId));
+    return posts.filter((p) => p.terms.some((t) => ids.has(t.id))).slice(0, 2);
+  }, [posts, lesson]);
+
+  if (!user) return null;
+  const isPro = user.level === "pro";
+  const current = units?.find((u) => u.status === "current") ?? units?.[units.length - 1];
+  const showCoach = !coachOff && user.lessonsCompleted === 0 && !user.lessonDoneToday;
+  const coachText = isPro
+    ? `These are the terms that showed up this week. Two minutes and you're current, ${user.name}.`
+    : user.level === "beginner"
+    ? `Welcome, ${user.name}! Your first lesson is ready: 3 words, 5 minutes, zero jargon.`
+    : `Your lessons mix new words with ones you tap in your feed. Let's start with today's.`;
 
   return (
     <div className="pb-28">
       <StreakHeader />
-      <div className="px-4 pt-2">
-        {user?.level === "pro" ? (
-          <>
-            <h1 className="text-3xl font-black">New this week ⚡</h1>
-            <p className="font-semibold text-stone-500">Terms coined or trending in the last 7 days. Two minutes and you're current.</p>
-          </>
+      <div className="space-y-5 px-4 pt-2">
+        {showCoach ? (
+          <div className="relative">
+            <MascotSays mood="wave">{coachText}</MascotSays>
+            <button onClick={() => setCoachOff(true)} className="absolute right-1 top-1 grid h-7 w-7 place-items-center rounded-full text-stone-400" aria-label="Dismiss">
+              <X size={16} />
+            </button>
+          </div>
         ) : (
-          <>
-            <h1 className="text-3xl font-black">Hi {user?.name ?? "there"} 👋</h1>
+          <div>
+            <h1 className="text-3xl font-black">{isPro ? "Catch up ⚡" : `Hi ${user.name} 👋`}</h1>
             <p className="font-semibold text-stone-500">
-              {user?.level === "beginner" ? "Start here. 5 minutes a day, no jargon." : "5 minutes a day to speak AI fluently."}
+              {isPro ? "Terms coined or trending in the last 7 days." : user.level === "beginner" ? "5 minutes a day, no jargon." : "5 minutes a day to speak AI fluently."}
             </p>
-          </>
+          </div>
         )}
 
+        {/* Today's lesson */}
         {!lesson ? (
-          <Skeleton className="mt-4 h-48" />
+          <Skeleton className="h-52" />
         ) : (
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className={`mt-4 overflow-hidden rounded-3xl p-5 text-white shadow-lg ${lesson.completed ? "bg-ok-500 shadow-ok-500/30" : "bg-brand-600 shadow-brand-600/30"}`}
+            className={`overflow-hidden rounded-3xl p-5 text-white shadow-lg ${lesson.completed ? "bg-ok-500 shadow-ok-500/30" : "bg-brand-600 shadow-brand-600/30"}`}
           >
-            <div className="flex items-start justify-between">
-              <div>
-                <div className="text-xs font-extrabold uppercase tracking-wider text-white/70">Today's lesson</div>
+            <div className="flex items-start justify-between gap-3">
+              <div className="min-w-0">
+                <div className="text-xs font-extrabold uppercase tracking-wider text-white/70">{isPro ? "This week's drill" : "Today's lesson"}</div>
                 <div className="mt-1 text-2xl font-black">{lesson.unitTitle}</div>
-                <div className="mt-1 text-sm font-bold text-white/80">
-                  {newWords} new words · {lesson.cards.length} cards · ~5 min
-                </div>
+                <div className="mt-1 text-sm font-bold text-white/80">{isPro ? "~2 min" : "~5 min"} · {lesson.cards.length} cards</div>
               </div>
-              <div className="text-4xl">{lesson.completed ? "🏆" : "📚"}</div>
+              <div className="text-4xl">{lesson.completed ? "🏆" : isPro ? "⚡" : "📚"}</div>
             </div>
-            {fromFeed > 0 && !lesson.completed && (
-              <motion.div
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-white/20 px-3 py-1.5 text-sm font-extrabold"
-              >
-                <Sparkles size={14} /> {fromFeed} word{fromFeed > 1 ? "s" : ""} from your feed
-              </motion.div>
+            {!lesson.completed && concepts.length > 0 && (
+              <div className="mt-3">
+                <div className="text-[11px] font-extrabold uppercase tracking-wider text-white/60">You'll learn</div>
+                <div className="mt-1 flex flex-wrap gap-1.5">
+                  {concepts.map((c) => (
+                    <span key={c.id} className="inline-flex items-center gap-1 rounded-full bg-white/20 px-2.5 py-1 text-sm font-extrabold">
+                      {c.fromFeed && <Sparkles size={12} />} {c.term}
+                    </span>
+                  ))}
+                </div>
+                {fromFeed > 0 && <div className="mt-2 text-xs font-bold text-amber-200">✨ {fromFeed} from words you tapped in your feed</div>}
+              </div>
             )}
             {lesson.completed ? (
-              <div className="mt-4 rounded-2xl bg-white/20 p-3 text-center font-extrabold">✓ Done for today! Come back tomorrow to keep your streak.</div>
+              <div className="mt-4 rounded-2xl bg-white/20 p-3 text-center font-extrabold">✓ Done for today. Come back tomorrow to keep your streak.</div>
             ) : (
-              <button onClick={() => nav(`/lesson/${lesson.id}`)} className="btn mt-4 w-full bg-white text-brand-700 border-b-4 border-brand-200 active:border-b-2">
-                Start lesson
+              <button onClick={() => nav(`/lesson/${lesson.id}`)} className="btn mt-4 w-full border-b-4 border-brand-200 bg-white text-brand-700 active:border-b-2">
+                {isPro ? "Start drill" : user.lessonsCompleted === 0 ? "Start my first lesson" : "Start lesson"}
               </button>
             )}
           </motion.div>
         )}
 
-        {user && user.queuedTermsCount > 0 && lesson?.completed && (
-          <div className="mt-3 rounded-2xl border-2 border-brand-200 bg-brand-50 p-3 text-sm font-bold text-brand-700">
-            ✨ {user.queuedTermsCount} word{user.queuedTermsCount > 1 ? "s" : ""} from your feed queued for tomorrow
+        {/* North-star metric */}
+        <div className="card flex items-center gap-4 p-4">
+          <div className="text-center">
+            <div className="text-2xl font-black tabular-nums text-ok-600">{user.feedFluency}%</div>
+            <div className="text-[10px] font-extrabold uppercase leading-tight text-stone-400">feed<br />fluency</div>
           </div>
+          <div className="min-w-0 flex-1">
+            <div className="text-sm font-extrabold leading-snug">
+              You can read {user.feedFluency}% of today's AI feed
+            </div>
+            <ProgressBar value={user.feedFluency / 100} className="mt-2 h-2.5" />
+            <div className="mt-1 text-xs font-bold text-stone-400">{user.wordsKnown} words known · each lesson moves this up</div>
+          </div>
+        </div>
+
+        {/* Today's words in real posts */}
+        {inTheWild.length > 0 && !lesson?.completed && (
+          <section>
+            <h2 className="text-lg font-black">Spot today's words in the wild</h2>
+            <p className="text-sm font-semibold text-stone-500">After the lesson, these posts will make sense.</p>
+            <div className="no-scrollbar -mx-4 mt-3 flex gap-3 overflow-x-auto px-4 pb-1">
+              {inTheWild.map((p) => {
+                const hit = p.terms.find((t) => concepts.some((c) => c.termId === t.id));
+                return (
+                  <button key={p.id} onClick={() => nav(`/chat/${p.id}`)} className="card w-[260px] shrink-0 p-3 text-left active:scale-[0.98]">
+                    <div className="flex items-center gap-2">
+                      <Avatar name={p.author.name} url={p.author.avatarUrl} size={28} />
+                      <div className="min-w-0">
+                        <div className="truncate text-sm font-extrabold">{p.author.name}</div>
+                        <div className="truncate text-[11px] font-bold text-stone-400">{p.topic}</div>
+                      </div>
+                    </div>
+                    <p className="mt-2 line-clamp-3 text-sm text-stone-700">{p.tldr[viewLevel]}</p>
+                    {hit && <span className="mt-2 inline-block rounded-full bg-brand-100 px-2 py-0.5 text-xs font-extrabold text-brand-700">uses “{hit.term}”</span>}
+                  </button>
+                );
+              })}
+            </div>
+          </section>
         )}
 
-        <h2 className="mt-8 text-lg font-black">{user?.level === "pro" ? "The full path" : "Your path"}</h2>
-        <div className="relative mt-10 flex flex-col items-center gap-12 pb-6">
-          {!units && <Skeleton className="h-64 w-full" />}
-          {units?.map((u, i) => (
-            <motion.div
-              key={u.id}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: i * 0.06 }}
-              className="flex flex-col items-center"
-              style={{ transform: `translateX(${offsets[i % offsets.length]}px)` }}
-            >
-              <div className="relative">
-                {u.status === "current" && (
-                  <>
-                    <motion.div className="absolute -inset-2 rounded-full border-4 border-brand-300" animate={{ scale: [1, 1.08, 1] }} transition={{ repeat: Infinity, duration: 1.8 }} />
-                    <div className="absolute -top-9 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-xl bg-white px-3 py-1 text-xs font-black text-brand-600 shadow-card border-2 border-brand-100">
-                      {Math.round(u.progress * 100)}% done
-                    </div>
-                  </>
-                )}
-                <button
-                  onClick={() => u.status !== "locked" && lesson && !lesson.completed && nav(`/lesson/${lesson.id}`)}
-                  className={`relative grid h-[76px] w-[76px] place-items-center rounded-full border-b-[6px] text-3xl transition-transform active:translate-y-1 ${
-                    u.status === "done" ? "bg-ok-500 border-ok-700" : u.status === "current" ? "bg-brand-600 border-brand-800" : "bg-stone-200 border-stone-300"
-                  }`}
-                >
-                  <span className={u.status === "locked" ? "grayscale opacity-50" : ""}>{u.emoji}</span>
-                  <div className="absolute -bottom-1 -right-1 grid h-7 w-7 place-items-center rounded-full border-2 border-white bg-white shadow">
-                    {u.status === "done" ? <Check size={16} className="text-ok-600" strokeWidth={3} /> : u.status === "locked" ? <Lock size={14} className="text-stone-400" /> : <Star size={14} className="text-amber-500" fill="currentColor" />}
+        {/* Compact journey */}
+        <section className="card p-4">
+          <button onClick={() => setShowPath((s) => !s)} className="flex w-full items-center justify-between">
+            <div className="text-left">
+              <div className="text-xs font-extrabold uppercase tracking-wider text-stone-400">Your journey · {lensMeta(user.lens).emoji} {lensMeta(user.lens).label} track</div>
+              <div className="font-black">{current ? `${current.emoji} ${current.title}` : "Loading…"}</div>
+            </div>
+            <ChevronDown size={20} className={`text-stone-400 transition-transform ${showPath ? "rotate-180" : ""}`} />
+          </button>
+          {!units ? (
+            <Skeleton className="mt-3 h-12" />
+          ) : (
+            <div className="mt-3 flex items-center">
+              {units.map((u, i) => (
+                <div key={u.id} className="flex flex-1 items-center last:flex-none">
+                  <div
+                    className={`relative grid h-10 w-10 shrink-0 place-items-center rounded-full border-b-4 text-lg ${
+                      u.status === "done" ? "border-ok-700 bg-ok-500" : u.status === "current" ? "border-brand-800 bg-brand-600 ring-4 ring-brand-200" : "border-stone-300 bg-stone-200"
+                    }`}
+                    title={u.title}
+                  >
+                    <span className={u.status === "locked" ? "opacity-40 grayscale" : ""}>{u.emoji}</span>
                   </div>
-                </button>
-              </div>
-              <div className={`mt-2 text-sm font-extrabold ${u.status === "locked" ? "text-stone-400" : "text-ink"}`}>{u.title}</div>
-            </motion.div>
-          ))}
-        </div>
+                  {i < units.length - 1 && <div className={`mx-1 h-1 flex-1 rounded-full ${u.status === "done" ? "bg-ok-500" : "bg-stone-200"}`} />}
+                </div>
+              ))}
+            </div>
+          )}
+          {current && (
+            <div className="mt-3">
+              <ProgressBar value={current.progress} className="h-2.5" color="bg-brand-500" />
+              <div className="mt-1 text-xs font-bold text-stone-400">{Math.round(current.progress * 100)}% of {current.title}</div>
+            </div>
+          )}
+          <AnimatePresence>
+            {showPath && units && (
+              <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
+                <div className="mt-4 space-y-2 border-t-2 border-stone-100 pt-3">
+                  {units.map((u) => (
+                    <div key={u.id} className="flex items-center gap-3">
+                      <span className={`text-xl ${u.status === "locked" ? "opacity-40 grayscale" : ""}`}>{u.emoji}</span>
+                      <span className={`flex-1 text-sm font-extrabold ${u.status === "locked" ? "text-stone-400" : ""}`}>{u.title}</span>
+                      {u.status === "done" ? <Check size={16} className="text-ok-600" strokeWidth={3} /> : u.status === "locked" ? <Lock size={14} className="text-stone-300" /> : <span className="text-xs font-black text-brand-600">{Math.round(u.progress * 100)}%</span>}
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </section>
+
+        {user.level === "beginner" && (
+          <button onClick={() => nav("/pulse")} className="btn-ghost w-full">
+            Peek at your starter feed <ArrowRight size={16} />
+          </button>
+        )}
       </div>
     </div>
   );

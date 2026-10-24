@@ -76,7 +76,7 @@ export function GoalRing() {
 const TAB_DEFS = {
   today: { to: "/today", label: "Today", Icon: Sun },
   learn: { to: "/learn", label: "Learn", Icon: BookOpen },
-  drills: { to: "/learn", label: "New", Icon: Zap },
+  drills: { to: "/learn", label: "Catch up", Icon: Zap },
   pulse: { to: "/pulse", label: "Pulse", Icon: Newspaper },
   people: { to: "/people", label: "People", Icon: Users },
   me: { to: "/me", label: "Me", Icon: UserIcon },

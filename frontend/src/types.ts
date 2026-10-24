@@ -22,6 +22,7 @@ export interface User {
   homeTab: HomeTab;         // beginner→learn, amateur→today, pro→pulse
   dailyGoal: DailyGoal;
   lessonDoneToday: boolean;
+  lessonsCompleted: number; // all-time; beginners unlock 3 more feed posts per lesson
   xp: number;
   streak: number;
   wordsKnown: number;

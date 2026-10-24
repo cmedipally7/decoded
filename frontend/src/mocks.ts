@@ -47,7 +47,7 @@ function makeState(level: Level, lens: Lens | null, opts: { streak: number; xp: 
   const known = KNOWN_BY_LEVEL[level];
   TERMS.forEach((t) => (status[t.id] = known.includes(t.id) ? "learning" : "new"));
   return {
-    user: { id: "demo", name: "Chai", goal: null, lens, level, xp: opts.xp, streak: opts.streak, onboarded: opts.onboarded },
+    user: { id: "demo", name: "John", goal: null, lens, level, xp: opts.xp, streak: opts.streak, onboarded: opts.onboarded },
     status,
     queueOrder: [],
     day: 0,

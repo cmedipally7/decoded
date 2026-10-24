@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Check, Loader2 } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 import { levelMeta, LEVELS, useApp } from "../context";
+import { Mascot } from "./Mascot";
 import type { Archetype, Level, Source } from "../types";
 
 export function ProgressBar({ value, className = "", color = "bg-ok-500" }: { value: number; className?: string; color?: string }) {
@@ -55,11 +56,12 @@ export function Toast() {
     <AnimatePresence>
       {toastMsg && (
         <motion.div
-          className="absolute left-1/2 top-4 z-[60] -translate-x-1/2 rounded-2xl bg-ink px-4 py-3 text-sm font-bold text-white shadow-xl whitespace-nowrap"
+          className="absolute left-1/2 top-3 z-[60] flex -translate-x-1/2 items-center gap-2 rounded-2xl bg-ink py-1.5 pl-1.5 pr-4 text-sm font-bold text-white shadow-xl whitespace-nowrap"
           initial={{ y: -40, opacity: 0, x: "-50%" }}
           animate={{ y: 0, opacity: 1, x: "-50%" }}
           exit={{ y: -40, opacity: 0, x: "-50%" }}
         >
+          <span className="grid h-9 w-9 place-items-center rounded-xl bg-white/10"><Mascot mood="cheer" size={34} interactive={false} /></span>
           {toastMsg}
         </motion.div>
       )}

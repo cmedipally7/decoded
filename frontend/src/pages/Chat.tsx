@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { api } from "../api";
 import { TermHighlighter } from "../components/PostCard";
+import { Mascot } from "../components/Mascot";
 import { Avatar, Markdown } from "../components/ui";
 import { levelMeta, useApp } from "../context";
 import type { ChatMessage, Post } from "../types";
@@ -102,20 +103,22 @@ export default function Chat() {
       <div className="flex-1 space-y-3 overflow-y-auto no-scrollbar px-4 py-4">
         {msgs.length === 0 && (
           <div className="py-6 text-center">
-            <div className="text-5xl">🧠</div>
+            <div className="flex justify-center"><Mascot mood="wave" size={96} /></div>
             <p className="mt-2 font-extrabold">Ask anything about this post</p>
             <p className="text-sm font-semibold text-stone-500">No question is too basic.</p>
           </div>
         )}
         {msgs.map((m, i) => (
-          <motion.div key={i} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
+          <motion.div key={i} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className={`flex items-end gap-1.5 ${m.role === "user" ? "justify-end" : "justify-start"}`}>
+            {m.role === "assistant" && <Mascot mood={i === msgs.length - 1 ? "point" : "wave"} size={36} interactive={false} />}
             <div className={`max-w-[85%] rounded-3xl px-4 py-3 text-[15px] font-semibold leading-relaxed ${m.role === "user" ? "rounded-br-lg bg-brand-600 text-white" : "rounded-bl-lg bg-brand-50 text-ink"}`}>
               {m.role === "assistant" ? <Markdown text={m.content} /> : m.content}
             </div>
           </motion.div>
         ))}
         {typing && (
-          <div className="flex">
+          <div className="flex items-end gap-1.5">
+            <Mascot mood="think" size={36} interactive={false} />
             <div className="flex gap-1 rounded-3xl rounded-bl-lg bg-brand-50 px-4 py-4">
               {[0, 1, 2].map((i) => (
                 <motion.span key={i} className="h-2 w-2 rounded-full bg-brand-400" animate={{ y: [0, -5, 0] }} transition={{ repeat: Infinity, duration: 0.7, delay: i * 0.15 }} />

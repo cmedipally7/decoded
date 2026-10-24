@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { api } from "../api";
 import { StreakHeader } from "../components/Layout";
+import { MascotSays } from "../components/Mascot";
 import { archMeta, Avatar, Skeleton } from "../components/ui";
 import { lensMeta, levelMeta, useApp } from "../context";
 import type { Archetype, Author } from "../types";
@@ -31,6 +32,7 @@ export default function People() {
       <div className="px-4 pt-2">
         <h1 className="text-3xl font-black">People</h1>
         <p className="font-semibold text-stone-500">Who to follow, and why. A balanced diet of AI voices.</p>
+        <div className="mt-3"><MascotSays mood="point" size={56}>Start with 2 {lensMeta(lens).noun} from your lens. Their posts show up first in Pulse.</MascotSays></div>
       </div>
       <div className="mt-4 space-y-6 px-4">
         {!authors && <Skeleton className="h-64" />}

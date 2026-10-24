@@ -10,6 +10,7 @@ import { Welcome } from "./pages/Onboarding";
 import People from "./pages/People";
 import Pulse from "./pages/Pulse";
 import Today from "./pages/Today";
+import Words from "./pages/Words";
 
 // Sends each user to the home tab for their level (or onboarding if new)
 function Home() {
@@ -30,6 +31,7 @@ export default function App() {
           <Route path="/pulse" element={<Pulse />} />
           <Route path="/people" element={<People />} />
           <Route path="/me" element={<Me />} />
+          <Route path="/words" element={<Words />} />
         </Route>
         <Route path="/welcome" element={<Welcome />} />
         <Route path="/lesson/:id" element={<Lesson />} />

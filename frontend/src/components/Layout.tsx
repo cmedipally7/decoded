@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { BookOpen, Flame, Newspaper, Sparkles, Sun, Users } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 import { Navigate, NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
-import { levelMeta, useApp } from "../context";
+import { levelMeta, levelProgress, useApp } from "../context";
 import { DecodeSheet, TermSheet } from "./Sheets";
 import { Avatar, ProgressBar, Toast } from "./ui";
 
@@ -28,7 +28,7 @@ export function StreakHeader() {
   useEffect(() => { if (xpFlash) setBump((b) => b + 1); }, [xpFlash]);
   if (!user) return <div className="h-[60px]" />;
   const lm = levelMeta(user.level);
-  const into = (user.xp % XP_PER_LEVEL) / XP_PER_LEVEL;
+  const into = levelProgress(user).frac;
   return (
     <div className="flex items-center gap-3 px-4 pt-4 pb-2">
       <button onClick={() => nav("/me")} className="relative shrink-0 active:scale-95" aria-label="Your profile">

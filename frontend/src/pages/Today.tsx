@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../api";
 import { StreakHeader } from "../components/Layout";
-import { MascotSays } from "../components/Mascot";
+import { Mascot, MascotSays } from "../components/Mascot";
 import { PostCard } from "../components/PostCard";
 import { Avatar, ProgressBar, Skeleton } from "../components/ui";
 import { lensMeta, useApp } from "../context";
@@ -106,7 +106,16 @@ export default function Today() {
 
         {/* Reason to come back tomorrow */}
         {streakQuest?.done && (
-          <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="rounded-2xl border-2 border-brand-200 bg-brand-50 p-4">
+          <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="overflow-hidden rounded-2xl border-2 border-brand-200 bg-brand-50 p-4">
+            {/* Byte does victory zoomies across the card */}
+            <div className="relative -mx-4 -mt-4 mb-2 h-14">
+              <motion.div className="absolute bottom-0" initial={{ left: "-20%" }} animate={{ left: ["-20%", "105%", "105%", "-20%", "40%"] }} transition={{ duration: 4, times: [0, 0.35, 0.5, 0.85, 1], ease: "easeInOut" }}>
+                <motion.div animate={{ scaleX: [1, 1, -1, -1, 1] }} transition={{ duration: 4, times: [0, 0.35, 0.5, 0.85, 1] }}>
+                  <Mascot mood="cheer" size={52} />
+                </motion.div>
+              </motion.div>
+              <div className="absolute bottom-1 left-4 text-xs font-black text-brand-400">🐾 🐾 🐾</div>
+            </div>
             <div className="text-xs font-extrabold uppercase tracking-wider text-brand-600">Tomorrow</div>
             <div className="mt-1 font-black text-brand-900">
               {user.queuedTermsCount > 0

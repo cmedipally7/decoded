@@ -74,7 +74,7 @@ function freshState(): State {
 // Ready-made personas for the demo switcher
 export const PERSONAS: Record<Level, { lens: Lens; streak: number; xp: number }> = {
   beginner: { lens: "operator", streak: 2, xp: 60 },
-  amateur: { lens: "builder", streak: 6, xp: 240 },
+  amateur: { lens: "builder", streak: 6, xp: 520 },
   pro: { lens: "investor", streak: 23, xp: 1850 },
 };
 
@@ -147,6 +147,17 @@ function checkGoal() {
   }
 }
 
+const clampPct = (n: number) => Math.max(3, Math.min(99, Math.round(n)));
+// Simulated ranking against the learner base (backend computes this from real users)
+function percentiles() {
+  const words = Object.values(S.status).filter((s) => s === "learning" || s === "known").length;
+  return {
+    streak: clampPct(18 + S.user.streak * 7),
+    words: clampPct((words / TERMS.length) * 92 + 4),
+    xp: clampPct(10 + Math.sqrt(S.user.xp) * 2.1),
+  };
+}
+
 function userOut(): User {
   return {
     ...S.user,
@@ -155,6 +166,7 @@ function userOut(): User {
     lessonDoneToday: S.lastLessonDay === S.day,
     lessonsCompleted: S.lessonsCompleted,
     quests: quests(),
+    percentiles: percentiles(),
     wordsKnown: Object.values(S.status).filter((s) => s === "learning" || s === "known").length,
     feedFluency: feedFluency(),
     queuedTermsCount: Object.values(S.status).filter((s) => s === "queued").length,
@@ -368,7 +380,8 @@ export const mock = {
 
   async onboard(level: Level, lens: Lens) {
     await sleep(500);
-    S = makeState(level, lens, { streak: 0, xp: 0, onboarded: true });
+    // New users start at the XP floor of the level they chose
+    S = makeState(level, lens, { streak: 0, xp: { beginner: 0, amateur: 300, pro: 1000 }[level], onboarded: true });
     return { user: userOut() };
   },
   async markRead(postId: string) {
@@ -422,6 +435,14 @@ export const mock = {
       posts = [...posts.filter((p) => p.author.archetype === lens), ...posts.filter((p) => p.author.archetype !== lens)];
     }
     return { posts: posts.map(postOut) };
+  },
+  // Every word this user has learned, for the profile word bank
+  async getMyWords(): Promise<{ terms: Term[] }> {
+    await sleep(250);
+    const terms = TERMS.filter((t) => isKnown(t.id)).map((t) => ({
+      id: t.id, term: t.term, category: t.category, definitions: t.definitions, analogy: t.analogy, status: S.status[t.id],
+    }));
+    return { terms };
   },
   async getTerm(id: string): Promise<Term> {
     await sleep(200);

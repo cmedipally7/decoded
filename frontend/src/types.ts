@@ -34,7 +34,9 @@ export interface User {
   dailyGoal: DailyGoal;
   lessonDoneToday: boolean;
   lessonsCompleted: number;
-  quests: Quest[];         // today's 3 quests (first one is the streak quest) // all-time; beginners unlock 3 more feed posts per lesson
+  quests: Quest[];
+  // How this user compares with other Decoded learners this week (0-100 = "ahead of N%")
+  percentiles: { streak: number; words: number; xp: number };         // today's 3 quests (first one is the streak quest) // all-time; beginners unlock 3 more feed posts per lesson
   xp: number;
   streak: number;
   wordsKnown: number;

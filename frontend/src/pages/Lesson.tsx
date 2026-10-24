@@ -152,8 +152,9 @@ function CardView({ card, selected, onSelect, locked, onMatchDone }: { card: Car
     case "concept":
       return (
         <div className="pt-4">
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <span className="chip bg-brand-100 text-brand-700 text-xs">NEW WORD</span>
+            <span className="ml-auto order-last"><Mascot mood="point" size={56} /></span>
             {card.fromFeed && (
               <motion.span initial={{ scale: 0.8 }} animate={{ scale: 1 }} className="chip bg-amber-100 text-amber-800 text-xs">
                 <Sparkles size={12} /> From your feed

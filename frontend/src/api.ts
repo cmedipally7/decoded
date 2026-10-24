@@ -104,6 +104,7 @@ export const api = {
     const qs = q.toString() ? `?${q}` : "";
     return call<{ posts: Post[] }>("getFeed", () => http(`/feed${qs}`), () => mock.getFeed(f));
   },
+  getMyWords: () => call<{ terms: Term[] }>("getMyWords", () => http("/me/words"), mock.getMyWords),
   getTerm: (id: string) => call<Term>("getTerm", () => http(`/terms/${id}`), () => mock.getTerm(id)),
   queueTerm: (id: string) =>
     call<{ queued: boolean; queuedTermsCount: number }>(

@@ -98,6 +98,18 @@ export const LEVELS: { id: Level; emoji: string; label: string }[] = [
 ];
 export const levelMeta = (l: Level) => LEVELS.find((x) => x.id === l)!;
 
+// XP needed to reach each level; used for the profile level track and the header XP bar
+export const LEVEL_XP: Record<Level, number> = { beginner: 0, amateur: 300, pro: 1000 };
+export function levelProgress(u: Pick<User, "level" | "xp">) {
+  const order: Level[] = ["beginner", "amateur", "pro"];
+  const i = order.indexOf(u.level);
+  const next = order[i + 1] as Level | undefined;
+  if (!next) return { next: null as Level | null, xpToNext: 0, frac: 1 };
+  const start = LEVEL_XP[u.level], end = LEVEL_XP[next];
+  const frac = Math.max(0, Math.min(1, (u.xp - start) / (end - start)));
+  return { next, xpToNext: Math.max(0, end - u.xp), frac };
+}
+
 export const LENSES: { id: Lens; emoji: string; label: string; noun: string; blurb: string }[] = [
   { id: "researcher", emoji: "🔬", label: "Research", noun: "researchers", blurb: "Papers, models, what's actually new" },
   { id: "builder", emoji: "🛠️", label: "Building", noun: "builders", blurb: "Products, tools, shipping with AI" },

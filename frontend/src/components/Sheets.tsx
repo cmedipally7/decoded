@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { api } from "../api";
 import { useApp } from "../context";
 import type { Post, Term } from "../types";
+import { Mascot } from "./Mascot";
 import { PostCard } from "./PostCard";
 import { BottomSheet, LoadingSteps, Skeleton } from "./ui";
 
@@ -40,9 +41,12 @@ export function TermSheet() {
         </div>
       ) : (
         <div className="space-y-4">
-          <div>
-            <div className="text-xs font-extrabold uppercase tracking-wider text-brand-600">{term.category}</div>
-            <h2 className="text-3xl font-black">{term.term}</h2>
+          <div className="flex items-start justify-between gap-3">
+            <div className="min-w-0">
+              <div className="text-xs font-extrabold uppercase tracking-wider text-brand-600">{term.category}</div>
+              <h2 className="text-3xl font-black">{term.term}</h2>
+            </div>
+            <Mascot mood={term.status === "queued" ? "cheer" : term.status === "learning" || term.status === "known" ? "wave" : "think"} size={64} />
           </div>
           <p className="text-[17px] leading-relaxed">{term.definitions[viewLevel]}</p>
           <div className="rounded-2xl bg-brand-50 p-4">
@@ -171,7 +175,13 @@ export function DecodeSheet() {
 
       {phase === "loading" && (
         <div className="space-y-4 py-4">
-          <h2 className="text-2xl font-black">Decoding…</h2>
+          <div className="flex items-center gap-3">
+            <Mascot mood="think" size={64} interactive={false} />
+            <div>
+              <h2 className="text-2xl font-black">Decoding…</h2>
+              <p className="text-sm font-bold text-stone-500">Byte is sniffing out the jargon</p>
+            </div>
+          </div>
           <LoadingSteps steps={["Fetching post", "Spotting jargon", "Writing your TL;DR"]} done={done} />
         </div>
       )}
@@ -202,7 +212,7 @@ export function DecodeSheet() {
       {phase === "success" && post && (
         <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="space-y-3">
           <div className="flex items-center gap-2 font-extrabold text-ok-600">
-            <Check size={20} strokeWidth={3} /> Decoded · saved to My Decodes
+            <Mascot mood="cheer" size={44} interactive={false} /> Decoded · saved to My Decodes
           </div>
           <PostCard post={post} showActions={false} />
           <p className="text-center text-xs font-bold text-stone-400">Tap an underlined word to add it to tomorrow's lesson</p>

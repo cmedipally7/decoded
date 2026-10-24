@@ -3,6 +3,7 @@ import { Lock, Sparkles } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { api } from "../api";
+import { Mascot } from "../components/Mascot";
 import { PostCard } from "../components/PostCard";
 import { StreakHeader } from "../components/Layout";
 import { LevelToggle, Skeleton } from "../components/ui";
@@ -93,7 +94,7 @@ export default function Pulse() {
           ))}
         {posts?.length === 0 && filter === "mine" && (
           <div className="card p-8 text-center">
-            <div className="text-5xl">🔍</div>
+            <div className="flex justify-center"><Mascot mood="think" size={96} /></div>
             <h3 className="mt-3 text-xl font-black">No decodes yet</h3>
             <p className="mt-1 font-semibold text-stone-500">Saw a post you didn't get? Paste it and we'll explain it at your level.</p>
             <button onClick={() => setDecodeOpen(true)} className="btn-primary mt-4">
@@ -113,7 +114,7 @@ export default function Pulse() {
             </div>
             <div className="absolute inset-0 grid place-items-center bg-gradient-to-b from-transparent via-paper/70 to-paper p-6 text-center">
               <div>
-                <div className="mx-auto grid h-12 w-12 place-items-center rounded-full bg-brand-600 text-white"><Lock size={22} /></div>
+                <div className="relative mx-auto w-fit"><Mascot mood="point" size={72} /><span className="absolute -right-2 bottom-0 grid h-7 w-7 place-items-center rounded-full bg-brand-600 text-white"><Lock size={14} /></span></div>
                 <p className="mt-3 text-lg font-black">{posts.length - STARTER} more posts are waiting</p>
                 <p className="text-sm font-semibold text-stone-500">Each lesson you finish unlocks 3 more, and you'll understand more of each one.</p>
                 {user?.lessonDoneToday ? (

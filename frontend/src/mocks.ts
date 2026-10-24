@@ -1,8 +1,8 @@
 // Stateful in-memory mock backend. Implements the same behavior the real backend will:
 // queued feed terms show up in the next lesson, XP/streak/fluency update, decode, chat, etc.
-import { AUTHORS, DEMO_DECODES, FRESH_TERMS, KNOWN_BY_LEVEL, LENS_PATH, PATH, PLACEMENT, POSTS, TERMS, WHY_BY_LENS, type SeedPost, type SeedTerm } from "./mockData";
+import { AUTHORS, CURRICULUM, DEMO_DECODES, FRESH_TERMS, KNOWN_BY_LEVEL, LENS_PATH, PATH, PLACEMENT, POSTS, TERMS, WHY_BY_LENS, type SeedPost, type SeedTerm } from "./mockData";
 import type {
-  Archetype, Card, Quest, ChatMessage, CompleteResult, DecodeResult, DailyGoal, Goal, HomeTab, Lens, Lesson, Level, Post, Source, Term, User,
+  Archetype, Card, PathDay, PathUnit, Quest, ChatMessage, CompleteResult, DecodeResult, DailyGoal, Goal, HomeTab, Lens, Lesson, Level, Post, Source, Term, User,
 } from "./types";
 
 type Status = Term["status"];
@@ -188,20 +188,54 @@ function lensOrder(): string[] {
   return LENS_PATH[S.user.lens || "operator"];
 }
 
+// Chapters in the lens's order, each a list of days
+function courseDays() {
+  return lensOrder().flatMap((chapter) =>
+    (CURRICULUM[chapter] || []).map((d, i) => ({ chapter, n: i + 1, title: d.title, termIds: d.termIds, id: `${chapter}-${i + 1}` })),
+  );
+}
+const dayDone = (d: { termIds: string[] }) => d.termIds.every(isKnown);
+
+function pathOut(): PathUnit[] {
+  const all = courseDays();
+  const pending = all.filter((d) => !dayDone(d));
+  const base = S.lastLessonDay === S.day ? 1 : 0; // today's lesson done → next day unlocks tomorrow
+  let currentAssigned = false;
+  return lensOrder().map((chapter) => {
+    const meta = PATH.find((u) => u.title === chapter)!;
+    const days: PathDay[] = all.filter((d) => d.chapter === chapter).map((d) => {
+      const idx = pending.indexOf(d);
+      return {
+        id: d.id, n: d.n, title: d.title,
+        terms: d.termIds.map((id) => ({ id, term: termById(id)!.term, status: S.status[id] })),
+        status: idx === -1 ? "done" : idx === 0 && base === 0 ? "today" : "upcoming",
+        inDays: idx === -1 ? -1 : idx + base,
+      };
+    });
+    const ts = days.flatMap((d) => d.terms);
+    const progress = ts.length ? ts.filter((t) => isKnown(t.id)).length / ts.length : 0;
+    let status: PathUnit["status"] = "locked";
+    if (days.every((d) => d.status === "done")) status = "done";
+    else if (!currentAssigned) { status = "current"; currentAssigned = true; }
+    return { ...meta, status, progress, days };
+  });
+}
+
 function buildLesson(day: number): Lesson & { termIds: string[] } {
   const level = S.user.level;
   const queued = S.queueOrder.filter((id) => S.status[id] === "queued").slice(0, 3);
   const pathOrder = lensOrder();
   const isPro = level === "pro";
   const freshThisWeek = FRESH_TERMS.filter((id) => S.status[id] === "new");
-  const byPath = TERMS.filter((t) => S.status[t.id] === "new")
-    .sort((a, b) => pathOrder.indexOf(a.category) - pathOrder.indexOf(b.category))
-    .map((t) => t.id);
-  const fresh = isPro ? [...freshThisWeek, ...byPath] : byPath;
+  // Course lessons follow the curriculum: today's day, topped up from the next day if it's short
+  const pendingDays = courseDays().filter((d) => !dayDone(d));
   const termIds = [...queued];
-  for (const id of fresh) {
-    if (termIds.length >= 3) break;
-    if (!termIds.includes(id)) termIds.push(id);
+  if (isPro) {
+    for (const id of freshThisWeek) { if (termIds.length >= 3) break; if (!termIds.includes(id)) termIds.push(id); }
+  }
+  for (const d of pendingDays) {
+    if (termIds.length >= 3 || (termIds.length >= 2 && !isPro)) break;
+    for (const id of d.termIds) if (!isKnown(id) && !termIds.includes(id) && termIds.length < 3) termIds.push(id);
   }
   const terms = termIds.map((id) => termById(id)!).filter(Boolean);
   const cards: Card[] = [];
@@ -250,7 +284,7 @@ function buildLesson(day: number): Lesson & { termIds: string[] } {
     options: fbOpts, answerIndex: fbOpts.indexOf(fb.term), explanation: `${fb.term}: ${fb.definitions.beginner}`,
   });
 
-  const unit = isPro ? "New this week" : queued.length ? "From your feed ✨" : terms[0]?.category || "Building";
+  const unit = isPro ? "New this week" : pendingDays[0]?.title || "Review";
   return {
     id: `l_day${day}`, date: new Date(Date.now() + day * 86400_000).toISOString().slice(0, 10),
     unitTitle: unit, cards, completed: false, termIds,
@@ -319,18 +353,7 @@ export const mock = {
   },
   async getPath() {
     await sleep(250);
-    let currentAssigned = false;
-    const order = lensOrder();
-    const ordered = [...PATH].sort((a, b) => order.indexOf(a.title) - order.indexOf(b.title));
-    const units = ordered.map((u) => {
-      const ts = TERMS.filter((t) => t.category === u.title);
-      const progress = ts.length ? ts.filter((t) => isKnown(t.id)).length / ts.length : 0;
-      let status: "done" | "current" | "locked" = "locked";
-      if (progress >= 1) status = "done";
-      else if (!currentAssigned) { status = "current"; currentAssigned = true; }
-      return { ...u, status, progress };
-    });
-    return { units };
+    return { units: pathOut() };
   },
 
   async getPlacementQs() { await sleep(300); return { questions: PLACEMENT.map(({ answer, ...q }) => q) }; },

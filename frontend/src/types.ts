@@ -101,12 +101,22 @@ export interface Lesson {
   completed: boolean;
 }
 
+export interface PathDay {
+  id: string;
+  n: number;                 // day number within the chapter
+  title: string;             // "What is an LLM?"
+  terms: TermRef[];          // words taught that day (preview for upcoming days)
+  status: "done" | "today" | "upcoming";
+  inDays: number;            // 0 = today, 1 = tomorrow, ...
+}
+
 export interface PathUnit {
   id: string;
   title: string;
   emoji: string;
   status: "done" | "current" | "locked";
   progress: number;
+  days: PathDay[];           // a chapter is a few days of lessons
 }
 
 export interface PlacementQuestion {

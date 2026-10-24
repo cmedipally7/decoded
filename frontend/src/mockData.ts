@@ -377,7 +377,7 @@ export const DEMO_DECODES: Record<string, Omit<SeedPost, "id" | "publishedAt">> 
   },
 };
 
-export const PATH: Omit<PathUnit, "status" | "progress">[] = [
+export const PATH: Omit<PathUnit, "status" | "progress" | "days">[] = [
   { id: "u1", title: "Foundations", emoji: "🧱" },
   { id: "u2", title: "Models", emoji: "🧠" },
   { id: "u3", title: "Building", emoji: "🛠️" },
@@ -482,4 +482,34 @@ export const WHY_BY_LENS: Record<string, Record<Archetype, string>> = {
     investor: "Teams with AI-fluent PMs ship AI features faster. It's a signal in diligence.",
     operator: "Make basic AI vocabulary part of onboarding for product and ops roles.",
   },
+};
+
+// ---------- Curriculum: chapters made of days ----------
+export interface CurriculumDay { title: string; termIds: string[] }
+export const CURRICULUM: Record<string, CurriculumDay[]> = {
+  Foundations: [
+    { title: "What is an LLM?", termIds: ["t_llm", "t_token"] },
+    { title: "Talking to AI", termIds: ["t_prompt", "t_hallucination"] },
+    { title: "How AI learns", termIds: ["t_training", "t_inference"] },
+    { title: "Memory and size", termIds: ["t_context_window", "t_parameters"] },
+  ],
+  Models: [
+    { title: "Beyond text", termIds: ["t_multimodal", "t_open_weights"] },
+    { title: "AI that thinks first", termIds: ["t_reasoning_model", "t_test_time_compute"] },
+  ],
+  Building: [
+    { title: "Open-book AI", termIds: ["t_rag", "t_embeddings"] },
+    { title: "Teaching new tricks", termIds: ["t_fine_tuning", "t_evals"] },
+    { title: "AI that takes action", termIds: ["t_agent", "t_mcp"] },
+    { title: "Building without code", termIds: ["t_vibe_coding"] },
+  ],
+  "Business of AI": [
+    { title: "The cost of every answer", termIds: ["t_inference_cost", "t_gpu"] },
+    { title: "The big spend", termIds: ["t_capex"] },
+    { title: "Who wins?", termIds: ["t_moat", "t_wrapper"] },
+  ],
+  Frontier: [
+    { title: "Does bigger keep winning?", termIds: ["t_scaling_laws"] },
+    { title: "The AGI debate", termIds: ["t_agi", "t_alignment"] },
+  ],
 };

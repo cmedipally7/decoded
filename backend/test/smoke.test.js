@@ -5,7 +5,7 @@ import path from "node:path";
 import test from "node:test";
 import { openDb } from "../src/db.js";
 import later from "../seed/later.json" with { type: "json" };
-import { parseFeed } from "../src/feeds.js";
+import { parseFeed, plainText } from "../src/feeds.js";
 import { linkTerms } from "../src/link.js";
 
 function tempDb() {
@@ -24,30 +24,61 @@ test("semantic search connects a paraphrase to RAG and ignores weather", () => {
   assert.equal(weather.some((term) => term.id === "t_rag"), false);
 });
 
-test("known terms are per user and lessons skip them", async () => {
+test("onboarding, words, path, reads, and personas are real user state", async () => {
   const db = tempDb();
   const { createApp } = await import("../src/server.js");
   const app = createApp(db);
   const server = app.listen(0);
   const port = server.address().port;
-  const get = (user, path) => fetch(`http://127.0.0.1:${port}${path}`, { headers: { "X-User-Id": user } }).then((res) => res.json());
+  const headers = { "X-User-Id": "demo", "Content-Type": "application/json" };
+  const call = (method, path, body) => fetch(`http://127.0.0.1:${port}${path}`, {
+    method,
+    headers,
+    body: body ? JSON.stringify(body) : undefined,
+  }).then((res) => res.json());
   try {
-    const demo = await get("demo", "/api/me");
-    const other = await get("ada", "/api/me");
-    assert.ok(demo.wordsKnown > other.wordsKnown);
-    const lesson = await get("demo", "/api/lesson/today");
+    const fresh = await call("GET", "/api/me");
+    assert.equal(fresh.name, "John");
+    assert.equal(fresh.onboarded, false);
+    assert.equal(fresh.lens, null);
+    assert.equal(fresh.homeTab, "today");
+    assert.equal(fresh.quests.length, 3);
+    const onboarded = await call("POST", "/api/onboarding", { level: "amateur", lens: "builder", name: "Ada" });
+    assert.equal(onboarded.user.name, "Ada");
+    assert.equal(onboarded.user.lens, "builder");
+    assert.equal(onboarded.user.level, "amateur");
+    assert.ok(onboarded.user.wordsKnown > 0);
+    assert.equal(onboarded.user.dailyGoal.label, "1 lesson or 3 posts");
+    const words = await call("GET", "/api/me/words");
+    assert.equal(words.terms.length, onboarded.user.wordsKnown);
+    assert.ok(words.terms.every((term) => term.status === "learning" || term.status === "known"));
+    const path = await call("GET", "/api/path");
+    assert.ok(path.units[0].days.length > 0);
+    assert.equal(path.units[0].days[0].status, "done");
+    const lesson = await call("GET", "/api/lesson/today");
     const conceptIds = lesson.cards.filter((card) => card.type === "concept").map((card) => card.termId);
     for (const id of conceptIds) assert.equal(db.known("demo", id), false);
-    const queued = await fetch(`http://127.0.0.1:${port}/api/terms/t_rag/queue`, {
-      method: "POST",
-      headers: { "X-User-Id": "demo" },
-    }).then((res) => res.json());
-    assert.equal(queued.queued, true);
+    const read = await call("POST", "/api/feed/p_seed_agents/read");
+    assert.equal(read.user.dailyGoal.progress, 1);
+    const feed = await call("GET", "/api/feed");
+    assert.ok(feed.posts[0].whyItMattersByLens.builder);
+    assert.ok(feed.posts[0].debate);
+    const persona = await call("POST", "/api/dev/persona", { level: "pro" });
+    assert.equal(persona.user.level, "pro");
+    assert.equal(persona.user.lens, "investor");
+    assert.equal(persona.user.streak, 23);
     assert.equal(db.status("ada", "t_rag"), "new");
   } finally {
     server.close();
     fs.rmSync(db.file, { force: true });
   }
+});
+
+test("escaped feed html is stored as plain text", () => {
+  const clean = plainText("Deep Neural Nets. &lt;style&gt;.post-header h1 { font-size: 35px; }&lt;/style&gt;&lt;p&gt;The paper is famous.&lt;/p&gt;");
+  assert.equal(clean.includes("<"), false);
+  assert.equal(clean.includes("font-size"), false);
+  assert.match(clean, /The paper is famous/);
 });
 
 test("a fresh database does not include refresh-only people", () => {

@@ -1,16 +1,28 @@
 import { PEOPLE } from "./people.js";
 
-function decode(value) {
-  return String(value || "")
-    .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, "$1")
+export function plainText(value) {
+  let text = String(value || "");
+  for (let pass = 0; pass < 2; pass += 1) {
+    text = text
+      .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, "$1")
+      .replace(/&amp;/g, "&")
+      .replace(/&lt;/g, "<")
+      .replace(/&gt;/g, ">")
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;|&apos;/g, "'")
+      .replace(/&#(\d+);/g, (_, code) => String.fromCharCode(Number(code)))
+      .replace(/&#x([0-9a-f]+);/gi, (_, code) => String.fromCharCode(parseInt(code, 16)));
+  }
+  return text
+    .replace(/<script[\s\S]*?<\/script>/gi, " ")
+    .replace(/<style[\s\S]*?<\/style>/gi, " ")
     .replace(/<[^>]+>/g, " ")
-    .replace(/&amp;/g, "&")
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">")
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;|&apos;/g, "'")
     .replace(/\s+/g, " ")
     .trim();
+}
+
+function decode(value) {
+  return plainText(value);
 }
 
 function blocks(xml, tag) {
@@ -38,7 +50,7 @@ export function parseFeed(xml, limit = 5) {
   const entries = chunks.length ? chunks : blocks(xml, "entry");
   return entries
     .map((block) => {
-      const published = field(block, "pubDate") || field(block, "updated") || field(block, "published");
+      const published = field(block, "published") || field(block, "pubDate") || field(block, "updated");
       return {
         title: field(block, "title"),
         url: linkOf(block),
@@ -47,7 +59,7 @@ export function parseFeed(xml, limit = 5) {
         stamp: time(published),
       };
     })
-    .filter((item) => item.title && item.url)
+    .filter((item) => item.title && item.title.replace(/[\s\-–—_]+/g, "").length > 0 && item.url)
     .sort((a, b) => b.stamp - a.stamp)
     .slice(0, limit)
     .map(({ stamp, ...item }) => item);
@@ -62,7 +74,10 @@ export async function fetchLaterPeople() {
         signal: AbortSignal.timeout(12000),
       });
       if (!response.ok) continue;
-      for (const entry of parseFeed(await response.text(), 5)) {
+      const matched = parseFeed(await response.text(), 12)
+        .filter((entry) => !person.titleIncludes || entry.title.includes(person.titleIncludes))
+        .slice(0, 5);
+      for (const entry of matched) {
         items.push({
           ...entry,
           id: entry.url,

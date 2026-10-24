@@ -378,10 +378,12 @@ export const mock = {
     return { level, score, user: userOut() };
   },
 
-  async onboard(level: Level, lens: Lens) {
+  async onboard(level: Level, lens: Lens, name: string) {
     await sleep(500);
     // New users start at the XP floor of the level they chose
     S = makeState(level, lens, { streak: 0, xp: { beginner: 0, amateur: 300, pro: 1000 }[level], onboarded: true });
+    const chosen = name.trim().slice(0, 24);
+    if (chosen) S.user.name = chosen;
     return { user: userOut() };
   },
   async markRead(postId: string) {
@@ -393,7 +395,9 @@ export const mock = {
   async devSetPersona(level: Level) {
     await sleep(250);
     const p = PERSONAS[level];
+    const name = S.user.name;
     S = makeState(level, p.lens, { streak: p.streak, xp: p.xp, onboarded: true });
+    S.user.name = name;
     return { user: userOut() };
   },
 

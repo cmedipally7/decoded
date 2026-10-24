@@ -61,8 +61,8 @@ export const api = {
   getPath: () => call<{ units: PathUnit[] }>("getPath", () => http("/path"), mock.getPath),
 
   // Onboarding: self-reported level + lens (area of focus)
-  onboard: (level: Level, lens: Lens) =>
-    call<{ user: User }>("onboard", () => http("/onboarding", { method: "POST", body: json({ level, lens }) }), () => mock.onboard(level, lens)),
+  onboard: (level: Level, lens: Lens, name: string) =>
+    call<{ user: User }>("onboard", () => http("/onboarding", { method: "POST", body: json({ level, lens, name }) }), () => mock.onboard(level, lens, name)),
   // Counts toward the daily goal (amateur: 3 posts, pro: 5 posts)
   markRead: (postId: string) =>
     call<{ user: User }>("markRead", () => http(`/feed/${postId}/read`, { method: "POST" }), () => mock.markRead(postId)),

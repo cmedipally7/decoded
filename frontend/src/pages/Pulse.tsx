@@ -33,6 +33,8 @@ export default function Pulse() {
   const [filter, setFilter] = useState<Filter>("all");
   const [posts, setPosts] = useState<Post[] | null>(null);
   const [refreshing, setRefreshing] = useState(false);
+  const freshCount = posts?.filter((post) => post.fresh).length ?? 0;
+  const visible = locked && filter !== "mine" ? Math.max(STARTER, freshCount) : undefined;
 
   async function refreshFeed() {
     setRefreshing(true);
@@ -102,20 +104,20 @@ export default function Pulse() {
             </button>
           </div>
         )}
-        {posts?.slice(0, locked && filter !== "mine" ? STARTER : undefined).map((p, i) => (
+        {posts?.slice(0, visible).map((p, i) => (
           <motion.div key={p.id} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: Math.min(i, 5) * 0.05 }}>
             <PostCard post={p} trackRead />
           </motion.div>
         ))}
-        {posts && locked && filter !== "mine" && posts.length > STARTER && (
+        {posts && visible !== undefined && posts.length > visible && (
           <div className="relative overflow-hidden rounded-2xl">
             <div className="pointer-events-none select-none blur-[3px] opacity-60">
-              <PostCard post={posts[STARTER]} showActions={false} />
+              <PostCard post={posts[visible]} showActions={false} />
             </div>
             <div className="absolute inset-0 grid place-items-center bg-gradient-to-b from-transparent via-paper/70 to-paper p-6 text-center">
               <div>
                 <div className="relative mx-auto w-fit"><Mascot mood="point" size={72} /><span className="absolute -right-2 bottom-0 grid h-7 w-7 place-items-center rounded-full bg-brand-600 text-white"><Lock size={14} /></span></div>
-                <p className="mt-3 text-lg font-black">{posts.length - STARTER} more posts are waiting</p>
+                <p className="mt-3 text-lg font-black">{posts.length - visible} more posts are waiting</p>
                 <p className="text-sm font-semibold text-stone-500">Each lesson you finish unlocks 3 more, and you'll understand more of each one.</p>
                 {user?.lessonDoneToday ? (
                   <p className="mt-4 text-sm font-extrabold text-brand-700">Come back tomorrow for 3 more 🔓</p>

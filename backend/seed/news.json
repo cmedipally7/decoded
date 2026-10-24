@@ -2432,6 +2432,281 @@
         "ai"
       ],
       "authors": []
+    },
+    {
+      "id": "c2917bc0c8db4fe41f2696170d06534cdafc084ee8cbf0caf820a849571583d3",
+      "title": "Sora update #1",
+      "url": "https://blog.samaltman.com/sora-update-number-1",
+      "summary": "We have been learning quickly from how people are using Sora and taking feedback from users, rightsholders, and other interested groups. We of course spent a lot of time discussing this before launch, but now that we have a product out we can do more than just theorize. We are going to make two changes soon (and many more to come). First, we will give rightsholders more granular control over generation of characters, similar to the opt-in model for likeness but with additional controls. We are hearing from a lot of rightsholders who are very excited for this new kind of \"interactive fan fictio",
+      "published_at": "2025-10-04T00:37:50.000Z",
+      "fetched_at": "2026-10-24T17:58:50.887Z",
+      "source": {
+        "id": "sam-altman",
+        "name": "Sam Altman",
+        "type": "rss",
+        "homepage": "https://blog.samaltman.com/"
+      },
+      "provider": {
+        "id": "sama",
+        "name": "Sam Altman",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Sam Altman"
+      ]
+    },
+    {
+      "id": "a6fdffb7530d767f9926ac9cff068c45ff354a3143dfad476881187d5c4b4c2e",
+      "title": "Sora 2",
+      "url": "https://blog.samaltman.com/sora-2",
+      "summary": "We are launching a new app called Sora. This is a combination of a new model called Sora 2, and a new product that makes it easy to create, share, and view videos. This feels to many of us like the “ChatGPT for creativity” moment, and it feels fun and new. There is something great about making it really easy and fast to go from idea to result, and the new social dynamics that emerge. Creativity could be about to go through a Cambrian explosion, and along with it, the quality of art and entertainment can drastically increase. Even in the very early days of playing with Sora, it’s been striking",
+      "published_at": "2025-09-30T17:13:47.000Z",
+      "fetched_at": "2026-10-24T17:58:50.887Z",
+      "source": {
+        "id": "sam-altman",
+        "name": "Sam Altman",
+        "type": "rss",
+        "homepage": "https://blog.samaltman.com/"
+      },
+      "provider": {
+        "id": "sama",
+        "name": "Sam Altman",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Sam Altman"
+      ]
+    },
+    {
+      "id": "21b8d25c56793811432f08e3793e5bee150f9799b93b804a2e1e2f47dcfe5eaf",
+      "title": "Abundant Intelligence",
+      "url": "https://blog.samaltman.com/abundant-intelligence",
+      "summary": "Growth in the use of AI services has been astonishing; we expect it to be even more astonishing going forward. As AI gets smarter, access to AI will be a fundamental driver of the economy, and maybe eventually something we consider a fundamental human right. Almost everyone will want more AI working on their behalf. To be able to deliver what the world needs—for inference compute to run these models, and for training compute to keep making them better and better—we are putting the groundwork in place to be able to significantly expand our ambitions for building out AI infrastructure. If AI sta",
+      "published_at": "2025-09-23T13:41:02.000Z",
+      "fetched_at": "2026-10-24T17:58:50.887Z",
+      "source": {
+        "id": "sam-altman",
+        "name": "Sam Altman",
+        "type": "rss",
+        "homepage": "https://blog.samaltman.com/"
+      },
+      "provider": {
+        "id": "sama",
+        "name": "Sam Altman",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Sam Altman"
+      ]
+    },
+    {
+      "id": "b30326d6c74ac3309e1d51aee0515693ba3146fa83f90748cc0b0f90f8a017fb",
+      "title": "Jakub and Szymon",
+      "url": "https://blog.samaltman.com/jakub-and-szymon",
+      "summary": "AI has gotten remarkably better in recent years; ChatGPT can do amazing things that we take for granted. This is as it should be, and is the story of human progress. But behind the blinking circle, nicely abstracted away, is the greatest story of human ingenuity I have ever seen. A lot of people have worked unbelievably hard to discover how to build something that most experts thought was impossible on this timeframe, and to build a company to deliver products at massive scale to let people benefit from it. Most people who use ChatGPT will never think about the people that put so much work int",
+      "published_at": "2025-09-09T00:10:22.000Z",
+      "fetched_at": "2026-10-24T17:58:50.887Z",
+      "source": {
+        "id": "sam-altman",
+        "name": "Sam Altman",
+        "type": "rss",
+        "homepage": "https://blog.samaltman.com/"
+      },
+      "provider": {
+        "id": "sama",
+        "name": "Sam Altman",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Sam Altman"
+      ]
+    },
+    {
+      "id": "2bc0d4251ea0868f58cb8dbdd9e5c24c2d5d70253d26116d3fe5cb4bdfaf245a",
+      "title": "The Gentle Singularity",
+      "url": "https://blog.samaltman.com/the-gentle-singularity",
+      "summary": "We are past the event horizon; the takeoff has started. Humanity is close to building digital superintelligence, and at least so far it’s much less weird than it seems like it should be. Robots are not yet walking the streets, nor are most of us talking to AI all day. People still die of disease, we still can’t easily go to space, and there is a lot about the universe we don’t understand. And yet, we have recently built systems that are smarter than people in many ways, and are able to significantly amplify the output of people using them. The least-likely part of the work is behind us; the sc",
+      "published_at": "2025-06-10T21:12:47.000Z",
+      "fetched_at": "2026-10-24T17:58:50.887Z",
+      "source": {
+        "id": "sam-altman",
+        "name": "Sam Altman",
+        "type": "rss",
+        "homepage": "https://blog.samaltman.com/"
+      },
+      "provider": {
+        "id": "sama",
+        "name": "Sam Altman",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Sam Altman"
+      ]
+    },
+    {
+      "id": "db3718abbfc4c7d4e28326478b9f515ce9a8b12f495b73978d77abde4ef7d825",
+      "title": "GTC Berlin 2026: Live Updates From NVIDIA CEO Jensen Huang’s Keynote",
+      "url": "https://blogs.nvidia.com/blog/gtc-berlin-2026-keynote/",
+      "summary": "Founded in a tent near the Berlin Wall in 1980, the Tempodrom moved several times before settling near Anhalter Bahnhof in 2001. Its permanent home has since hosted concerts, galas and political events. Today, it hosts a different kind of spectacle. GTC Berlin runs three days, with more than 100 sessions on agentic AI, robotics, […]",
+      "published_at": "2026-10-21T09:30:16.000Z",
+      "fetched_at": "2026-10-24T17:58:50.887Z",
+      "source": {
+        "id": "jensen-huang",
+        "name": "Jensen Huang",
+        "type": "rss",
+        "homepage": "https://blogs.nvidia.com/"
+      },
+      "provider": {
+        "id": "jensen",
+        "name": "Jensen Huang",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Jensen Huang"
+      ]
+    },
+    {
+      "id": "c113ee0cc9a6b59ef3aced045db639ba5aaba4d757549b58685923b4caa992a7",
+      "title": "The Adolescence of Technology",
+      "url": "https://www.darioamodei.com/essay/the-adolescence-of-technology",
+      "summary": "There is a scene in the movie version of Carl Sagan’s book Contact where the main character, an astronomer who has detected the first radio signal from an alien civilization, is being considered for the role of humanity’s representative to meet the aliens. The international panel interviewing her asks, “If you could ask [the aliens] just one question, what would it be?” Her reply is: “I’d ask them, ‘How did you do it? How did you evolve, how did you survive this technological adolescence without destroying yourself?” When I think about where humanity is now with AI—about what we’re on the cusp",
+      "published_at": "2026-01-01T00:00:00.000Z",
+      "fetched_at": "2026-10-24T17:58:50.887Z",
+      "source": {
+        "id": "dario-amodei",
+        "name": "Dario Amodei",
+        "type": "rss",
+        "homepage": "https://www.darioamodei.com/"
+      },
+      "provider": {
+        "id": "dario",
+        "name": "Dario Amodei",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Dario Amodei"
+      ]
+    },
+    {
+      "id": "3633040fb7158494b4a516a8c1e74bdefa76748372e3cf18eea78d71456a9068",
+      "title": "Machines of Loving Grace",
+      "url": "https://www.darioamodei.com/essay/machines-of-loving-grace",
+      "summary": "I think and talk a lot about the risks of powerful AI. The company I’m the CEO of, Anthropic, does a lot of research on how to reduce these risks. Because of this, people sometimes draw the conclusion that I’m a pessimist or “doomer” who thinks AI will be mostly bad or dangerous. I don’t think that at all. In fact, one of my main reasons for focusing on risks is that they’re the only thing standing between us and what I see as a fundamentally positive future. I think that most people are underestimating just how radical the upside of AI could be , just as I think most people are underestimatin",
+      "published_at": "2024-10-01T00:00:00.000Z",
+      "fetched_at": "2026-10-24T17:58:50.887Z",
+      "source": {
+        "id": "dario-amodei",
+        "name": "Dario Amodei",
+        "type": "rss",
+        "homepage": "https://www.darioamodei.com/"
+      },
+      "provider": {
+        "id": "dario",
+        "name": "Dario Amodei",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Dario Amodei"
+      ]
+    },
+    {
+      "id": "cc9771a7a02318a0004794fa7fb4d1b598255b56ab931861c7decec7a1fbe9a5",
+      "title": "The Urgency of Interpretability",
+      "url": "https://www.darioamodei.com/post/the-urgency-of-interpretability",
+      "summary": "In the decade that I have been working on AI, I’ve watched it grow from a tiny academic field to arguably the most important economic and geopolitical issue in the world. In all that time, perhaps the most important lesson I’ve learned is this: the progress of the underlying technology is inexorable, driven by forces too powerful to stop, but the way in which it happens—the order in which things are built, the applications we choose, and the details of how it is rolled out to society—are eminently possible to change, and it’s possible to have great positive impact by doing so. We can’t stop th",
+      "published_at": "2025-04-01T00:00:00.000Z",
+      "fetched_at": "2026-10-24T17:58:50.887Z",
+      "source": {
+        "id": "dario-amodei",
+        "name": "Dario Amodei",
+        "type": "rss",
+        "homepage": "https://www.darioamodei.com/"
+      },
+      "provider": {
+        "id": "dario",
+        "name": "Dario Amodei",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Dario Amodei"
+      ]
+    },
+    {
+      "id": "3eb030ce13615f201263dd55075e82ef37cd05996a6ab5159ccf36422f0ab58a",
+      "title": "On DeepSeek and Export Controls",
+      "url": "https://www.darioamodei.com/post/on-deepseek-and-export-controls",
+      "summary": "A few weeks ago I made the case for stronger US export controls on chips to China. Since then DeepSeek, a Chinese AI company, has managed to — at least in some respects — come close to the performance of US frontier AI models at lower cost. Here, I won't focus on whether DeepSeek is or isn't a threat to US AI companies like Anthropic (although I do believe many of the claims about their threat to US AI leadership are greatly overstated) 1 . Instead, I'll focus on whether DeepSeek's releases undermine the case for those export control policies on chips. I don't think they do. In fact, I think t",
+      "published_at": "2025-01-01T00:00:00.000Z",
+      "fetched_at": "2026-10-24T17:58:50.887Z",
+      "source": {
+        "id": "dario-amodei",
+        "name": "Dario Amodei",
+        "type": "rss",
+        "homepage": "https://www.darioamodei.com/"
+      },
+      "provider": {
+        "id": "dario",
+        "name": "Dario Amodei",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Dario Amodei"
+      ]
+    },
+    {
+      "id": "70f7bf30c2467d8afc8b3f72ca74cf418add2a1e7b653cb986a499155e9691e5",
+      "title": "We Must Pace the Frontier",
+      "url": "https://www.darioamodei.com/post/we-must-pace-the-frontier",
+      "summary": "I have worked on AI for the last twelve years because I believe it could dramatically raise the quality of human life. I’ve written often about these incredible benefits: I believe that AI could cure most major diseases in the next 5–10 years, greatly accelerate economic growth rates, create a world of abundance and empowerment, and usher in a renaissance of democracy and freedom. I feel the urgency personally. My own father died of a disease that was cured just a few years after his death, and I myself survived an early-stage cancer that would not have been treatable even fifty years ago. Car",
+      "published_at": "2026-09-01T00:00:00.000Z",
+      "fetched_at": "2026-10-24T17:58:50.887Z",
+      "source": {
+        "id": "dario-amodei",
+        "name": "Dario Amodei",
+        "type": "rss",
+        "homepage": "https://www.darioamodei.com/"
+      },
+      "provider": {
+        "id": "dario",
+        "name": "Dario Amodei",
+        "kind": "person"
+      },
+      "subjects": [
+        "ai"
+      ],
+      "authors": [
+        "Dario Amodei"
+      ]
     }
   ]
 }

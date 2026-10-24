@@ -1,11 +1,14 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { INITIAL_KNOWN, PATH, PLACEMENT, TERMS } from "./glossary.js";
+import { PATH, PLACEMENT, TERMS } from "./glossary.js";
 import { PEOPLE } from "./people.js";
+import { KNOWN_BY_LEVEL, LENSES, LEVELS, PERSONAS } from "./course.js";
+import { pathFor, presentPost, settleProgress, userExtras } from "./progress.js";
 import { SEED_POSTS } from "./seedPosts.js";
 import { embed, termDocument } from "./embed.js";
 import { linkTerms } from "./link.js";
+import { plainText } from "./feeds.js";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const STARTER_FOLLOWS = PEOPLE.map((person) => person.id);
@@ -21,23 +24,113 @@ export function openDb(file = process.env.DB_PATH || path.join(ROOT, "data", "db
     },
     ensureUser(id) {
       if (!db.users[id]) {
-        db.users[id] = freshUser(id, id === "demo");
-        db.userTerms[id] = freshTerms(id === "demo");
-        db.follows[id] = id === "demo" ? STARTER_FOLLOWS : [];
+        db.users[id] = freshUser(id);
+        db.userTerms[id] = freshTerms();
+        db.follows[id] = id === "demo" ? [...STARTER_FOLLOWS] : [];
         db.userPosts[id] = [];
         this.save();
       }
+      hydrate(db.users[id]);
       return db.users[id];
     },
     resetUser(id) {
-      db.users[id] = freshUser(id, true);
-      db.userTerms[id] = freshTerms(true);
-      db.follows[id] = [...STARTER_FOLLOWS];
+      db.users[id] = freshUser(id);
+      db.userTerms[id] = freshTerms();
+      db.follows[id] = id === "demo" ? [...STARTER_FOLLOWS] : [];
       db.userPosts[id] = [];
       for (const key of Object.keys(db.lessons)) {
         if (key.startsWith(`${id}:`)) delete db.lessons[key];
       }
       this.save();
+    },
+    applyLevel(userId, level) {
+      const known = new Set(KNOWN_BY_LEVEL[level] || []);
+      db.userTerms[userId] = Object.fromEntries(TERMS.map((term) => [term.id, {
+        status: known.has(term.id) ? "learning" : "new",
+        source: "lesson",
+      }]));
+    },
+    onboard(userId, level, lens, name) {
+      const chosen = String(name || "").trim().slice(0, 24);
+      if (!LEVELS.has(level) || !LENSES.has(lens) || !chosen) return null;
+      const user = this.ensureUser(userId);
+      Object.assign(user, {
+        name: chosen,
+        level,
+        lens,
+        onboarded: true,
+        xp: { beginner: 0, amateur: 300, pro: 1000 }[level],
+        streak: 0,
+        lessonsCompleted: 0,
+        lastLessonDate: null,
+        lastGoalMetDate: null,
+        reads: {},
+        dives: {},
+        queuedByDay: {},
+        decodesByDay: {},
+        questXp: {},
+      });
+      this.applyLevel(userId, level);
+      if (!(db.follows[userId] || []).length) {
+        const match = PEOPLE.find((person) => person.archetype === lens && !person.later);
+        db.follows[userId] = match ? [match.id] : [];
+      }
+      delete db.lessons[`${userId}:${user.today}`];
+      this.save();
+      return this.userOut(userId);
+    },
+    setPersona(userId, level) {
+      if (!LEVELS.has(level)) return null;
+      const persona = PERSONAS[level];
+      const user = this.ensureUser(userId);
+      Object.assign(user, {
+        level,
+        lens: persona.lens,
+        onboarded: true,
+        xp: persona.xp,
+        streak: persona.streak,
+        lessonsCompleted: 0,
+        lastLessonDate: null,
+        lastGoalMetDate: null,
+        reads: {},
+        dives: {},
+        queuedByDay: {},
+        decodesByDay: {},
+        questXp: {},
+      });
+      this.applyLevel(userId, level);
+      delete db.lessons[`${userId}:${user.today}`];
+      this.save();
+      return this.userOut(userId);
+    },
+    markRead(userId, postId) {
+      const user = this.ensureUser(userId);
+      const reads = user.reads[user.today] || [];
+      if (!reads.includes(postId)) {
+        user.reads[user.today] = [...reads, postId];
+        user.xp += 2;
+        settleProgress(user);
+        this.save();
+      }
+      return this.userOut(userId);
+    },
+    noteDecode(userId) {
+      const user = db.users[userId];
+      user.decodesByDay[user.today] = (user.decodesByDay[user.today] || 0) + 1;
+      settleProgress(user);
+    },
+    noteDive(userId, postId) {
+      const user = db.users[userId];
+      const dives = user.dives[user.today] || [];
+      if (!dives.includes(postId)) {
+        user.dives[user.today] = [...dives, postId];
+        settleProgress(user);
+      }
+    },
+    noteQueue(userId) {
+      const user = db.users[userId];
+      user.queuedByDay[user.today] = (user.queuedByDay[user.today] || 0) + 1;
+      settleProgress(user);
     },
     term(id) {
       return db.terms.find((term) => term.id === id);
@@ -69,14 +162,42 @@ export function openDb(file = process.env.DB_PATH || path.join(ROOT, "data", "db
         feedFluency: Math.round((known / total) * 100),
         queuedTermsCount: statuses.filter((item) => item.status === "queued").length,
         onboarded: user.onboarded,
+        ...userExtras(user, statuses.filter((item) => item.status === "learning" || item.status === "known").length),
       };
+    },
+    pathFor(userId) {
+      this.ensureUser(userId);
+      return pathFor(db, userId, (id) => this.status(userId, id));
+    },
+    wordsFor(userId) {
+      this.ensureUser(userId);
+      return db.terms
+        .filter((term) => this.known(userId, term.id))
+        .map((term) => ({
+          id: term.id,
+          term: term.term,
+          category: term.category,
+          definitions: term.definitions,
+          analogy: term.analogy,
+          status: this.status(userId, term.id),
+        }));
     },
     postsFor(userId, filter = {}) {
       let posts = [...(db.userPosts[userId] || []), ...db.posts];
       if (filter.source === "user") posts = db.userPosts[userId] || [];
       else if (filter.archetype) posts = posts.filter((post) => post.author.archetype === filter.archetype);
       else if (filter.source) posts = posts.filter((post) => post.source === filter.source);
-      return posts.sort((a, b) => (b.fresh === true) - (a.fresh === true) || String(b.publishedAt).localeCompare(String(a.publishedAt)));
+      const lens = db.users[userId]?.lens;
+      posts.sort((a, b) => {
+        const fresh = (b.fresh === true) - (a.fresh === true);
+        if (fresh || a.fresh || b.fresh) return fresh || String(b.publishedAt).localeCompare(String(a.publishedAt));
+        if (!filter.archetype && !filter.source && lens) {
+          const group = (b.author?.archetype === lens) - (a.author?.archetype === lens);
+          if (group) return group;
+        }
+        return String(b.publishedAt).localeCompare(String(a.publishedAt));
+      });
+      return posts.map((post) => presentPost(post, (id) => this.status(userId, id)));
     },
     ingestNews(items) {
       const added = ingestItems(db, items);
@@ -103,7 +224,7 @@ export function openDb(file = process.env.DB_PATH || path.join(ROOT, "data", "db
 
 function load(file) {
   const db = fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, "utf8")) : blank();
-  const changed = alignToSeed(db);
+  const changed = alignToSeed(db) || scrubPosts(db);
   if (!fs.existsSync(file) || changed) {
     fs.mkdirSync(path.dirname(file), { recursive: true });
     fs.writeFileSync(file, JSON.stringify(db));
@@ -173,15 +294,44 @@ export function aboutAi(text) {
   return AI_TEXT.test(String(text || ""));
 }
 
+function scrubPosts(db) {
+  let changed = false;
+  for (const post of db.posts || []) {
+    const cleaned = plainText(post.text);
+    if (!cleaned || cleaned === post.text) continue;
+    post.text = cleaned;
+    post.tldr = levels(cleaned);
+    const terms = linkTerms(cleaned, db.terms, db.vectors.terms);
+    if (terms.length) post.terms = terms;
+    post.whyItMatters = why(terms, { provider: { name: post.author?.name } });
+    if (db.vectors?.posts) db.vectors.posts[post.id] = embed(cleaned);
+    changed = true;
+  }
+  return changed;
+}
+
 function ingestItems(db, items) {
   let added = 0;
   for (const item of items) {
     const url = item.url || null;
-    if (url && db.posts.some((post) => post.url === url)) continue;
     const author = authorFor(db, item);
-    const text = [item.title, item.summary].filter(Boolean).join(". ");
+    const text = plainText([item.title, item.summary].filter(Boolean).join(". ")).slice(0, 700);
     const person = item.provider?.kind === "person";
     if (!person && !item.fresh && !aboutAi(text)) continue;
+    const existing = url ? db.posts.find((post) => post.url === url) : null;
+    if (existing) {
+      const cleaned = plainText(existing.text);
+      if (cleaned !== existing.text) {
+        existing.text = cleaned;
+        existing.tldr = levels(cleaned);
+        const terms = linkTerms(cleaned, db.terms, db.vectors.terms);
+        if (terms.length) existing.terms = terms;
+        existing.whyItMatters = why(terms, item);
+        db.vectors.posts[existing.id] = embed(cleaned);
+      }
+      if (item.fresh) existing.fresh = true;
+      continue;
+    }
     const terms = linkTerms(text, db.terms, db.vectors.terms);
     const id = `p_${String(item.id || url || text).replace(/\W/g, "").slice(0, 16)}`;
     db.posts.push({
@@ -205,18 +355,44 @@ function ingestItems(db, items) {
   return added;
 }
 
-function freshUser(id, demo) {
+function freshUser(id) {
   const today = new Date().toISOString().slice(0, 10);
-  return demo
-    ? { id, name: "Chai", goal: "work", level: "beginner", xp: 240, streak: 6, today, lastLessonDate: null, onboarded: true }
-    : { id, name: id, goal: null, level: "beginner", xp: 0, streak: 0, today, lastLessonDate: null, onboarded: false };
+  return {
+    id,
+    name: id === "demo" ? "John" : id,
+    goal: null,
+    lens: null,
+    level: "beginner",
+    xp: 0,
+    streak: 0,
+    today,
+    lastLessonDate: null,
+    lastGoalMetDate: null,
+    onboarded: false,
+    lessonsCompleted: 0,
+    reads: {},
+    dives: {},
+    queuedByDay: {},
+    decodesByDay: {},
+    questXp: {},
+  };
 }
 
-function freshTerms(demo) {
-  const rows = {};
-  for (const term of TERMS) {
-    rows[term.id] = { status: demo && INITIAL_KNOWN.includes(term.id) ? "learning" : "new", source: "lesson" };
+function hydrate(user) {
+  for (const [key, value] of Object.entries(freshUser(user.id))) {
+    if (user[key] === undefined) user[key] = value;
   }
+  if (user.name === "Chai") user.name = "John";
+  user.reads ||= {};
+  user.dives ||= {};
+  user.queuedByDay ||= {};
+  user.decodesByDay ||= {};
+  user.questXp ||= {};
+}
+
+function freshTerms() {
+  const rows = {};
+  for (const term of TERMS) rows[term.id] = { status: "new", source: "lesson" };
   return rows;
 }
 

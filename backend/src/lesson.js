@@ -1,3 +1,5 @@
+import { lessonTermIds } from "./progress.js";
+
 const SHORT = {
   t_llm: "The type of AI behind ChatGPT",
   t_token: "A chunk of text (~¾ word)",
@@ -28,8 +30,6 @@ const SHORT = {
   t_alignment: "Making AI do what we intend",
 };
 
-const ORDER = ["Foundations", "Models", "Building", "Business of AI", "Frontier"];
-
 function shuffle(items, seed) {
   let state = seed;
   const next = () => ((state = (state * 9301 + 49297) % 233280) / 233280);
@@ -48,19 +48,10 @@ function lower(value) {
 export function buildLesson(db, userId) {
   const user = db.raw.users[userId];
   const level = user.level;
-  const queued = Object.entries(db.raw.userTerms[userId])
+  const queued = Object.entries(db.raw.userTerms[userId] || {})
     .filter(([, row]) => row.status === "queued")
-    .map(([id]) => id)
-    .slice(0, 3);
-  const fresh = [...db.raw.terms]
-    .filter((term) => db.status(userId, term.id) === "new")
-    .sort((a, b) => ORDER.indexOf(a.category) - ORDER.indexOf(b.category))
-    .map((term) => term.id);
-  const termIds = [...queued];
-  for (const id of fresh) {
-    if (termIds.length >= 3) break;
-    if (!termIds.includes(id)) termIds.push(id);
-  }
+    .map(([id]) => id);
+  const termIds = lessonTermIds(db.raw, userId, (id) => db.status(userId, id));
   const terms = termIds.map((id) => db.term(id)).filter(Boolean);
   const cards = [];
   const seed = user.today.replaceAll("-", "") * 1 + termIds.join("").length;

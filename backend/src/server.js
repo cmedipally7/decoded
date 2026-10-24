@@ -7,6 +7,8 @@ import { openDb } from "./db.js";
 import { buildLesson } from "./lesson.js";
 import { linkTerms } from "./link.js";
 import { fetchLaterPeople } from "./feeds.js";
+import { LENSES, LEVELS } from "./course.js";
+import { settleProgress } from "./progress.js";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -102,26 +104,26 @@ export function createApp(db = openDb()) {
   app.patch("/api/me", (req, res) => {
     const id = userId(req);
     const user = db.ensureUser(id);
-    if (req.body?.level) user.level = req.body.level;
-    if (req.body?.name) user.name = req.body.name;
+    if (LEVELS.has(req.body?.level)) user.level = req.body.level;
+    if (LENSES.has(req.body?.lens)) user.lens = req.body.lens;
+    if (typeof req.body?.name === "string" && req.body.name.trim()) user.name = req.body.name.trim();
     delete db.raw.lessons[`${id}:${user.today}`];
     db.save();
     res.json(db.userOut(id));
   });
 
+  app.post("/api/onboarding", (req, res) => {
+    const user = db.onboard(userId(req), req.body?.level, req.body?.lens, req.body?.name);
+    if (!user) return fail(res, 400, "BAD_REQUEST", "Choose a name, a level, and a lens");
+    res.json({ user });
+  });
+
+  app.get("/api/me/words", (req, res) => {
+    res.json({ terms: db.wordsFor(userId(req)) });
+  });
+
   app.get("/api/path", (req, res) => {
-    const id = userId(req);
-    db.ensureUser(id);
-    let current = false;
-    const units = db.raw.path.map((unit) => {
-      const rows = db.raw.terms.filter((term) => term.category === unit.title);
-      const progress = rows.length ? rows.filter((term) => db.known(id, term.id)).length / rows.length : 0;
-      let status = "locked";
-      if (progress >= 1) status = "done";
-      else if (!current) { status = "current"; current = true; }
-      return { ...unit, status, progress };
-    });
-    res.json({ units });
+    res.json({ units: db.pathFor(userId(req)) });
   });
 
   app.get("/api/placement/questions", (_req, res) => {
@@ -166,11 +168,11 @@ export function createApp(db = openDb()) {
       for (const termId of lesson.termIds || []) db.setStatus(id, termId, "learning", "lesson");
       lesson.completed = true;
       lesson.userId = id;
-      db.raw.users[id].xp += 20;
-      if (db.raw.users[id].lastLessonDate !== db.raw.users[id].today) {
-        db.raw.users[id].streak += 1;
-        db.raw.users[id].lastLessonDate = db.raw.users[id].today;
-      }
+      const user = db.raw.users[id];
+      user.xp += 20;
+      user.lastLessonDate = user.today;
+      user.lessonsCompleted = (user.lessonsCompleted || 0) + 1;
+      settleProgress(user);
       db.save();
     }
     const after = db.userOut(id);
@@ -201,6 +203,10 @@ export function createApp(db = openDb()) {
     res.json(db.syncNews([...(news.items || []), ...revealed]));
   });
 
+  app.post("/api/feed/:postId/read", (req, res) => {
+    res.json({ user: db.markRead(userId(req), req.params.postId) });
+  });
+
   app.get("/api/terms/:id", (req, res) => {
     const id = userId(req);
     db.ensureUser(id);
@@ -224,6 +230,7 @@ export function createApp(db = openDb()) {
     if (!db.known(id, term.id) && db.status(id, term.id) !== "queued") {
       db.setStatus(id, term.id, "queued", "feed");
       db.raw.users[id].xp += 5;
+      db.noteQueue(id);
       const key = `${id}:${db.raw.users[id].today}`;
       if (db.raw.lessons[key] && !db.raw.lessons[key].completed) delete db.raw.lessons[key];
       db.save();
@@ -251,6 +258,7 @@ export function createApp(db = openDb()) {
       }
       post.createdBy = id;
       db.raw.userPosts[id].unshift(post);
+      db.noteDecode(id);
       db.save();
       res.json({ ok: true, post, method });
     } catch {
@@ -282,6 +290,8 @@ export function createApp(db = openDb()) {
     } else {
       reply = `${post.tldr[level] || post.tldr.beginner} Why it matters: ${post.whyItMatters}`;
     }
+    db.noteDive(id, post.id);
+    db.save();
     const suggestions = post.terms.slice(0, 2).map((term) => `What does "${term.term}" mean?`);
     suggestions.push("What's the counter-argument?");
     res.json({ reply, suggestions: suggestions.slice(0, 3) });
@@ -304,6 +314,12 @@ export function createApp(db = openDb()) {
     db.raw.follows[id] = [...set];
     db.save();
     res.json({ following: follow });
+  });
+
+  app.post("/api/dev/persona", (req, res) => {
+    const user = db.setPersona(userId(req), req.body?.level);
+    if (!user) return fail(res, 400, "BAD_REQUEST", "Unknown persona");
+    res.json({ user });
   });
 
   app.post("/api/dev/next-day", (req, res) => {

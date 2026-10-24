@@ -66,7 +66,7 @@ export function planFor(level: Level, lens: Lens) {
   };
 }
 
-type Step = "welcome" | "level" | "lens" | "building" | "plan";
+type Step = "welcome" | "name" | "level" | "lens" | "building" | "plan";
 
 export function Welcome() {
   const nav = useNavigate();
@@ -74,15 +74,17 @@ export function Welcome() {
   const [step, setStep] = useState<Step>("welcome");
   const [level, setLevel] = useState<Level | null>(null);
   const [lens, setLens] = useState<Lens | null>(null);
+  const [name, setName] = useState("");
   const [saving, setSaving] = useState(false);
 
-  const stepIdx = { welcome: 0, level: 1, lens: 2, building: 3, plan: 3 }[step];
-  const back = () => setStep(step === "plan" || step === "building" ? "lens" : step === "lens" ? "level" : "welcome");
+  const stepIdx = { welcome: 0, name: 1, level: 2, lens: 3, building: 3, plan: 3 }[step];
+  const back = () => setStep(step === "plan" || step === "building" ? "lens" : step === "lens" ? "level" : step === "level" ? "name" : "welcome");
 
   const finish = async () => {
-    if (!level || !lens) return;
+    const chosen = name.trim();
+    if (!level || !lens || !chosen) return;
     setSaving(true);
-    const r = await api.onboard(level, lens);
+    const r = await api.onboard(level, lens, chosen);
     setUser(r.user);
     nav(`/${r.user.homeTab}`, { replace: true });
   };
@@ -139,9 +141,34 @@ export function Welcome() {
                   Hi, I'm Byte! All this AI jargon? We'll sniff it out together, 5 minutes a day, from what people are actually saying.
                 </p>
                 <div className="flex-1" />
-                <button onClick={() => setStep("level")} className="btn-primary mt-6 w-full">Get started</button>
+                <button onClick={() => setStep("name")} className="btn-primary mt-6 w-full">Get started</button>
                 <p className="mt-3 text-center text-xs font-bold text-stone-400">Takes 30 seconds · No account needed</p>
               </>
+            )}
+
+            {step === "name" && (
+              <form
+                className="flex flex-1 flex-col"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  if (name.trim()) setStep("level");
+                }}
+              >
+                <MascotSays mood="wave">What should I call you?</MascotSays>
+                <h1 className="mt-4 text-2xl font-black leading-tight">What's your name?</h1>
+                <p className="mt-1 text-sm font-semibold text-stone-500">This is how Byte greets you. No account, just a name.</p>
+                <input
+                  autoFocus
+                  value={name}
+                  maxLength={24}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Your name"
+                  aria-label="Your name"
+                  className="mt-6 w-full rounded-2xl border-2 border-stone-200 bg-white px-4 py-4 text-lg font-extrabold outline-none focus:border-brand-500"
+                />
+                <div className="flex-1" />
+                <button type="submit" disabled={!name.trim()} className="btn-primary mt-6 w-full disabled:opacity-40">Continue</button>
+              </form>
             )}
 
             {step === "level" && (
@@ -220,7 +247,7 @@ export function Welcome() {
               </div>
             )}
 
-            {step === "plan" && level && lens && <PlanStep level={level} lens={lens} saving={saving} onGo={finish} />}
+            {step === "plan" && level && lens && <PlanStep level={level} lens={lens} name={name.trim()} saving={saving} onGo={finish} />}
           </motion.div>
         </AnimatePresence>
       </div>
@@ -228,7 +255,7 @@ export function Welcome() {
   );
 }
 
-function PlanStep({ level, lens, saving, onGo }: { level: Level; lens: Lens; saving: boolean; onGo: () => void }) {
+function PlanStep({ level, lens, name, saving, onGo }: { level: Level; lens: Lens; name: string; saving: boolean; onGo: () => void }) {
   const plan = planFor(level, lens);
   const lm = levelMeta(level);
   const le = lensMeta(lens);
@@ -237,7 +264,7 @@ function PlanStep({ level, lens, saving, onGo }: { level: Level; lens: Lens; sav
   const tabs = [{ id: "today", label: "Today" }, { id: "learn", label: level === "pro" ? "Catch up" : "Learn" }, { id: "pulse", label: "Pulse" }, { id: "people", label: "People" }];
   return (
     <>
-      <MascotSays mood="cheer">Tail-waggingly good! Your plan is ready.</MascotSays>
+      <MascotSays mood="cheer">Tail-waggingly good, {name}! Your plan is ready.</MascotSays>
       <div className="mt-4 flex flex-wrap gap-2">
         <span className="chip bg-brand-100 text-brand-700">{lm.emoji} {lm.label}</span>
         <span className="chip bg-stone-200 text-stone-700">{le.emoji} {le.label}</span>

@@ -1,0 +1,11 @@
+run = "npm install && npm run dev"
+modules = ["nodejs-20"]
+
+[[ports]]
+localPort = 5173
+externalPort = 80
+
+[deployment]
+build = ["sh", "-c", "npm install && npm run build"]
+run = ["sh", "-c", "npx vite preview --port 5173 --host 0.0.0.0"]
+deploymentTarget = "cloudrun"
